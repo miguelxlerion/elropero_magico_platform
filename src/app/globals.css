@@ -1,0 +1,488 @@
+@import "tailwindcss";
+
+@theme {
+  --color-hueso: #f8f7f2;
+  --color-paper: #f8f7f2;
+  --color-cream: #f0eee7;
+  --color-line: #deded5;
+  --color-beige-50: #f7f2ea;
+  --color-beige-100: #efe7da;
+  --color-beige-200: #e4d8c5;
+  --color-beige-300: #d4c3a7;
+  --color-beige-400: #bca483;
+  --color-beige-500: #9e8665;
+  --color-tinta: #151412;
+  --color-tinta-700: #2b2925;
+  --color-tinta-500: #57524a;
+    --color-tinta-400: #7a746a;
+  --color-salvia-50: #f2f5ef;
+  --color-salvia-100: #e3eadc;
+  --color-salvia-200: #c9d5bc;
+  --color-salvia-300: #abbd9a;
+  --color-salvia-400: #8fa47d;
+  --color-salvia-500: #748a63;
+  --color-salvia-600: #5c6f4e;
+  --color-salvia-700: #47563d;
+  --color-terracota: #b4583c;
+  --color-ambar: #c08a3e;
+  --color-rosa-100: #f9e3d8;
+  --color-rosa-200: #f3c8b6;
+  --color-rosa-300: #e7a48d;
+  --color-rosa-400: #d98a70;
+  --color-rosa-500: #cb877c;
+  --color-rosa-600: #ac6552;
+  --color-rosa-700: #87492f;
+
+  --animate-shimmer: shimmer 1.8s ease-in-out infinite;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-spin-slow: spin 18s linear infinite;
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-fade-out: fade-out 0.15s ease-in;
+  --animate-zoom-in: zoom-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-zoom-out: zoom-out 0.15s ease-in;
+  --animate-slide-in-right: slide-in-right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-out-right: slide-out-right 0.25s ease-in;
+  --animate-slide-in-left: slide-in-left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-out-left: slide-out-left 0.25s ease-in;
+  --animate-slide-in-bottom: slide-in-bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-out-bottom: slide-out-bottom 0.25s ease-in;
+  --animate-accordion-down: accordion-down 0.25s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-in;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes zoom-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -48%) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  @keyframes zoom-out {
+    from {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translate(-50%, -48%) scale(0.96);
+    }
+  }
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  @keyframes slide-out-right {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes slide-in-left {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  @keyframes slide-out-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes slide-in-bottom {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-out-bottom {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
+
+@theme {
+  /* Tokens derivados: @theme (no inline) para que las utilities usen var()
+     y el selector de paleta Clásico/Mágico pueda sobrescribirlos en runtime. */
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), ui-serif, Georgia, serif;
+
+  --color-background: var(--color-hueso);
+  --color-foreground: var(--color-tinta);
+  --color-card: #fffdf9;
+  --color-card-foreground: var(--color-tinta);
+  --color-popover: #fffdf9;
+  --color-popover-foreground: var(--color-tinta);
+  --color-primary: var(--color-tinta);
+  --color-primary-foreground: var(--color-hueso);
+  --color-secondary: var(--color-beige-100);
+  --color-secondary-foreground: var(--color-tinta);
+  --color-muted: var(--color-beige-50);
+  --color-muted-foreground: var(--color-tinta-500);
+  --color-accent: var(--color-salvia-500);
+  --color-accent-foreground: #ffffff;
+  --color-destructive: var(--color-terracota);
+  --color-border: #e7dfd2;
+  --color-input: #dcd2c2;
+  --color-ring: var(--color-salvia-400);
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  ::selection {
+    background: var(--color-salvia-200);
+    color: var(--color-tinta);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-salvia-400);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--color-beige-100) 0%,
+      var(--color-beige-50) 50%,
+      var(--color-beige-100) 100%
+    );
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* ——— Fusión editorial (classic) sobre sistema Tailwind (classic2) ——— */
+  .eyebrow-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+  .eyebrow-line::before {
+    content: "";
+    width: 1.5625rem;
+    height: 1px;
+    display: inline-block;
+    background: var(--color-salvia-500);
+  }
+
+  .hero-stamp {
+    width: 6.625rem;
+    height: 6.625rem;
+    display: grid;
+    place-items: center;
+    border-radius: 9999px;
+    background: var(--color-salvia-600);
+    color: #fff;
+    text-align: center;
+    transform: rotate(-11deg);
+    box-shadow: 0 20px 50px -20px rgba(71, 86, 61, 0.6);
+  }
+  .hero-stamp span {
+    max-width: 4.6875rem;
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+    text-transform: uppercase;
+  }
+  .hero-stamp strong {
+    font-family: var(--font-display);
+    font-size: 1.3125rem;
+    font-weight: 400;
+  }
+
+  .editorial-marquee {
+    overflow: hidden;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .editorial-marquee-track {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+    padding: 0.9375rem 0;
+    color: var(--color-tinta-500);
+    animation: var(--animate-marquee);
+  }
+  .editorial-marquee-track span {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-style: italic;
+  }
+  .editorial-marquee-track b {
+    color: var(--color-salvia-500);
+    font-size: 0.75rem;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  /* Tarjeta editorial: bordes rectos, badge pieza única, quick-add bar */
+  .editorial-card {
+    border-radius: 0 !important;
+  }
+  .editorial-badge {
+    padding: 0.375rem 0.5rem;
+    background: rgba(248, 247, 242, 0.94);
+    color: var(--color-tinta);
+    font-size: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .quick-add-bar {
+    position: absolute;
+    right: 0.625rem;
+    bottom: 0.625rem;
+    left: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.75rem 0.8125rem;
+    border: 0;
+    background: rgba(255, 253, 249, 0.94);
+    color: var(--color-tinta);
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.22s, transform 0.22s, background 0.2s, color 0.2s;
+  }
+  .group:hover .quick-add-bar,
+  .quick-add-bar:focus-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .quick-add-bar:hover {
+    background: var(--color-salvia-600);
+    color: #fff;
+  }
+  @media (max-width: 767px) {
+    .quick-add-bar {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .category-tile {
+    min-height: 9.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.125rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-beige-50);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .category-tile:hover {
+    background: var(--color-salvia-100);
+    transform: translateY(-3px);
+  }
+
+  .story-stats {
+    display: flex;
+    gap: 1.875rem;
+    margin-top: 2.0625rem;
+    padding-top: 1.4375rem;
+    border-top: 1px solid rgba(21, 20, 18, 0.2);
+  }
+}
+
+model-viewer {
+  width: 100%;
+  height: 100%;
+  --poster-color: transparent;
+  --progress-bar-color: var(--color-salvia-500);
+}
+
+/* ——— Paleta "Mágico": colores del logo (Logo/LogoRoperoMag.svg + .eps) ———
+   Jerarquía del logo: marco aqua (dominante) + rosa polvo (bordes/texto) sobre
+   crema, con verde profundo en las puertas. El acento funcional (salvia) se
+   vuelve aqua; el rosa se reserva para sello, titulares y detalles cálidos.
+   Selector: <html data-theme="magico">. Por defecto (sin atributo) rige "Clásico". */
+html[data-theme="magico"] {
+  --color-hueso: #f5f5e1;
+  --color-paper: #f5f5e1;
+  --color-cream: #f3ead3;
+  --color-line: #e0d3ba;
+
+  --color-beige-50: #faf6ea;
+  --color-beige-100: #f3ead3;
+  --color-beige-200: #e9d7b8;
+  --color-beige-300: #ddbd97;
+  --color-beige-400: #cb9c70;
+  --color-beige-500: #a9784f;
+
+  --color-tinta: #024e38;
+  --color-tinta-700: #0e5a43;
+  --color-tinta-500: #337268;
+  --color-tinta-400: #5f958a;
+
+  --color-salvia-50: #edf4f0;
+  --color-salvia-100: #d8e9e1;
+  --color-salvia-200: #b3d2c6;
+  --color-salvia-300: #8cc8c1;
+  --color-salvia-400: #63a89f;
+  --color-salvia-500: #3f8a80;
+  --color-salvia-600: #2a6a61;
+  --color-salvia-700: #1d4a43;
+
+  --color-rosa-100: #f9e3d8;
+  --color-rosa-200: #f3c8b6;
+  --color-rosa-300: #e7a48d;
+  --color-rosa-400: #d98a70;
+  --color-rosa-500: #cb877c;
+  --color-rosa-600: #ac6552;
+  --color-rosa-700: #87492f;
+
+  --color-background: var(--color-hueso);
+  --color-foreground: var(--color-tinta);
+  --color-card: #fffdf6;
+  --color-card-foreground: var(--color-tinta);
+  --color-popover: #fffdf6;
+  --color-popover-foreground: var(--color-tinta);
+  --color-primary: var(--color-tinta);
+  --color-primary-foreground: var(--color-hueso);
+  --color-secondary: var(--color-beige-100);
+  --color-secondary-foreground: var(--color-tinta);
+  --color-muted: var(--color-beige-50);
+  --color-muted-foreground: var(--color-tinta-500);
+  --color-accent: var(--color-salvia-500);
+  --color-accent-foreground: #ffffff;
+  --color-destructive: var(--color-terracota);
+  --color-border: #e2d2b9;
+  --color-input: #d6bf9f;
+  --color-ring: var(--color-salvia-400);
+}
+
+/* Detalles cálidos de la marca en Mágico: sello y titulares en rosa polvo,
+   como el texto y los bordes del logo. */
+html[data-theme="magico"] .hero-stamp {
+  background: var(--color-rosa-600);
+}
+html[data-theme="magico"] h1 em {
+  color: var(--color-rosa-600);
+}
