@@ -79,7 +79,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             },
           }}
         />
-        <Analytics />
+        {/* Vercel Analytics solo existe en Vercel; en Cloudflare el script daría 404. */}
+        {process.env.NEXT_PUBLIC_VERCEL_ENV ? <Analytics /> : null}
       </body>
     </html>
   );

@@ -10,9 +10,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:seed": "tsx src/db/seed.ts",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "preview": "opennextjs-cloudflare build && node scripts/cf-sync-pg.mjs && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && node scripts/cf-sync-pg.mjs && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && node scripts/cf-sync-pg.mjs && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
@@ -40,8 +40,9 @@
     "drizzle-orm": "0.45.2",
     "framer-motion": "^14.0.0",
     "lucide-react": "^1.52.0",
-    "next": "16.4.0",
+    "next": "16.3.8",
     "pg": "8.20.0",
+    "pg-cloudflare": "^1.4.1",
     "posthog-js": "^1.436.1",
     "qrcode.react": "^4.2.0",
     "react": "19.2.6",

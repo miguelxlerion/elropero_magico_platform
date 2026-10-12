@@ -30,7 +30,12 @@ function resolveConnectionString(): string {
 
 function createPool() {
   const connectionString = resolveConnectionString();
-  const pool = new Pool({ connectionString });
+  const pool = new Pool({
+    connectionString,
+    // Acota esperas: sin esto, un socket muerto (p. ej. proxy local) cuelga el request.
+    connectionTimeoutMillis: 10_000,
+    idleTimeoutMillis: 10_000,
+  });
   if (process.env.NODE_ENV !== "production") {
     globalForDb.__arenaNextJsPostgresqlPool = pool;
     globalForDb.__arenaNextJsPostgresqlConnStr = connectionString;

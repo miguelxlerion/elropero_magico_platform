@@ -4,6 +4,10 @@ import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 initOpenNextCloudflareForDev();
 
 const nextConfig: NextConfig = {
+  // pg habla con Hyperdrive vía pg-cloudflare en Workers: se quedan como
+  // requires en runtime en vez de empaquetarse (el copiado trazado los deja
+  // incompletos y rompe el bundle).
+  serverExternalPackages: ["pg", "pg-cloudflare"],
   images: {
     // Las imágenes se sirven directamente desde el CDN de origen (Pexels / Supabase Storage).
     unoptimized: true,

@@ -70,6 +70,14 @@ npm run preview                   # sirve en http://localhost:8719
 
 ## Notas y límites
 
+- **Hyperdrive cachea SELECTs ~60 s por defecto.** Para stock/reservas esto puede
+  mostrar disponibilidad vieja. Estrategia: lecturas críticas (disponibilidad,
+  órdenes) con `db.transaction()` o revalidación; si ves oversell, evalúa
+  deshabilitar caché por query o usar Neon HTTP para lecturas no transaccionales.
+- **Preview local**: el Hyperdrive de miniflare es un shim; con Docker verás
+  200/500 intermitentes por sockets ociosos que mueren (en producción Hyperdrive
+  mantiene el pool real). Para probar en serio usa la DB Neon de staging.
+
 - `wrangler types` genera `cloudflare-env.d.ts` (`npm run cf-typegen`).
 - Rate limiting es en memoria **por isolate**: en Workers cada instancia lleva su
   contador. Para límites globales usa Rate Limiting de Cloudflare o Redis/Upstash.
