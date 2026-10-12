@@ -14,17 +14,9 @@
   },
   "observability": {
     "enabled": true
-  },
-  // Base de datos: Hyperdrive hace pooling TCP para el driver pg (con transacciones).
-  // 1) Crea tu Neon gratis y corre el schema con drizzle-kit push (ver CLOUDFLARE.md).
-  // 2) `wrangler hyperdrive create elropero-db --connection-string="postgresql://..."`.
-  // 3) Pega el `id` devuelto en "id" aquí abajo.
-  "hyperdrive": [
-    {
-      "binding": "HYPERDRIVE",
-      "id": "09cffda746a0452aa09f32aab83e1f4e",
-      // Solo desarrollo local con `opennextjs-cloudflare preview` (credenciales dev).
-      "localConnectionString": "postgresql://postgres:ropero@127.0.0.1:5433/el_ropero_fusion"
-    }
-  ]
+  }
+  // Sin Hyperdrive: la DB va por driver Neon WebSocket directo (ver src/db/index.ts
+  // y NEON_DATABASE_URL). Hyperdrive cerraba sockets ociosos y pg los reutilizaba
+  // muertos → 500 intermitentes. Si algún día se quiere caché de Hyperdrive,
+  // re-agregar aquí el bloque "hyperdrive" con un id válido.
 }

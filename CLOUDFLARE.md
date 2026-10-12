@@ -7,10 +7,12 @@ luego puedes poner dominio propio o ruta `pages.dev` según tu setup).
 
 ## Lo que ya está en código
 
-- `wrangler.jsonc` (worker `elropero-magico`, `nodejs_compat`, assets, binding `HYPERDRIVE`).
+- `wrangler.jsonc` (worker `elropero-magico-platform`, `nodejs_compat`, assets).
 - `open-next.config.ts`, `next.config.ts` con `initOpenNextCloudflareForDev()`.
-- `src/db/index.ts`: en Workers usa el binding Hyperdrive (driver `pg` con
-  transacciones intactas); en local/build/scripts usa `DATABASE_URL`.
+- `src/db/index.ts`: en Workers usa **Neon por WebSocket** (`NEON_DATABASE_URL`,
+  driver `@neondatabase/serverless` con transacciones); en local/build/scripts
+  usa `pg` clásico contra `DATABASE_URL`. Hyperdrive se descartó (cerraba
+  sockets ociosos → 500 intermitentes).
 - Scripts: `preview`, `deploy`, `upload`, `cf-typegen`. Imágenes en `unoptimized`
   (sin Cloudflare Images; se puede activar después).
 
@@ -37,7 +39,8 @@ Pega el `id` devuelto en `wrangler.jsonc` → `hyperdrive[0].id`.
 ## 3. Secretos de producción
 
 ```bash
-npx wrangler secret put NEXT_PUBLIC_SITE_URL        # https://elropero-magico.<tu-subdominio>.workers.dev
+npx wrangler secret put NEXT_PUBLIC_SITE_URL        # https://elropero-magico-platform.<tu-subdominio>.workers.dev
+npx wrangler secret put NEON_DATABASE_URL           # string de Neon pooler (solo Workers; sin channel_binding)
 npx wrangler secret put WOMPI_PUBLIC_KEY
 npx wrangler secret put WOMPI_PRIVATE_KEY
 npx wrangler secret put WOMPI_INTEGRITY_SECRET
