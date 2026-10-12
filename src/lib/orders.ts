@@ -3,6 +3,7 @@ import { and, eq, inArray } from "drizzle-orm";
 import { db } from "@/db";
 import { drops, orderItems, orders, products } from "@/db/schema";
 import { calculateTotals } from "@/lib/shipping";
+import { getSiteUrl } from "@/lib/site";
 import type { CheckoutValues } from "@/lib/validation";
 
 export class CheckoutError extends Error {
@@ -146,7 +147,12 @@ export async function applyPaymentResult(reference: string, status: string, tran
 }
 
 export function getRequestOrigin(req: Request) {
-  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  // Si hay URL configurada y válida se usa; si es placeholder/inválida se
+  // ignora y se deriva del request (evita redirects rotos en Wompi).
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    const configured = getSiteUrl();
+    if (configured !== "http://localhost:3000") return configured;
+  }
   const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host");
   const proto = req.headers.get("x-forwarded-proto") ?? "http";
   if (host) return `${proto.split(",")[0]}://${host.split(",")[0]}`;

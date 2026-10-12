@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import { BrandSplash } from "@/components/layout/BrandSplash";
 import { RouteProgress } from "@/components/layout/RouteProgress";
 import { Providers } from "@/components/providers";
+import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -23,7 +24,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: "El Ropero Mag&co — Moda de segunda mano curada en Bogotá",
     template: "%s · El Ropero Mag&co",
