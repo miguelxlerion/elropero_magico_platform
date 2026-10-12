@@ -17,6 +17,56 @@ if (typeof WebSocket === "undefined") {
   neonConfig.webSocketConstructor = ws;
 }
 
+// Errores de CONEXIÓN (no de SQL): la query nunca llegó o la respuesta se
+// perdió (sockets ociosos muertos, wake de Neon suspendido, etc.). Reintentar
+// UNA vez es seguro aquí porque solo se aplica al adquirir/ejecutar contra el
+// pool; dentro de transacciones Drizzle usa el cliente ya obtenido, sin pasar
+// por este wrapper (sin riesgo de doble-ejecutar un bloque transaccional).
+const RETRYABLE = [
+  /ECONNREFUSED/,
+  /ETIMEDOUT/,
+  /ENOTFOUND/,
+  /EHOSTUNREACH/,
+  /EPIPE/,
+  /ECONNRESET/,
+  /terminat/i,
+  /timeout/i,
+  /connection closed/i,
+  /connection ended/i,
+  /too many clients/i,
+  /Connection closed/,
+];
+
+function isRetryable(error: unknown) {
+  const message = error instanceof Error ? error.message : String(error);
+  return RETRYABLE.some((re) => re.test(message));
+}
+
+type QueryFn = (...args: never[]) => Promise<unknown>;
+
+/** Envuelve pool.query/pool.connect con un reintento ante fallos de conexión. */
+function withConnectionRetry<T extends { query: QueryFn; connect: QueryFn }>(pool: T): T {
+  const originalQuery = pool.query.bind(pool) as QueryFn;
+  const originalConnect = pool.connect.bind(pool) as QueryFn;
+  (pool as { query: QueryFn }).query = (async (...args: never[]) => {
+    try {
+      return await originalQuery(...args);
+    } catch (error) {
+      if (!isRetryable(error)) throw error;
+      return await originalQuery(...args);
+    }
+  }) as QueryFn;
+  (pool as { connect: QueryFn }).connect = (async (...args: never[]) => {
+    try {
+      return await originalConnect(...args);
+    } catch (error) {
+      if (!isRetryable(error)) throw error;
+      return await originalConnect(...args);
+    }
+  }) as QueryFn;
+  return pool;
+}
+
 /**
  * ¿Estamos en el runtime de Workers en producción (o preview)?
  * Solo ahí se aíslan las conexiones por request; en Node (dev, build,
@@ -57,7 +107,7 @@ function neonConnectionString(): string {
  * en otro. Las sesiones ociosas las recoge Neon en minutos.
  */
 const getRequestDb = (): DrizzleDb => {
-  return drizzleNeon(new NeonPool({ connectionString: neonConnectionString() })) as unknown as DrizzleDb;
+  return drizzleNeon(withConnectionRetry(new NeonPool({ connectionString: neonConnectionString() }))) as unknown as DrizzleDb;
 };
 
 function createPool() {
@@ -65,12 +115,14 @@ function createPool() {
   if (!databaseUrl) {
     throw new Error("DATABASE_URL is required");
   }
-  const pool = new Pool({
-    connectionString: databaseUrl,
-    // Acota esperas: sin esto, un socket muerto cuelga el request.
-    connectionTimeoutMillis: 10_000,
-    idleTimeoutMillis: 10_000,
-  });
+  const pool = withConnectionRetry(
+    new Pool({
+      connectionString: databaseUrl,
+      // Acota esperas: sin esto, un socket muerto cuelga el request.
+      connectionTimeoutMillis: 10_000,
+      idleTimeoutMillis: 10_000,
+    }),
+  );
   if (process.env.NODE_ENV !== "production") {
     globalForDb.__arenaNextJsPostgresqlPool = pool;
     globalForDb.__arenaNextJsPostgresqlConnStr = databaseUrl;
