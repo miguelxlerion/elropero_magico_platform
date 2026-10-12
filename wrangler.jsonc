@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "elropero-magico",
+  "main": ".open-next/worker.js",
+  // No bajar esta fecha sin revisar: fija las APIs del runtime de Workers.
+  "compatibility_date": "2026-10-08",
+  "compatibility_flags": [
+    // Requerido por Next.js en Workers (node:crypto, Buffer, etc.)
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  // Base de datos: Hyperdrive hace pooling TCP para el driver pg (con transacciones).
+  // 1) Crea tu Neon gratis y corre el schema con drizzle-kit push (ver CLOUDFLARE.md).
+  // 2) `wrangler hyperdrive create elropero-db --connection-string="postgresql://..."`.
+  // 3) Pega el `id` devuelto en "id" aquí abajo.
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "REEMPLAZAR-con-el-id-de-wrangler-hyperdrive-create",
+      // Solo desarrollo local con `opennextjs-cloudflare preview` (credenciales dev).
+      "localConnectionString": "postgresql://postgres:ropero@127.0.0.1:5433/el_ropero_fusion"
+    }
+  ]
+}
