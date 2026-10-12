@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "elropero-magico",
+  "name": "elropero-magico-platform",
   "main": ".open-next/worker.js",
   // No bajar esta fecha sin revisar: fija las APIs del runtime de Workers.
   "compatibility_date": "2026-10-08",
