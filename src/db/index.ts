@@ -3,7 +3,6 @@ import { neonConfig, Pool as NeonPool } from "@neondatabase/serverless";
 import { drizzle as drizzleNeon } from "drizzle-orm/neon-serverless";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { cache } from "react";
 import ws from "ws";
 
 const globalForDb = globalThis as typeof globalThis & {
@@ -46,18 +45,20 @@ function neonConnectionString(): string {
 }
 
 /**
- * Instancia Drizzle aislada POR REQUEST (React cache()).
+ * Instancia Drizzle aislada: se crea UNA NUEVA por cada acceso raíz (`db.select`,
+ * `db.transaction`, …). Como el encadenado de builders es síncrono, toda la
+ * expresión usa la misma instancia, y las transacciones corren en una sola sesión.
  *
- * Por qué: Workers prohíbe usar objetos de I/O (sockets, sesiones WS) creados
- * en el handler de un request desde otro request
- * ("Cannot perform I/O on behalf of a different request"). Un pool singleton
- * funciona en Node pero en Workers falla de forma intermitente: el primer
- * request de cada isolate va bien y los siguientes reusan sockets ajenos.
- * Con cache(), cada request crea su propio NeonPool y nunca se comparte.
+ * Por qué no se comparte: Workers prohíbe usar objetos de I/O (sockets, sesiones
+ * WS) creados en el handler de un request desde otro request. Ni el singleton ni
+ * React `cache()` sirven aquí (`cache()` no aísla los route handlers: verificado
+ * con /api/health en 500 determinista mientras las páginas iban bien). Cada
+ * instancia abre su sesión WS dentro del request que la usa y nunca se reutiliza
+ * en otro. Las sesiones ociosas las recoge Neon en minutos.
  */
-const getRequestDb = cache((): DrizzleDb => {
+const getRequestDb = (): DrizzleDb => {
   return drizzleNeon(new NeonPool({ connectionString: neonConnectionString() })) as unknown as DrizzleDb;
-});
+};
 
 function createPool() {
   const databaseUrl = process.env.DATABASE_URL;
@@ -99,8 +100,9 @@ function realDb(): DrizzleDb {
  *  Permite `next build` sin DATABASE_URL; fallar solo ocurre en runtime si falta. */
 export const pool: Pool = new Proxy({} as Pool, {
   get: (_target, prop) => {
-    const value = (realPool() as unknown as Record<PropertyKey, unknown>)[prop];
-    return typeof value === "function" ? (value as (...a: never[]) => unknown).bind(realPool()) : value;
+    const instance = realPool();
+    const value = (instance as unknown as Record<PropertyKey, unknown>)[prop];
+    return typeof value === "function" ? (value as (...a: never[]) => unknown).bind(instance) : value;
   },
 });
 
@@ -108,7 +110,8 @@ export const pool: Pool = new Proxy({} as Pool, {
  *  pero así ni siquiera se construye durante el build). */
 export const db: DrizzleDb = new Proxy({} as DrizzleDb, {
   get: (_target, prop) => {
-    const value = (realDb() as unknown as Record<PropertyKey, unknown>)[prop];
-    return typeof value === "function" ? (value as (...a: never[]) => unknown).bind(realDb()) : value;
+    const instance = realDb();
+    const value = (instance as unknown as Record<PropertyKey, unknown>)[prop];
+    return typeof value === "function" ? (value as (...a: never[]) => unknown).bind(instance) : value;
   },
 });
