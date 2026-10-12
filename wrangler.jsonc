@@ -22,7 +22,7 @@
   "hyperdrive": [
     {
       "binding": "HYPERDRIVE",
-      "id": "REEMPLAZAR-con-el-id-de-wrangler-hyperdrive-create",
+      "id": "09cffda746a0452aa09f32aab83e1f4e",
       // Solo desarrollo local con `opennextjs-cloudflare preview` (credenciales dev).
       "localConnectionString": "postgresql://postgres:ropero@127.0.0.1:5433/el_ropero_fusion"
     }
