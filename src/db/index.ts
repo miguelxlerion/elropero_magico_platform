@@ -35,6 +35,9 @@ const RETRYABLE = [
   /connection ended/i,
   /too many clients/i,
   /Connection closed/,
+  // Workers: socket/sesión creado en otro request (reintento abre uno fresco).
+  /different request/i,
+  /behalf of/i,
 ];
 
 function isRetryable(error: unknown) {
@@ -72,7 +75,7 @@ function withConnectionRetry<T extends { query: QueryFn; connect: QueryFn }>(poo
  * Solo ahí se aíslan las conexiones por request; en Node (dev, build,
  * scripts, `next start`) se comparte el pool clásico sin problema.
  */
-function useIsolatedDb(): boolean {
+function useNeonDriver(): boolean {
   if (globalForDb.__arenaIsolatedDb !== undefined) return globalForDb.__arenaIsolatedDb;
   let isolated = false;
   if (process.env.NODE_ENV === "production") {
@@ -95,19 +98,21 @@ function neonConnectionString(): string {
 }
 
 /**
- * Instancia Drizzle aislada: se crea UNA NUEVA por cada acceso raíz (`db.select`,
- * `db.transaction`, …). Como el encadenado de builders es síncrono, toda la
- * expresión usa la misma instancia, y las transacciones corren en una sola sesión.
- *
- * Por qué no se comparte: Workers prohíbe usar objetos de I/O (sockets, sesiones
- * WS) creados en el handler de un request desde otro request. Ni el singleton ni
- * React `cache()` sirven aquí (`cache()` no aísla los route handlers: verificado
- * con /api/health en 500 determinista mientras las páginas iban bien). Cada
- * instancia abre su sesión WS dentro del request que la usa y nunca se reutiliza
- * en otro. Las sesiones ociosas las recoge Neon en minutos.
+ * Instancia Drizzle FRESCA por acceso en Workers (nunca memoizada, nunca
+ * compartida entre requests: el runtime lo prohíbe y falla intermitente).
+ * Como el encadenado de builders es síncrono, cada expresión usa una sola
+ * instancia y las transacciones corren en una sola sesión. Los sockets ociosos
+ * se cierran a los 5 s (sin esto fugan memoria hasta el Error 1102).
  */
-const getRequestDb = (): DrizzleDb => {
-  return drizzleNeon(withConnectionRetry(new NeonPool({ connectionString: neonConnectionString() }))) as unknown as DrizzleDb;
+const getSharedNeonDb = (): DrizzleDb => {
+  // Intencionalmente SIN memoizar: cada acceso crea su pool y nunca se comparte
+  // entre requests (Workers lo prohíbe). Los sockets ociosos se cierran solos
+  // en 5 s (sin esto fugan memoria hasta el Error 1102).
+  return drizzleNeon(
+    withConnectionRetry(
+      new NeonPool({ connectionString: neonConnectionString(), max: 5, idleTimeoutMillis: 5_000 }),
+    ),
+  ) as unknown as DrizzleDb;
 };
 
 function createPool() {
@@ -143,7 +148,7 @@ type DrizzleDb = ReturnType<typeof drizzle>;
 let memoDb: DrizzleDb | null = null;
 
 function realDb(): DrizzleDb {
-  if (useIsolatedDb()) return getRequestDb();
+  if (useNeonDriver()) return getSharedNeonDb();
   if (!memoDb) memoDb = drizzle(realPool());
   return memoDb;
 }
