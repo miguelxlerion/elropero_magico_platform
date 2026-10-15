@@ -7,7 +7,7 @@ export const SITE = {
   whatsapp: "573001234567",
   whatsappDisplay: "+57 300 123 4567",
   instagram: "elroperomagco",
-  email: "hola@elroperomagco.co",
+  email: "elroperomagicoweb@gmail.com",
   city: "Bogotá, Colombia",
   dropCadenceDays: 15,
 } as const;
