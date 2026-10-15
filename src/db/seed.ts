@@ -259,9 +259,9 @@ function nextLaunch(now: number) {
 }
 
 const SUBSCRIBER_SAMPLES = [
-  "laura.mejia@gmail.com", "camilo.r@hotmail.com", "3014567890", "valen.ospina@gmail.com",
-  "3109876543", "dani.herrera@outlook.com", "3205551234", "mafe.castro@gmail.com",
-  "juanpa.lozano@gmail.com", "3157778899", "sara.vintage@gmail.com", "3002223344",
+  "laura.mejia@gmail.com", "camilo.r@hotmail.com", "3133129692", "valen.ospina@gmail.com",
+  "3133129693", "dani.herrera@outlook.com", "3133129694", "mafe.castro@gmail.com",
+  "juanpa.lozano@gmail.com", "3133129695", "sara.vintage@gmail.com", "3133129696",
 ];
 
 let seedPromise: Promise<void> | null = null;
@@ -348,7 +348,7 @@ async function seed() {
         .insert(orders)
         .values({
           reference: o.ref, status: o.status, paymentMethod: o.method,
-          customer: { fullName: o.name, email: `${o.name.split(" ")[0].toLowerCase()}@example.com`, phone: "3001234567", documentType: "CC", documentNumber: "1020304050" },
+          customer: { fullName: o.name, email: `${o.name.split(" ")[0].toLowerCase()}@example.com`, phone: "3133129691", documentType: "CC", documentNumber: "1020304050" },
           shipping: { city: o.city, department: o.department, address: "Calle 70 # 10-25", neighborhood: "Quinta Camacho", notes: "", zone: isBogota ? "bogota" : "nacional", eta: isBogota ? "Mismo día" : "2 a 4 días hábiles" },
           subtotal: product.price, shippingCost, codFee, total: product.price + shippingCost + codFee,
           createdAt: created, updatedAt: created,

@@ -144,7 +144,7 @@ export function RegisterForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="phone">Celular (opcional)</Label>
-            <Input id="phone" type="tel" inputMode="numeric" placeholder="3001234567" {...form.register("phone")} aria-invalid={Boolean(errors.phone)} />
+            <Input id="phone" type="tel" inputMode="numeric" placeholder="3133129691" {...form.register("phone")} aria-invalid={Boolean(errors.phone)} />
             <FieldError message={errors.phone?.message} />
           </div>
         </div>

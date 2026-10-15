@@ -137,7 +137,7 @@ export function NotifyForm({
                 type={channel === "email" ? "email" : "tel"}
                 inputMode={channel === "email" ? "email" : "numeric"}
                 autoComplete={channel === "email" ? "email" : "tel"}
-                placeholder={channel === "email" ? "tu@correo.com" : "300 123 4567"}
+                placeholder={channel === "email" ? "tu@correo.com" : "313 312 9691"}
                 aria-invalid={Boolean(errors.contact)}
                 aria-label={channel === "email" ? "Correo electrónico" : "Número de WhatsApp"}
                 className={cn(dark && "border-white/20 bg-white/10 text-hueso placeholder:text-hueso/50")}

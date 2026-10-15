@@ -70,7 +70,7 @@ export const subscribeSchema = z
       ctx.addIssue({
         code: "custom",
         path: ["contact"],
-        message: "Número de 10 dígitos (ej. 300 123 4567)",
+        message: "Número de 10 dígitos (ej. 313 312 9691)",
       });
     }
   });

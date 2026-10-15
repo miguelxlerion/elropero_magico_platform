@@ -44,7 +44,7 @@ export function ShippingForm({ subtotal }: { subtotal: number }) {
             <Input {...register("email")} type="email" autoComplete="email" placeholder="tu@correo.com" aria-invalid={Boolean(errors.email)} />
           </Field>
           <Field label="Celular (WhatsApp)" error={errors.phone?.message}>
-            <Input {...register("phone")} type="tel" inputMode="numeric" autoComplete="tel-national" placeholder="3001234567" aria-invalid={Boolean(errors.phone)} />
+            <Input {...register("phone")} type="tel" inputMode="numeric" autoComplete="tel-national" placeholder="3133129691" aria-invalid={Boolean(errors.phone)} />
           </Field>
           <Field label="Tipo de documento" error={errors.documentType?.message}>
             <NativeSelect {...register("documentType")}>
