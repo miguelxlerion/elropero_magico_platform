@@ -22,3 +22,6 @@ output*.txt
 tmpout.txt
 swap-tmp.mjs
 node_modules.*/
+
+# Documentos privados (estrategia y manual de marca): el repo es publico
+docs/
