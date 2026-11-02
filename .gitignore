@@ -1,5 +1,8 @@
 node_modules
 .next
+.open-next
+.wrangler
+.dev.vars
 out
 dist
 *.tsbuildinfo
@@ -11,3 +14,11 @@ next-env.d.ts
 *.log
 .vercel
 .DS_Store
+
+# Residuos de sesiones locales
+curl.txt
+modlist.txt
+output*.txt
+tmpout.txt
+swap-tmp.mjs
+node_modules.*/

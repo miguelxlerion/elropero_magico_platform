@@ -1,0 +1,5 @@
+# Copiar a `.dev.vars` (no se commitea) para `opennextjs-cloudflare preview`.
+# NEXT_PUBLIC_* debe ir tambien en `.env.local` para que `next dev` lo vea en el servidor.
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+# Pon la contraseña de tu Postgres dev (el contenedor `ropero-pg`), no la de produccion.
+DATABASE_URL=postgresql://postgres:REEMPLAZAR@127.0.0.1:5433/el_ropero_fusion

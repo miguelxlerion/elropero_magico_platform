@@ -1,24 +1,52 @@
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 
 const globalForDb = globalThis as typeof globalThis & {
   __arenaNextJsPostgresqlPool?: Pool;
+  __arenaNextJsPostgresqlConnStr?: string;
 };
 
-function createPool() {
+/** Cadena de conexión según entorno:
+ *  - Cloudflare Workers: binding Hyperdrive (pooling TCP; retiene pg + transacciones).
+ *  - Local/build/scripts: DATABASE_URL.
+ */
+function resolveConnectionString(): string {
+  try {
+    const env = getCloudflareContext().env as unknown as {
+      HYPERDRIVE?: { connectionString?: string };
+    };
+    const hyperdrive = env?.HYPERDRIVE?.connectionString;
+    if (hyperdrive) return hyperdrive;
+  } catch {
+    // Fuera de request scope (build, scripts, dev sin bindings): cae a DATABASE_URL.
+  }
   const databaseUrl = process.env.DATABASE_URL;
   if (!databaseUrl) {
     throw new Error("DATABASE_URL is required");
   }
-  const pool = new Pool({ connectionString: databaseUrl });
+  return databaseUrl;
+}
+
+function createPool() {
+  const connectionString = resolveConnectionString();
+  const pool = new Pool({ connectionString });
   if (process.env.NODE_ENV !== "production") {
     globalForDb.__arenaNextJsPostgresqlPool = pool;
+    globalForDb.__arenaNextJsPostgresqlConnStr = connectionString;
   }
   return pool;
 }
 
 function realPool(): Pool {
-  if (!globalForDb.__arenaNextJsPostgresqlPool) {
+  const want = (() => {
+    try {
+      return resolveConnectionString();
+    } catch {
+      return "";
+    }
+  })();
+  if (!globalForDb.__arenaNextJsPostgresqlPool || globalForDb.__arenaNextJsPostgresqlConnStr !== want) {
     globalForDb.__arenaNextJsPostgresqlPool = createPool();
   }
   return globalForDb.__arenaNextJsPostgresqlPool;

@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Marca · El Ropero Mag&co</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.0.19/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.18/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5.0.14/index.css">
+<style>
+  :root {
+    --cream: #F5EFE6;
+    --terracotta: #C17B5C;
+    --olive: #4A5D4F;
+    --mustard: #D4A24C;
+    --charcoal: #2B2B2B;
+    --rose: #B85C5C;
+    --sage: #8FA68E;
+  }
+  * { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+  }
+  .font-serif-display { font-family: 'Playfair Display', serif; }
+  .font-serif-elegant { font-family: 'Cormorant Garamond', serif; }
+  
+  .grain {
+    position: relative;
+  }
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    opacity: 0.4;
+  }
+  
+  .nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--terracotta);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::before, .nav-link.active::before {
+    width: 12px;
+  }
+  .nav-link.active {
+    color: var(--terracotta);
+    font-weight: 500;
+  }
+  
+  .section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .color-swatch {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+  .color-swatch:hover {
+    transform: translateY(-8px) scale(1.05);
+  }
+  
+  .tab-btn {
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+  }
+  .tab-btn.active {
+    border-color: var(--terracotta);
+    color: var(--terracotta);
+  }
+  
+  .voice-card {
+    transition: all 0.4s ease;
+  }
+  .voice-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.15);
+  }
+  
+  .platform-card {
+    transition: all 0.5s ease;
+  }
+  .platform-card.active {
+    border-color: var(--terracotta);
+    background: white;
+  }
+  
+  .checklist-item {
+    transition: all 0.3s ease;
+  }
+  .checklist-item.checked {
+    opacity: 0.5;
+  }
+  .checklist-item.checked .check-box {
+    background: var(--olive);
+    border-color: var(--olive);
+  }
+  .checklist-item.checked .check-box svg {
+    opacity: 1;
+  }
+  
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--terracotta), var(--mustard));
+    z-index: 100;
+    transition: width 0.1s ease;
+  }
+  
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease forwards;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .kpi-bar {
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .timeline-dot {
+    transition: all 0.3s ease;
+  }
+  .timeline-item:hover .timeline-dot {
+    transform: scale(1.5);
+    background: var(--terracotta);
+  }
+  
+  details summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+  details[open] summary .chevron {
+    transform: rotate(180deg);
+  }
+  .chevron {
+    transition: transform 0.3s ease;
+  }
+  
+  .hero-text {
+    background: linear-gradient(135deg, var(--charcoal) 0%, var(--terracotta) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .floating-tag {
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+  }
+  
+  .print-btn:hover {
+    background: var(--charcoal);
+    color: var(--cream);
+  }
+  
+  @media print {
+    .no-print { display: none !important; }
+    .section { opacity: 1 !important; transform: none !important; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- NAVIGATION -->
+<nav class="fixed left-0 top-0 h-full w-64 bg-white/80 backdrop-blur-md border-r border-stone-200 z-50 hidden lg:block no-print">
+  <div class="p-8 h-full flex flex-col">
+    <div class="mb-12">
+      <div class="text-xs tracking-[0.3em] text-stone-500 mb-2">MANUAL DE MARCA</div>
+      <div class="font-serif-display text-2xl leading-tight">El Ropero<br><em class="text-[var(--terracotta)]">Mag&co</em></div>
+    </div>
+    
+    <div class="flex-1 space-y-1 text-sm">
+      <a href="#inicio" class="nav-link block py-2 text-stone-700">01 · Inicio</a>
+      <a href="#diagnostico" class="nav-link block py-2 text-stone-700">02 · Diagnóstico</a>
+      <a href="#identidad" class="nav-link block py-2 text-stone-700">03 · Identidad Visual</a>
+      <a href="#paleta" class="nav-link block py-2 text-stone-700">04 · Paleta de Colores</a>
+      <a href="#tipografia" class="nav-link block py-2 text-stone-700">05 · Tipografía</a>
+      <a href="#fotografia" class="nav-link block py-2 text-stone-700">06 · Fotografía</a>
+      <a href="#voz" class="nav-link block py-2 text-stone-700">07 · Voz y Narrativa</a>
+      <a href="#plataformas" class="nav-link block py-2 text-stone-700">08 · Plataformas</a>
+      <a href="#contenido" class="nav-link block py-2 text-stone-700">09 · Contenido Dual</a>
+      <a href="#kpis" class="nav-link block py-2 text-stone-700">10 · KPIs</a>
+      <a href="#plan" class="nav-link block py-2 text-stone-700">11 · Plan de Acción</a>
+      <a href="#checklist" class="nav-link block py-2 text-stone-700">12 · Checklist</a>
+    </div>
+    
+    <div class="pt-6 border-t border-stone-200 text-xs text-stone-500">
+      <div>Versión 1.0 · 2026</div>
+      <div class="mt-1">Transformación Digital</div>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="lg:hidden fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md border-b border-stone-200 z-50 no-print">
+  <div class="p-4 flex items-center justify-between">
+    <div>
+      <div class="text-[10px] tracking-[0.3em] text-stone-500">MANUAL</div>
+      <div class="font-serif-display text-lg">El Ropero <em class="text-[var(--terracotta)]">Mag&co</em></div>
+    </div>
+    <button onclick="toggleMobileMenu()" class="p-2">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobileMenu" class="hidden border-t border-stone-200 max-h-[70vh] overflow-y-auto">
+    <div class="p-4 space-y-1 text-sm">
+      <a href="#inicio" onclick="toggleMobileMenu()" class="block py-2">Inicio</a>
+      <a href="#diagnostico" onclick="toggleMobileMenu()" class="block py-2">Diagnóstico</a>
+      <a href="#identidad" onclick="toggleMobileMenu()" class="block py-2">Identidad Visual</a>
+      <a href="#paleta" onclick="toggleMobileMenu()" class="block py-2">Paleta</a>
+      <a href="#tipografia" onclick="toggleMobileMenu()" class="block py-2">Tipografía</a>
+      <a href="#fotografia" onclick="toggleMobileMenu()" class="block py-2">Fotografía</a>
+      <a href="#voz" onclick="toggleMobileMenu()" class="block py-2">Voz y Narrativa</a>
+      <a href="#plataformas" onclick="toggleMobileMenu()" class="block py-2">Plataformas</a>
+      <a href="#contenido" onclick="toggleMobileMenu()" class="block py-2">Contenido Dual</a>
+      <a href="#kpis" onclick="toggleMobileMenu()" class="block py-2">KPIs</a>
+      <a href="#plan" onclick="toggleMobileMenu()" class="block py-2">Plan de Acción</a>
+      <a href="#checklist" onclick="toggleMobileMenu()" class="block py-2">Checklist</a>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="lg:ml-64">
+
+  <!-- HERO -->
+  <section id="inicio" class="min-h-screen relative overflow-hidden grain" style="background: linear-gradient(135deg, #F5EFE6 0%, #E8DCC8 100%);">
+    <div class="absolute top-20 right-10 w-64 h-64 rounded-full opacity-20 floating-tag" style="background: var(--terracotta); filter: blur(80px);"></div>
+    <div class="absolute bottom-20 left-10 w-80 h-80 rounded-full opacity-20 floating-tag" style="background: var(--mustard); filter: blur(100px); animation-delay: 2s;"></div>
+    
+    <div class="relative max-w-6xl mx-auto px-6 lg:px-16 py-20 lg:py-32">
+      <div class="mb-8 flex items-center gap-4">
+        <div class="h-px w-16 bg-[var(--terracotta)]"></div>
+        <span class="text-xs tracking-[0.4em] text-[var(--terracotta)]">GUÍA ESTRATÉGICA 2026</span>
+      </div>
+      
+      <h1 class="font-serif-display text-6xl lg:text-8xl leading-[0.95] mb-8">
+        Del <em class="hero-text">Vintage</em><br>
+        al <em class="hero-text">Viral</em>
+      </h1>
+      
+      <p class="font-serif-elegant text-2xl lg:text-3xl text-stone-700 max-w-2xl mb-12 leading-snug">
+        Un modelo integral para la transformación digital y consolidación de marca de <strong>El Ropero Mag&co</strong>.
+      </p>
+      
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-3xl mb-16">
+        <div class="border-l-2 border-[var(--terracotta)] pl-4">
+          <div class="font-serif-display text-3xl">12</div>
+          <div class="text-xs tracking-wider text-stone-600 mt-1">SECCIONES</div>
+        </div>
+        <div class="border-l-2 border-[var(--mustard)] pl-4">
+          <div class="font-serif-display text-3xl">5</div>
+          <div class="text-xs tracking-wider text-stone-600 mt-1">PLATAFORMAS</div>
+        </div>
+        <div class="border-l-2 border-[var(--olive)] pl-4">
+          <div class="font-serif-display text-3xl">∞</div>
+          <div class="text-xs tracking-wider text-stone-600 mt-1">POSIBILIDADES</div>
+        </div>
+        <div class="border-l-2 border-[var(--rose)] pl-4">
+          <div class="font-serif-display text-3xl">1</div>
+          <div class="text-xs tracking-wider text-stone-600 mt-1">MARCA</div>
+        </div>
+      </div>
+      
+      <div class="flex flex-wrap gap-4">
+        <a href="#diagnostico" class="px-8 py-4 bg-[var(--charcoal)] text-[var(--cream)] text-sm tracking-wider hover:bg-[var(--terracotta)] transition-all">
+          COMENZAR LECTURA →
+        </a>
+        <button onclick="window.print()" class="print-btn px-8 py-4 border border-[var(--charcoal)] text-sm tracking-wider transition-all">
+          IMPRIMIR MANUAL
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIAGNÓSTICO -->
+  <section id="diagnostico" class="section py-20 lg:py-32 px-6 lg:px-16 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--terracotta)] mb-4">02 · DIAGNÓSTICO</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">El consumidor <em>contemporáneo</em></h2>
+        <p class="font-serif-elegant text-xl text-stone-600 max-w-3xl">
+          Entender al actor principal del nuevo paradigma de la moda de segunda mano es el primer paso para una transformación exitosa.
+        </p>
+      </div>
+      
+      <div class="grid lg:grid-cols-3 gap-8 mb-16">
+        <div class="p-8 bg-[var(--cream)] border border-stone-200">
+          <div class="text-6xl font-serif-display text-[var(--terracotta)] mb-4">Gen Z</div>
+          <p class="text-sm text-stone-700 leading-relaxed">Nacidos entre 1997 y 2012. Proyección de poder adquisitivo de <strong>12 billones de USD</strong> para 2030.</p>
+        </div>
+        <div class="p-8 bg-[var(--cream)] border border-stone-200">
+          <div class="text-6xl font-serif-display text-[var(--mustard)] mb-4">50%+</div>
+          <p class="text-sm text-stone-700 leading-relaxed">Realizan compras directamente a través de plataformas sociales. Destinan casi la mitad de su presupuesto a segunda mano.</p>
+        </div>
+        <div class="p-8 bg-[var(--cream)] border border-stone-200">
+          <div class="text-6xl font-serif-display text-[var(--olive)] mb-4">3</div>
+          <p class="text-sm text-stone-700 leading-relaxed">Pilares de su filosofía de compra: <strong>individualidad, honestidad</strong> y marcas con <strong>punto de vista claro</strong>.</p>
+        </div>
+      </div>
+      
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h3 class="font-serif-display text-3xl mb-6">Motivaciones de compra</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-2 text-sm">
+                <span class="font-medium">Valor por dinero</span>
+                <span class="text-stone-500">Prioridad #1</span>
+              </div>
+              <div class="h-2 bg-stone-200 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--terracotta)]" data-width="95" style="width: 0%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2 text-sm">
+                <span class="font-medium">Calidad de la prenda</span>
+                <span class="text-stone-500">Prioridad #2</span>
+              </div>
+              <div class="h-2 bg-stone-200 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--mustard)]" data-width="82" style="width: 0%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2 text-sm">
+                <span class="font-medium">Singularidad / Piezas únicas</span>
+                <span class="text-stone-500">Prioridad #3</span>
+              </div>
+              <div class="h-2 bg-stone-200 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--olive)]" data-width="74" style="width: 0%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2 text-sm">
+                <span class="font-medium">Sostenibilidad</span>
+                <span class="text-stone-500">Refuerzo orgánico</span>
+              </div>
+              <div class="h-2 bg-stone-200 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--sage)]" data-width="58" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="p-8 border-l-4 border-[var(--terracotta)] bg-[var(--cream)]">
+          <div class="text-xs tracking-[0.3em] text-[var(--terracotta)] mb-4">INSIGHT CLAVE</div>
+          <p class="font-serif-elegant text-2xl leading-snug text-stone-800 mb-4">
+            "La confianza es el activo más preciado. En segunda mano, la reputación del vendedor es el predictor más fuerte de la compra."
+          </p>
+          <p class="text-sm text-stone-600">
+            El Ropero Mag&co debe posicionarse como <strong>curador experto</strong>, mostrando el proceso de selección, limpieza y cuidado de cada prenda.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IDENTIDAD VISUAL -->
+  <section id="identidad" class="section py-20 lg:py-32 px-6 lg:px-16" style="background: var(--cream);">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--terracotta)] mb-4">03 · IDENTIDAD VISUAL</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">El lenguaje <em>no verbal</em></h2>
+        <p class="font-serif-elegant text-xl text-stone-600 max-w-3xl">
+          De mostrar productos a contar historias. La identidad visual fusiona el alma vintage con tendencias contemporáneas.
+        </p>
+      </div>
+      
+      <div class="grid lg:grid-cols-2 gap-12 mb-16">
+        <div>
+          <h3 class="font-serif-display text-3xl mb-6">Principios de diseño</h3>
+          <div class="space-y-6">
+            <details class="border-b border-stone-300 pb-4">
+              <summary class="flex justify-between items-center py-2">
+                <span class="font-medium text-lg">Narrativa visual sobre catálogo</span>
+                <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <p class="text-stone-600 text-sm leading-relaxed pt-2">Crear "edits" o composiciones visuales que cuenten una historia. Ejemplo: cinco vestidos colgados en un tendedero con tonos terrosos, acompañados de flores secas que evoquen los años 70.</p>
+            </details>
+            <details class="border-b border-stone-300 pb-4">
+              <summary class="flex justify-between items-center py-2">
+                <span class="font-medium text-lg">Storytelling emocional</span>
+                <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <p class="text-stone-600 text-sm leading-relaxed pt-2">Las imágenes deben generar emoción antes de vender. Expresiones naturales, luces cinematográficas, composiciones atmosféricas. Celebrar las imperfecciones y texturas genuinas.</p>
+            </details>
+            <details class="border-b border-stone-300 pb-4">
+              <summary class="flex justify-between items-center py-2">
+                <span class="font-medium text-lg">Autenticidad sobre perfección</span>
+                <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <p class="text-stone-600 text-sm leading-relaxed pt-2">En la era de la IA, las texturas reales, los rasguños y las marcas del tiempo añaden valor sentimental y humanizan la marca. Close-ups que destaquen tejido y construcción.</p>
+            </details>
+            <details class="border-b border-stone-300 pb-4">
+              <summary class="flex justify-between items-center py-2">
+                <span class="font-medium text-lg">Coherencia multiplataforma</span>
+                <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <p class="text-stone-600 text-sm leading-relaxed pt-2">Desarrollar flujos de contenido dual: "visuales primero para redes sociales" (verticales, rápidos) y "visuales primero para e-commerce" (horizontales, detallados) en una sola sesión.</p>
+            </details>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <div class="aspect-[4/5] relative overflow-hidden" style="background: linear-gradient(135deg, #C17B5C 0%, #D4A24C 50%, #4A5D4F 100%);">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-center text-white">
+                <div class="font-serif-display text-7xl mb-4">M&co</div>
+                <div class="text-xs tracking-[0.5em] opacity-80">CURADORA · EXPERTA · AUTÉNTICA</div>
+              </div>
+            </div>
+            <div class="absolute top-6 left-6 right-6 border border-white/30 p-6">
+              <div class="text-white/90 text-xs tracking-widest">ESTÉTICA VINTAGE-MODERNA</div>
+            </div>
+            <div class="absolute bottom-6 left-6 right-6 border border-white/30 p-6">
+              <div class="text-white/90 text-xs tracking-widest">FUSIÓN DE ERAS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALETA DE COLORES -->
+  <section id="paleta" class="section py-20 lg:py-32 px-6 lg:px-16 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--terracotta)] mb-4">04 · PALETA DE COLORES</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">Cuatro <em>direcciones</em> posibles</h2>
+        <p class="font-serif-elegant text-xl text-stone-600 max-w-3xl">
+          Haz clic en cada paleta para explorarla. La elección define la atmósfera emocional de la marca.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6" id="palettes">
+        <!-- Paleta 1 -->
+        <div class="palette-card p-8 border-2 border-stone-200 cursor-pointer transition-all hover:border-[var(--terracotta)]" data-palette="1">
+          <div class="flex justify-between items-start mb-6">
+            <div>
+              <div class="text-xs tracking-[0.3em] text-stone-500 mb-2">PALETA 01</div>
+              <h3 class="font-serif-display text-2xl">Vintage Neutro</h3>
+              <p class="text-sm text-stone-600 mt-2">Calma, sofisticación, autoridad</p>
+            </div>
+            <div class="text-xs px-3 py-1 bg-[var(--terracotta)] text-white tracking-wider">RECOMENDADA</div>
+          </div>
+          <div class="grid grid-cols-4 gap-2 mb-4">
+            <div class="color-swatch aspect-square rounded-lg" style="background: #F5EFE6;" title="Crema · #F5EFE6"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #C17B5C;" title="Terracota · #C17B5C"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #8B7355;" title="Beige cálido · #8B7355"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #2B2B2B;" title="Grafito · #2B2B2B"></div>
+          </div>
+          <p class="text-xs text-stone-500 italic">Ideal para posicionarse como fuente de conocimiento y estilo refinado.</p>
+        </div>
+        
+        <!-- Paleta 2 -->
+        <div class="palette-card p-8 border-2 border-stone-200 cursor-pointer transition-all hover:border-[var(--terracotta)]" data-palette="2">
+          <div class="mb-6">
+            <div class="text-xs tracking-[0.3em] text-stone-500 mb-2">PALETA 02</div>
+            <h3 class="font-serif-display text-2xl">Velvet Dust</h3>
+            <p class="text-sm text-stone-600 mt-2">Elegancia, misterio, profundidad</p>
+          </div>
+          <div class="grid grid-cols-4 gap-2 mb-4">
+            <div class="color-swatch aspect-square rounded-lg" style="background: #E8DCE8;" title="Lavanda pálido · #E8DCE8"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #6B4C7A;" title="Morado · #6B4C7A"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #B85C5C;" title="Rojo cereza · #B85C5C"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #2B2B2B;" title="Grafito · #2B2B2B"></div>
+          </div>
+          <p class="text-xs text-stone-500 italic">Perfecta para proyectar una imagen de elegancia y profundidad emocional.</p>
+        </div>
+        
+        <!-- Paleta 3 -->
+        <div class="palette-card p-8 border-2 border-stone-200 cursor-pointer transition-all hover:border-[var(--terracotta)]" data-palette="3">
+          <div class="mb-6">
+            <div class="text-xs tracking-[0.3em] text-stone-500 mb-2">PALETA 03</div>
+            <h3 class="font-serif-display text-2xl">Antique Brass</h3>
+            <p class="text-sm text-stone-600 mt-2">Estudio antiguo, biblioteca privada</p>
+          </div>
+          <div class="grid grid-cols-4 gap-2 mb-4">
+            <div class="color-swatch aspect-square rounded-lg" style="background: #B87333;" title="Cobre viejo · #B87333"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #6B7F5C;" title="Verde salvia · #6B7F5C"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #C4A577;" title="Avellana · #C4A577"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #3D3D3D;" title="Carbón · #3D3D3D"></div>
+          </div>
+          <p class="text-xs text-stone-500 italic">Adecuada para presentarse como figura de autoridad en el vintage.</p>
+        </div>
+        
+        <!-- Paleta 4 -->
+        <div class="palette-card p-8 border-2 border-stone-200 cursor-pointer transition-all hover:border-[var(--terracotta)]" data-palette="4">
+          <div class="mb-6">
+            <div class="text-xs tracking-[0.3em] text-stone-500 mb-2">PALETA 04</div>
+            <h3 class="font-serif-display text-2xl">Nostalgic Bright</h3>
+            <p class="text-sm text-stone-600 mt-2">Juguetona, vibrante, retro</p>
+          </div>
+          <div class="grid grid-cols-4 gap-2 mb-4">
+            <div class="color-swatch aspect-square rounded-lg" style="background: #D4A24C;" title="Mostaza · #D4A24C"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #6B7F5C;" title="Verde gramo · #6B7F5C"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #5C8FA6;" title="Turquesa · #5C8FA6"></div>
+            <div class="color-swatch aspect-square rounded-lg" style="background: #B85C5C;" title="Coral · #B85C5C"></div>
+          </div>
+          <p class="text-xs text-stone-500 italic">Inspirada en envases vintage. Ideal para una marca más vibrante y nostálgica.</p>
+        </div>
+      </div>
+      
+      <div class="mt-12 p-8 bg-[var(--cream)] border-l-4 border-[var(--terracotta)]">
+        <div class="text-xs tracking-[0.3em] text-[var(--terracotta)] mb-3">REGLA DE ORO</div>
+        <p class="font-serif-elegant text-xl leading-snug">
+          Mantener siempre un <strong>"tono oscuro de anclaje"</strong> (grafito o carbón) para garantizar legibilidad y coherencia en todos los elementos de texto.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPOGRAFÍA -->
+  <section id="tipografia" class="section py-20 lg:py-32 px-6 lg:px-16" style="background: var(--charcoal); color: var(--cream);">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--mustard)] mb-4">05 · TIPOGRAFÍA</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">El carácter de la <em>marca</em></h2>
+        <p class="text-xl text-stone-300 max-w-3xl">
+          Dos tipografías que dialogan: una serif elegante para el alma vintage, una sans-serif moderna para la claridad contemporánea.
+        </p>
+      </div>
+      
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="p-10 border border-stone-700">
+          <div class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-6">TITULARES · DISPLAY</div>
+          <div class="font-serif-display text-7xl mb-6 leading-none">Playfair<br><em>Display</em></div>
+          <div class="space-y-2 text-stone-300 text-sm mb-6">
+            <div>Aa Bb Cc Dd Ee Ff Gg</div>
+            <div>1 2 3 4 5 6 7 8 9 0</div>
+            <div class="font-serif-display text-3xl mt-4">"La elegancia es la única belleza que no se desvanece"</div>
+          </div>
+          <div class="pt-6 border-t border-stone-700 text-xs text-stone-400">
+            <div class="flex justify-between"><span>Uso:</span><span>Títulos, portadas, citas</span></div>
+            <div class="flex justify-between mt-2"><span>Peso:</span><span>Regular, Italic, Bold</span></div>
+          </div>
+        </div>
+        
+        <div class="p-10 border border-stone-700">
+          <div class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-6">CUERPO · TEXTO</div>
+          <div class="text-7xl mb-6 leading-none font-light">Inter<br><em class="font-light">Modern</em></div>
+          <div class="space-y-2 text-stone-300 text-sm mb-6">
+            <div>Aa Bb Cc Dd Ee Ff Gg</div>
+            <div>1 2 3 4 5 6 7 8 9 0</div>
+            <div class="mt-4 leading-relaxed">Tipografía sans-serif diseñada para pantallas. Alta legibilidad en cuerpos de texto pequeños y interfaces digitales.</div>
+          </div>
+          <div class="pt-6 border-t border-stone-700 text-xs text-stone-400">
+            <div class="flex justify-between"><span>Uso:</span><span>Cuerpos, UI, captions</span></div>
+            <div class="flex justify-between mt-2"><span>Peso:</span><span>Light, Regular, Medium</span></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="p-6 border border-stone-700">
+          <div class="text-xs text-stone-500 mb-2">H1 · 48px</div>
+          <div class="font-serif-display text-4xl">Vintage</div>
+        </div>
+        <div class="p-6 border border-stone-700">
+          <div class="text-xs text-stone-500 mb-2">H2 · 32px</div>
+          <div class="font-serif-display text-2xl">Mag&co</div>
+        </div>
+        <div class="p-6 border border-stone-700">
+          <div class="text-xs text-stone-500 mb-2">Body · 16px</div>
+          <div class="text-base">Curadora experta en piezas únicas de segunda mano.</div>
+        </div>
+        <div class="p-6 border border-stone-700">
+          <div class="text-xs text-stone-500 mb-2">Caption · 12px</div>
+          <div class="text-xs tracking-wider">ESTILO · AUTENTICIDAD · HISTORIA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOTOGRAFÍA -->
+  <section id="fotografia" class="section py-20 lg:py-32 px-6 lg:px-16 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--terracotta)] mb-4">06 · FOTOGRAFÍA</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">Guía de <em>estilo visual</em></h2>
+        <p class="font-serif-elegant text-xl text-stone-600 max-w-3xl">
+          Directrices para crear imágenes consistentes, emotivas y reconocibles en todas las plataformas.
+        </p>
+      </div>
+      
+      <div class="grid lg:grid-cols-3 gap-6 mb-12">
+        <div class="aspect-[3/4] relative overflow-hidden group" style="background: linear-gradient(135deg, #C17B5C, #8B7355);">
+          <div class="absolute inset-0 flex flex-col justify-end p-6 text-white">
+            <div class="text-xs tracking-[0.3em] mb-2 opacity-80">ILUMINACIÓN</div>
+            <div class="font-serif-display text-2xl mb-2">Luz natural difusa</div>
+            <p class="text-sm opacity-90">Evitar flash directo. Preferir ventanas con luz indirecta para suavizar sombras y resaltar texturas.</p>
+          </div>
+        </div>
+        <div class="aspect-[3/4] relative overflow-hidden group" style="background: linear-gradient(135deg, #4A5D4F, #2B2B2B);">
+          <div class="absolute inset-0 flex flex-col justify-end p-6 text-white">
+            <div class="text-xs tracking-[0.3em] mb-2 opacity-80">COMPOSICIÓN</div>
+            <div class="font-serif-display text-2xl mb-2">Regla de tercios</div>
+            <p class="text-sm opacity-90">Planos medios para contexto, planos cercanos para detalles de tejido, etiquetas y costuras.</p>
+          </div>
+        </div>
+        <div class="aspect-[3/4] relative overflow-hidden group" style="background: linear-gradient(135deg, #D4A24C, #B85C5C);">
+          <div class="absolute inset-0 flex flex-col justify-end p-6 text-white">
+            <div class="text-xs tracking-[0.3em] mb-2 opacity-80">POST-PRODUCCIÓN</div>
+            <div class="font-serif-display text-2xl mb-2">LUTs consistentes</div>
+            <p class="text-sm opacity-90">Mismos ajustes de exposición, contraste y temperatura en todas las piezas para crear coherencia de feed.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="p-8 bg-[var(--cream)]">
+          <h3 class="font-serif-display text-2xl mb-4">Formatos por plataforma</h3>
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between py-2 border-b border-stone-300">
+              <span class="font-medium">Instagram Reels / TikTok</span>
+              <span class="text-stone-600">9:16 · 1080×1920</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-stone-300">
+              <span class="font-medium">Instagram Post / Carrusel</span>
+              <span class="text-stone-600">1:1 · 1080×1080</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-stone-300">
+              <span class="font-medium">Instagram Stories</span>
+              <span class="text-stone-600">9:16 · 1080×1920</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-stone-300">
+              <span class="font-medium">Pinterest Pin</span>
+              <span class="text-stone-600">2:3 · 1000×1500</span>
+            </div>
+            <div class="flex justify-between py-2">
+              <span class="font-medium">E-commerce / Web</span>
+              <span class="text-stone-600">Horizontal · Alta res.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="p-8 bg-[var(--charcoal)] text-[var(--cream)]">
+          <h3 class="font-serif-display text-2xl mb-4 text-[var(--mustard)]">Lo que SÍ · Lo que NO</h3>
+          <div class="grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <div class="text-[var(--sage)] text-xs tracking-wider mb-3">✓ HACER</div>
+              <ul class="space-y-2 text-stone-300">
+                <li>· Mostrar la prenda en movimiento</li>
+                <li>· Close-ups de texturas</li>
+                <li>· Fondos neutros coherentes</li>
+                <li>· Edits temáticos (5+ piezas)</li>
+                <li>· Detalles de etiquetas originales</li>
+              </ul>
+            </div>
+            <div>
+              <div class="text-[var(--rose)] text-xs tracking-wider mb-3">✗ EVITAR</div>
+              <ul class="space-y-2 text-stone-300">
+                <li>· Filtros excesivamente saturados</li>
+                <li>· Fondos desordenados</li>
+                <li>· Fotos borrosas o pixeladas</li>
+                <li>· Mezclar épocas sin narrativa</li>
+                <li>· Exceso de texto sobre imagen</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOZ Y NARRATIVA -->
+  <section id="voz" class="section py-20 lg:py-32 px-6 lg:px-16" style="background: var(--cream);">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--terracotta)] mb-4">07 · VOZ Y NARRATIVA</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">La personalidad <em>humana</em></h2>
+        <p class="font-serif-elegant text-xl text-stone-600 max-w-3xl">
+          La voz es la personalidad constante. El tono es la inflexión emocional que se adapta al contexto.
+        </p>
+      </div>
+      
+      <div class="grid lg:grid-cols-4 gap-4 mb-12">
+        <div class="voice-card p-6 bg-white border border-stone-200">
+          <div class="text-4xl font-serif-display text-[var(--terracotta)] mb-3">01</div>
+          <h4 class="font-medium mb-2">Curadora</h4>
+          <p class="text-sm text-stone-600">Experta que selecciona con criterio. Habla con conocimiento de décadas, materiales y contextos.</p>
+        </div>
+        <div class="voice-card p-6 bg-white border border-stone-200">
+          <div class="text-4xl font-serif-display text-[var(--mustard)] mb-3">02</div>
+          <h4 class="font-medium mb-2">Nostálgica</h4>
+          <p class="text-sm text-stone-600">Evoca épocas con cariño. Cuenta historias del pasado con respeto y fascinación.</p>
+        </div>
+        <div class="voice-card p-6 bg-white border border-stone-200">
+          <div class="text-4xl font-serif-display text-[var(--olive)] mb-3">03</div>
+          <h4 class="font-medium mb-2">Cercana</h4>
+          <p class="text-sm text-stone-600">Conversacional, empática. Habla de tú, responde rápido, crea comunidad real.</p>
+        </div>
+        <div class="voice-card p-6 bg-white border border-stone-200">
+          <div class="text-4xl font-serif-display text-[var(--rose)] mb-3">04</div>
+          <h4 class="font-medium mb-2">Auténtica</h4>
+          <p class="text-sm text-stone-600">Transparente sobre el estado de las piezas. Vulnerable, honesta, sin artificios.</p>
+        </div>
+      </div>
+      
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="p-8 bg-white border-l-4 border-[var(--olive)]">
+          <div class="flex items-center gap-2 mb-4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--olive)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="text-xs tracking-[0.3em] text-[var(--olive)]">TONO CORRECTO</span>
+          </div>
+          <div class="space-y-4 text-sm">
+            <div class="p-4 bg-[var(--cream)]">
+              <div class="text-xs text-stone-500 mb-1">Caption de Instagram</div>
+              <p class="font-serif-elegant text-lg italic">"Esta chaqueta de los 70 tiene una historia que contar. La encontramos en un mercado de París, y sus costuras aún mantienen el alma de quien la hizo. ¿Te imaginas tus aventuras con ella?"</p>
+            </div>
+            <div class="p-4 bg-[var(--cream)]">
+              <div class="text-xs text-stone-500 mb-1">Respuesta a DM</div>
+              <p class="font-serif-elegant text-lg italic">"¡Qué buena pregunta! Entiendo exactamente lo que buscas. Déjame mostrarte los detalles de la tela para que decidas con confianza."</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="p-8 bg-white border-l-4 border-[var(--rose)]">
+          <div class="flex items-center gap-2 mb-4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span class="text-xs tracking-[0.3em] text-[var(--rose)]">TONO INCORRECTO</span>
+          </div>
+          <div class="space-y-4 text-sm">
+            <div class="p-4 bg-stone-100">
+              <div class="text-xs text-stone-500 mb-1">Caption genérico</div>
+              <p class="font-serif-elegant text-lg italic text-stone-500 line-through">"Chaqueta vintage disponible. Talla M. Precio en DM. #vintage #ropa"</p>
+            </div>
+            <div class="p-4 bg-stone-100">
+              <div class="text-xs text-stone-500 mb-1">Respuesta fría</div>
+              <p class="font-serif-elegant text-lg italic text-stone-500 line-through">"Sí, está disponible. Envío en 3 días."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12 p-8 bg-[var(--charcoal)] text-[var(--cream)]">
+        <div class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-4">NARRATIVAS DE MARCA</div>
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div>
+            <h4 class="font-serif-display text-2xl mb-3">Denotativas</h4>
+            <p class="text-sm text-stone-300 mb-3">Historias de la marca misma: origen, fundador, piezas icónicas.</p>
+            <div class="text-xs text-stone-400 italic">Ej: "Cómo empezó todo en un pequeño mercado de pulgas..."</div>
+          </div>
+          <div>
+            <h4 class="font-serif-display text-2xl mb-3">Connotativas</h4>
+            <p class="text-sm text-stone-300 mb-3">Historias de las piezas: origen, década, contexto cultural, primera dueña hipotética.</p>
+            <div class="text-xs text-stone-400 italic">Ej: "Este vestido viajó de Nueva York a Madrid en los 60..."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATAFORMAS -->
+  <section id="plataformas" class="section py-20 lg:py-32 px-6 lg:px-16 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--terracotta)] mb-4">08 · ESTRATEGIA MULTICANAL</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">Cinco plataformas, <em>un ecosistema</em></h2>
+        <p class="font-serif-elegant text-xl text-stone-600 max-w-3xl">
+          Cada plataforma cumple un rol distinto en el ciclo de compra. Haz clic para explorar cada una.
+        </p>
+      </div>
+      
+      <div class="flex flex-wrap gap-2 mb-8 border-b border-stone-200">
+        <button class="tab-btn active px-6 py-3 text-sm tracking-wider" data-tab="instagram">INSTAGRAM</button>
+        <button class="tab-btn px-6 py-3 text-sm tracking-wider" data-tab="tiktok">TIKTOK</button>
+        <button class="tab-btn px-6 py-3 text-sm tracking-wider" data-tab="pinterest">PINTEREST</button>
+        <button class="tab-btn px-6 py-3 text-sm tracking-wider" data-tab="depop">DEPOP</button>
+        <button class="tab-btn px-6 py-3 text-sm tracking-wider" data-tab="poshmark">POSHMARK</button>
+      </div>
+      
+      <div id="tabContent">
+        <!-- Instagram -->
+        <div class="tab-panel active" data-panel="instagram">
+          <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #E1306C, #F77737, #FCAF45);">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1M12 0C8.7 0 8.3 0 7.1.1 5.8.1 5 .3 4.2.6c-.8.3-1.5.7-2.2 1.4C1.3 2.7.9 3.4.6 4.2.3 5 .1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.1.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.1-.5-2.9-.3-.8-.7-1.5-1.4-2.2-.7-.7-1.4-1.1-2.2-1.4-.8-.3-1.6-.5-2.9-.5C15.7 0 15.3 0 12 0zm0 5.8c-3.4 0-6.2 2.8-6.2 6.2s2.8 6.2 6.2 6.2 6.2-2.8 6.2-6.2S15.4 5.8 12 5.8zm0 10.2c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm6.4-11.8c-.8 0-1.4.6-1.4 1.4s.6 1.4 1.4 1.4 1.4-.6 1.4-1.4-.6-1.4-1.4-1.4z"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-serif-display text-3xl">Instagram</h3>
+                  <p class="text-sm text-stone-500">El catálogo digital · Corazón de la comunidad</p>
+                </div>
+              </div>
+              
+              <div class="space-y-6">
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">FUNCIÓN EN EL CICLO</h4>
+                  <p class="text-stone-700 leading-relaxed">Construcción de <strong>deseo, consideración y comunidad</strong>. Es el escaparate visual donde se forja la identidad de marca y se nutre el vínculo emocional con la audiencia.</p>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">CONTENIDO IDEAL</h4>
+                  <div class="grid sm:grid-cols-2 gap-3">
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">📸 Carruseles curados</div>
+                      <div class="text-stone-600">Múltiples ángulos + historia de la pieza</div>
+                    </div>
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">🎬 Reels de styling</div>
+                      <div class="text-stone-600">Cómo combinar piezas vintage</div>
+                    </div>
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">📱 Stories diarias</div>
+                      <div class="text-stone-600">Encuestas, Q&A, detrás de cámaras</div>
+                    </div>
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">✨ Edits temáticos</div>
+                      <div class="text-stone-600">Composiciones narrativas de 5+ piezas</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">FRECUENCIA</h4>
+                  <div class="flex gap-4 text-sm">
+                    <div class="flex-1 p-3 border border-stone-200 text-center">
+                      <div class="font-serif-display text-2xl">4-5</div>
+                      <div class="text-xs text-stone-500">Posts/semana</div>
+                    </div>
+                    <div class="flex-1 p-3 border border-stone-200 text-center">
+                      <div class="font-serif-display text-2xl">3-5</div>
+                      <div class="text-xs text-stone-500">Reels/semana</div>
+                    </div>
+                    <div class="flex-1 p-3 border border-stone-200 text-center">
+                      <div class="font-serif-display text-2xl">2-3</div>
+                      <div class="text-xs text-stone-500">Stories/día</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-6 bg-[var(--charcoal)] text-[var(--cream)]">
+              <h4 class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-4">PÚBLICO OBJETIVO</h4>
+              <p class="font-serif-elegant text-xl mb-6">Millennials y Gen Z interesadas en estética, comunidad y piezas con historia.</p>
+              
+              <h4 class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-4">HASHTAGS CLAVE</h4>
+              <div class="flex flex-wrap gap-2 text-xs">
+                <span class="px-3 py-1 bg-white/10 rounded-full">#VintageStyle</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full">#SecondHandFashion</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full">#SlowFashion</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full">#ElRoperoMag</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full">#VintageFinds</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full">#SustainableStyle</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- TikTok -->
+        <div class="tab-panel hidden" data-panel="tiktok">
+          <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-black flex items-center justify-center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-serif-display text-3xl">TikTok</h3>
+                  <p class="text-sm text-stone-500">Motor de descubrimiento · Impulso viral</p>
+                </div>
+              </div>
+              
+              <div class="space-y-6">
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">FUNCIÓN EN EL CICLO</h4>
+                  <p class="text-stone-700 leading-relaxed"><strong>Descubrimiento masivo</strong>. Algoritmo que premia contenido fresco y entretenido. Herramienta clave para llegar a nuevas audiencias jóvenes y generar tráfico hacia Instagram y tiendas.</p>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">FORMATOS VIRALES</h4>
+                  <div class="grid sm:grid-cols-2 gap-3">
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">🎥 Restock videos</div>
+                      <div class="text-stone-600">Nuevas llegadas en 15-30 segundos</div>
+                    </div>
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">👗 Tutorials de estilo</div>
+                      <div class="text-stone-600">"3 formas de usar esta pieza"</div>
+                    </div>
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">📦 Unboxing / hauls</div>
+                      <div class="text-stone-600">Descubrimientos de mercados</div>
+                    </div>
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">🔍 Educativo rápido</div>
+                      <div class="text-stone-600">Cómo identificar décadas y materiales</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">CLAVES DEL ÉXITO</h4>
+                  <ul class="space-y-2 text-sm text-stone-700">
+                    <li class="flex gap-3"><span class="text-[var(--terracotta)]">→</span> Aparecer en cámara genera confianza y conexión</li>
+                    <li class="flex gap-3"><span class="text-[var(--terracotta)]">→</span> Usar sonidos en tendencia sin perder la identidad</li>
+                    <li class="flex gap-3"><span class="text-[var(--terracotta)]">→</span> Lógica: "entretenerte para venderte"</li>
+                    <li class="flex gap-3"><span class="text-[var(--terracotta)]">→</span> Publicar 5-7 veces por semana para alimentar el algoritmo</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-6 bg-[var(--charcoal)] text-[var(--cream)]">
+              <h4 class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-4">PÚBLICO OBJETIVO</h4>
+              <p class="font-serif-elegant text-xl mb-6">Gen Z y jóvenes millennials. Nuevos en el mundo de la moda de segunda mano.</p>
+              
+              <h4 class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-4">SOUNDS & TRENDS</h4>
+              <div class="space-y-2 text-xs text-stone-300">
+                <div class="p-2 bg-white/5 rounded">🎵 Audio trending + transición de outfit</div>
+                <div class="p-2 bg-white/5 rounded">🎵 POV: encontré la pieza perfecta</div>
+                <div class="p-2 bg-white/5 rounded">🎵 ASMR de texturas vintage</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pinterest -->
+        <div class="tab-panel hidden" data-panel="pinterest">
+          <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-[#E60023] flex items-center justify-center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12c0 5 3.1 9.3 7.5 11-.1-.9-.2-2.4 0-3.4.2-.9 1.4-6 1.4-6s-.4-.7-.4-1.8c0-1.7 1-3 2.2-3 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.8-2.3 3.8-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.4 2.6-5.4 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3-.1.4-.3 1.2-.3 1.4-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.2 7.9-7.2 4.1 0 7.4 3 7.4 6.9 0 4.1-2.6 7.5-6.2 7.5-1.2 0-2.4-.6-2.8-1.4 0 0-.6 2.3-.7 2.9-.3 1-1 2.3-1.5 3.1C9.6 23.4 10.8 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-serif-display text-3xl">Pinterest</h3>
+                  <p class="text-sm text-stone-500">Motor de búsqueda visual · Alta intención de compra</p>
+                </div>
+              </div>
+              
+              <div class="space-y-6">
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">FUNCIÓN EN EL CICLO</h4>
+                  <p class="text-stone-700 leading-relaxed"><strong>Planificación e intención de compra</strong>. Los usuarios buscan activamente ideas. Contenido con vida útil de meses, no horas. Tráfico constante a largo plazo.</p>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">TIPOS DE PIN</h4>
+                  <div class="grid sm:grid-cols-2 gap-3">
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">📌 Outfit completo</div>
+                      <div class="text-stone-600">Look vertical 2:3 con texto superpuesto</div>
+                    </div>
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">📌 Lookbooks temáticos</div>
+                      <div class="text-stone-600">"Dark Academia vintage", "Boho 70s"</div>
+                    </div>
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">📌 Producto individual</div>
+                      <div class="text-stone-600">Enlace directo a la página de venta</div>
+                    </div>
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">📌 Guías de estilo</div>
+                      <div class="text-stone-600">Cómo cuidar prendas vintage</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">OPTIMIZACIÓN SEO</h4>
+                  <p class="text-sm text-stone-700">Pinterest es un buscador. Usar palabras clave en títulos, descripciones y tableros. Crear 10-15 pins por día repartidos en diferentes tableros temáticos.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-6 bg-[var(--charcoal)] text-[var(--cream)]">
+              <h4 class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-4">TABLERO SUGERIDO</h4>
+              <div class="space-y-3 text-sm">
+                <div class="p-3 bg-white/5 rounded">📂 Vintage 70s Inspiration</div>
+                <div class="p-3 bg-white/5 rounded">📂 Dark Academia Outfits</div>
+                <div class="p-3 bg-white/5 rounded">📂 Y2K Revival</div>
+                <div class="p-3 bg-white/5 rounded">📂 Slow Fashion Tips</div>
+                <div class="p-3 bg-white/5 rounded">📂 El Ropero Mag · Shop</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Depop -->
+        <div class="tab-panel hidden" data-panel="depop">
+          <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-[#FF1559] flex items-center justify-center">
+                  <span class="text-white font-bold text-xl">D</span>
+                </div>
+                <div>
+                  <h3 class="font-serif-display text-3xl">Depop</h3>
+                  <p class="text-sm text-stone-500">Conversión directa · Comunidad reseller</p>
+                </div>
+              </div>
+              
+              <div class="space-y-6">
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">FUNCIÓN EN EL CICLO</h4>
+                  <p class="text-stone-700 leading-relaxed"><strong>Conversión directa y comunidad</strong>. Plataforma de venta especializada con su propia cultura. Los compradores vienen con intención de compra clara.</p>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">ESTRATEGIA BIDIRECCIONAL</h4>
+                  <ul class="space-y-2 text-sm text-stone-700">
+                    <li class="flex gap-3"><span class="text-[var(--terracotta)]">→</span> Redes sociales → Depop: dirigir tráfico desde IG y TikTok</li>
+                    <li class="flex gap-3"><span class="text-[var(--terracotta)]">→</span> Depop → Redes: mostrar ventas recientes como contenido</li>
+                    <li class="flex gap-3"><span class="text-[var(--terracotta)]">→</span> Comunicación transparente = reputación = más ventas</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">OPTIMIZACIÓN DE PERFIL</h4>
+                  <div class="grid sm:grid-cols-2 gap-3">
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">📝 Descripciones ricas</div>
+                      <div class="text-stone-600">Medidas, material, estado, década</div>
+                    </div>
+                    <div class="p-4 bg-[var(--cream)] text-sm">
+                      <div class="font-medium mb-1">🏷️ Hashtags estratégicos</div>
+                      <div class="text-stone-600">Máximo 5 por publicación</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-6 bg-[var(--charcoal)] text-[var(--cream)]">
+              <h4 class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-4">PÚBLICO</h4>
+              <p class="font-serif-elegant text-xl mb-6">Resellers y compradores de segunda mano. Comunidad nicho muy activa.</p>
+              
+              <h4 class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-4">HASHTAGS CLAVE</h4>
+              <div class="flex flex-wrap gap-2 text-xs">
+                <span class="px-3 py-1 bg-white/10 rounded-full">#Depop</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full">#VintageDepop</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full">#Y2K</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full">#90sFashion</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full">#Thrifted</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Poshmark -->
+        <div class="tab-panel hidden" data-panel="poshmark">
+          <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-[#721F27] flex items-center justify-center">
+                  <span class="text-white font-bold text-xl">P</span>
+                </div>
+                <div>
+                  <h3 class="font-serif-display text-3xl">Poshmark</h3>
+                  <p class="text-sm text-stone-500">Comunidad social · Conversación viral</p>
+                </div>
+              </div>
+              
+              <div class="space-y-6">
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">FUNCIÓN EN EL CICLO</h4>
+                  <p class="text-stone-700 leading-relaxed"><strong>Comunidad social de compra-venta</strong>. #Poshmark tiene millones de publicaciones en TikTok e Instagram. Plataforma con fuerte componente social y de descubrimiento entre pares.</p>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">DINÁMICAS CLAVE</h4>
+                  <ul class="space-y-2 text-sm text-stone-700">
+                    <li class="flex gap-3"><span class="text-[var(--terracotta)]">→</span> Posh Parties: eventos temáticos para ganar visibilidad</li>
+                    <li class="flex gap-3"><span class="text-[var(--terracotta)]">→</span> Sharing reciproco: compartir listings de otros</li>
+                    <li class="flex gap-3"><span class="text-[var(--terracotta)]">→</span> Ofertas a likers: activar compradores interesados</li>
+                    <li class="flex gap-3"><span class="text-[var(--terracotta)]">→</span> Bundles: incentivar compras múltiples</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 class="text-sm tracking-[0.3em] text-[var(--terracotta)] mb-3">SINERGIA CON REDES</h4>
+                  <p class="text-sm text-stone-700">Crear contenido específico mostrando "ventas de la semana en Poshmark", "lo más buscado por mis clientas", etc. Esto genera prueba social y FOMO.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-6 bg-[var(--charcoal)] text-[var(--cream)]">
+              <h4 class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-4">PÚBLICO</h4>
+              <p class="font-serif-elegant text-xl mb-6">Mujeres millennials y Gen Z. Compradoras sociales que valoran la comunidad.</p>
+              
+              <h4 class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-4">ESTRATEGIA</h4>
+              <div class="text-sm text-stone-300 space-y-2">
+                <div>📤 Compartir listings 3x al día</div>
+                <div>💬 Responder mensajes en &lt;1h</div>
+                <div>🎁 Ofertas a likers semanalmente</div>
+                <div>📸 Fotos consistentes con la guía</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENIDO DUAL -->
+  <section id="contenido" class="section py-20 lg:py-32 px-6 lg:px-16" style="background: var(--cream);">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--terracotta)] mb-4">09 · CONTENIDO DUAL</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">Una idea, <em>múltiples formatos</em></h2>
+        <p class="font-serif-elegant text-xl text-stone-600 max-w-3xl">
+          Optimiza la producción creando contenido adaptado a cada plataforma desde una sola sesión.
+        </p>
+      </div>
+      
+      <div class="p-8 lg:p-12 bg-white border border-stone-200">
+        <div class="text-xs tracking-[0.3em] text-[var(--terracotta)] mb-4">EJEMPLO PRÁCTICO</div>
+        <h3 class="font-serif-display text-3xl mb-8">Chaqueta de denim vintage de los 90</h3>
+        
+        <div class="grid lg:grid-cols-3 gap-6">
+          <div class="p-6 border-2 border-dashed border-stone-300">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-8 h-8 rounded bg-black flex items-center justify-center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/></svg>
+              </div>
+              <span class="font-medium">TikTok / Reel</span>
+            </div>
+            <div class="aspect-[9/16] bg-stone-100 mb-4 flex items-center justify-center">
+              <div class="text-center p-4">
+                <div class="text-3xl mb-2">🎬</div>
+                <div class="text-xs text-stone-500">15 segundos</div>
+                <div class="text-xs text-stone-500">Vertical 9:16</div>
+              </div>
+            </div>
+            <p class="text-sm text-stone-600">Video dinámico y musicalizado mostrando el estilo. Before/after de un pequeño DIY en la prenda.</p>
+          </div>
+          
+          <div class="p-6 border-2 border-dashed border-stone-300">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-8 h-8 rounded flex items-center justify-center" style="background: linear-gradient(135deg, #E1306C, #F77737);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1z"/></svg>
+              </div>
+              <span class="font-medium">Instagram Carrusel</span>
+            </div>
+            <div class="aspect-square bg-stone-100 mb-4 flex items-center justify-center">
+              <div class="text-center p-4">
+                <div class="text-3xl mb-2">📸</div>
+                <div class="text-xs text-stone-500">5-7 imágenes</div>
+                <div class="text-xs text-stone-500">Cuadrado 1:1</div>
+              </div>
+            </div>
+            <p class="text-sm text-stone-600">Portada de alta calidad + 2-3 imágenes de detalles, material y diferentes ángulos. Caption narrativa extenso.</p>
+          </div>
+          
+          <div class="p-6 border-2 border-dashed border-stone-300">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-8 h-8 rounded bg-[#E60023] flex items-center justify-center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12c0 5 3.1 9.3 7.5 11-.1-.9-.2-2.4 0-3.4.2-.9 1.4-6 1.4-6s-.4-.7-.4-1.8c0-1.7 1-3 2.2-3 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.8-2.3 3.8-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.4 2.6-5.4 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3-.1.4-.3 1.2-.3 1.4-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.2 7.9-7.2 4.1 0 7.4 3 7.4 6.9 0 4.1-2.6 7.5-6.2 7.5-1.2 0-2.4-.6-2.8-1.4 0 0-.6 2.3-.7 2.9-.3 1-1 2.3-1.5 3.1C9.6 23.4 10.8 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+              </div>
+              <span class="font-medium">Pinterest Pin</span>
+            </div>
+            <div class="aspect-[2/3] bg-stone-100 mb-4 flex items-center justify-center">
+              <div class="text-center p-4">
+                <div class="text-3xl mb-2">📌</div>
+                <div class="text-xs text-stone-500">Vertical 2:3</div>
+                <div class="text-xs text-stone-500">1000×1500</div>
+              </div>
+            </div>
+            <p class="text-sm text-stone-600">Imagen vertical del conjunto completo. Texto superpuesto minimalista. Enlace directo a la página del producto.</p>
+          </div>
+        </div>
+        
+        <div class="mt-8 p-6 bg-[var(--charcoal)] text-[var(--cream)]">
+          <div class="text-xs tracking-[0.3em] text-[var(--mustard)] mb-3">FLUJO DE TRABAJO ÓPTIMO</div>
+          <div class="grid md:grid-cols-4 gap-4 text-sm">
+            <div class="flex gap-3">
+              <div class="font-serif-display text-2xl text-[var(--mustard)]">01</div>
+              <div>Sesión de fotos única con múltiples ángulos</div>
+            </div>
+            <div class="flex gap-3">
+              <div class="font-serif-display text-2xl text-[var(--mustard)]">02</div>
+              <div>Edición con LUTs consistentes</div>
+            </div>
+            <div class="flex gap-3">
+              <div class="font-serif-display text-2xl text-[var(--mustard)]">03</div>
+              <div>Adaptación de formatos (vertical/cuadrado)</div>
+            </div>
+            <div class="flex gap-3">
+              <div class="font-serif-display text-2xl text-[var(--mustard)]">04</div>
+              <div>Publicación escalonada en cada plataforma</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section id="kpis" class="section py-20 lg:py-32 px-6 lg:px-16 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--terracotta)] mb-4">10 · MEDICIÓN</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">KPIs por <em>plataforma</em></h2>
+        <p class="font-serif-elegant text-xl text-stone-600 max-w-3xl">
+          Lo que no se mide, no se mejora. Indicadores clave para evaluar el éxito de cada canal.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-8 border border-stone-200">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #E1306C, #F77737);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1z"/></svg>
+            </div>
+            <h3 class="font-serif-display text-2xl">Instagram</h3>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Me gusta y comentarios</span>
+                <span class="text-stone-500">Engagement</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--terracotta)]" data-width="85"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Guardados y compartidos</span>
+                <span class="text-stone-500">Valor</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--mustard)]" data-width="90"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Visitas al perfil</span>
+                <span class="text-stone-500">Interés</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--olive)]" data-width="75"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="p-8 border border-stone-200">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-black flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/></svg>
+            </div>
+            <h3 class="font-serif-display text-2xl">TikTok</h3>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Tiempo de reproducción</span>
+                <span class="text-stone-500">Retención</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--terracotta)]" data-width="88"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Tasa de reproducción completa</span>
+                <span class="text-stone-500">Calidad</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--mustard)]" data-width="82"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>CTR (clics al perfil)</span>
+                <span class="text-stone-500">Conversión</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--olive)]" data-width="70"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="p-8 border border-stone-200">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-[#E60023] flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12c0 5 3.1 9.3 7.5 11-.1-.9-.2-2.4 0-3.4.2-.9 1.4-6 1.4-6s-.4-.7-.4-1.8c0-1.7 1-3 2.2-3 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.8-2.3 3.8-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.4 2.6-5.4 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3-.1.4-.3 1.2-.3 1.4-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.2 7.9-7.2 4.1 0 7.4 3 7.4 6.9 0 4.1-2.6 7.5-6.2 7.5-1.2 0-2.4-.6-2.8-1.4 0 0-.6 2.3-.7 2.9-.3 1-1 2.3-1.5 3.1C9.6 23.4 10.8 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+            </div>
+            <h3 class="font-serif-display text-2xl">Pinterest</h3>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Impresiones de búsqueda</span>
+                <span class="text-stone-500">SEO</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--terracotta)]" data-width="78"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Guardados (saves)</span>
+                <span class="text-stone-500">Inspiración</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--mustard)]" data-width="85"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Clics salientes</span>
+                <span class="text-stone-500">Tráfico</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--olive)]" data-width="72"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="p-8 border border-stone-200">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-[#FF1559] flex items-center justify-center">
+              <span class="text-white font-bold">D</span>
+            </div>
+            <h3 class="font-serif-display text-2xl">Depop / Poshmark</h3>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Tráfico referido</span>
+                <span class="text-stone-500">Redes → Tienda</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--terracotta)]" data-width="80"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>Tasa de conversión</span>
+                <span class="text-stone-500">Ventas</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--mustard)]" data-width="75"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span>ROI publicitario</span>
+                <span class="text-stone-500">Rentabilidad</span>
+              </div>
+              <div class="h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                <div class="kpi-bar h-full bg-[var(--olive)]" data-width="88"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12 p-8 bg-[var(--cream)] border-l-4 border-[var(--terracotta)]">
+        <div class="text-xs tracking-[0.3em] text-[var(--terracotta)] mb-3">CADENCIA DE MEDICIÓN</div>
+        <div class="grid md:grid-cols-3 gap-6 text-sm">
+          <div>
+            <div class="font-serif-display text-2xl mb-2">Semanal</div>
+            <p class="text-stone-600">Revisión de métricas operativas: engagement, alcance, respuestas.</p>
+          </div>
+          <div>
+            <div class="font-serif-display text-2xl mb-2">Mensual</div>
+            <p class="text-stone-600">Análisis de conversiones, ROI, crecimiento de seguidores, contenido top.</p>
+          </div>
+          <div>
+            <div class="font-serif-display text-2xl mb-2">Trimestral</div>
+            <p class="text-stone-600">Auditoría completa de marca, ajuste estratégico, revisión de identidad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAN DE ACCIÓN -->
+  <section id="plan" class="section py-20 lg:py-32 px-6 lg:px-16" style="background: var(--cream);">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--terracotta)] mb-4">11 · PLAN DE ACCIÓN</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">Roadmap de <em>90 días</em></h2>
+        <p class="font-serif-elegant text-xl text-stone-600 max-w-3xl">
+          Tres fases para una transformación progresiva, medible y sostenible.
+        </p>
+      </div>
+      
+      <div class="relative">
+        <div class="absolute left-8 top-0 bottom-0 w-px bg-stone-300 hidden md:block"></div>
+        
+        <div class="space-y-12">
+          <!-- Fase 1 -->
+          <div class="timeline-item relative md:pl-24">
+            <div class="absolute left-6 top-2 w-5 h-5 rounded-full bg-[var(--terracotta)] timeline-dot hidden md:block"></div>
+            <div class="p-8 bg-white border border-stone-200">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="text-xs tracking-[0.3em] text-[var(--terracotta)]">FASE 1 · DÍAS 1-30</div>
+                <div class="h-px flex-1 bg-stone-200"></div>
+                <div class="font-serif-display text-2xl">Fundamentos</div>
+              </div>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 class="font-medium mb-3">Identidad visual</h4>
+                  <ul class="space-y-2 text-sm text-stone-700">
+                    <li class="flex gap-2"><span class="text-[var(--terracotta)]">✓</span> Definir paleta de colores final</li>
+                    <li class="flex gap-2"><span class="text-[var(--terracotta)]">✓</span> Seleccionar tipografías oficiales</li>
+                    <li class="flex gap-2"><span class="text-[var(--terracotta)]">✓</span> Crear guía de estilo fotográfico</li>
+                    <li class="flex gap-2"><span class="text-[var(--terracotta)]">✓</span> Diseñar plantilla de marca</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-3">Auditoría</h4>
+                  <ul class="space-y-2 text-sm text-stone-700">
+                    <li class="flex gap-2"><span class="text-[var(--terracotta)]">✓</span> Analizar presencia actual en redes</li>
+                    <li class="flex gap-2"><span class="text-[var(--terracotta)]">✓</span> Identificar inconsistencias</li>
+                    <li class="flex gap-2"><span class="text-[var(--terracotta)]">✓</span> Establecer línea base de KPIs</li>
+                    <li class="flex gap-2"><span class="text-[var(--terracotta)]">✓</span> Definir voz y tabla de tonos</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Fase 2 -->
+          <div class="timeline-item relative md:pl-24">
+            <div class="absolute left-6 top-2 w-5 h-5 rounded-full bg-[var(--mustard)] timeline-dot hidden md:block"></div>
+            <div class="p-8 bg-white border border-stone-200">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="text-xs tracking-[0.3em] text-[var(--mustard)]">FASE 2 · DÍAS 31-60</div>
+                <div class="h-px flex-1 bg-stone-200"></div>
+                <div class="font-serif-display text-2xl">Implementación</div>
+              </div>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 class="font-medium mb-3">Contenido</h4>
+                  <ul class="space-y-2 text-sm text-stone-700">
+                    <li class="flex gap-2"><span class="text-[var(--mustard)]">✓</span> Primera sesión de fotos curada</li>
+                    <li class="flex gap-2"><span class="text-[var(--mustard)]">✓</span> Crear banco de contenido dual</li>
+                    <li class="flex gap-2"><span class="text-[var(--mustard)]">✓</span> Lanzar calendario editorial</li>
+                    <li class="flex gap-2"><span class="text-[var(--mustard)]">✓</span> Activar Instagram + TikTok</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-3">Expansión</h4>
+                  <ul class="space-y-2 text-sm text-stone-700">
+                    <li class="flex gap-2"><span class="text-[var(--mustard)]">✓</span> Optimizar perfiles de Depop/Poshmark</li>
+                    <li class="flex gap-2"><span class="text-[var(--mustard)]">✓</span> Crear tableros de Pinterest</li>
+                    <li class="flex gap-2"><span class="text-[var(--mustard)]">✓</span> Primeras colaboraciones con microinfluencers</li>
+                    <li class="flex gap-2"><span class="text-[var(--mustard)]">✓</span> Lanzar hashtag de marca #MiRoperoMag</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Fase 3 -->
+          <div class="timeline-item relative md:pl-24">
+            <div class="absolute left-6 top-2 w-5 h-5 rounded-full bg-[var(--olive)] timeline-dot hidden md:block"></div>
+            <div class="p-8 bg-white border border-stone-200">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="text-xs tracking-[0.3em] text-[var(--olive)]">FASE 3 · DÍAS 61-90</div>
+                <div class="h-px flex-1 bg-stone-200"></div>
+                <div class="font-serif-display text-2xl">Optimización</div>
+              </div>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 class="font-medium mb-3">Análisis</h4>
+                  <ul class="space-y-2 text-sm text-stone-700">
+                    <li class="flex gap-2"><span class="text-[var(--olive)]">✓</span> Primera auditoría trimestral</li>
+                    <li class="flex gap-2"><span class="text-[var(--olive)]">✓</span> Evaluar contenido top-performing</li>
+                    <li class="flex gap-2"><span class="text-[var(--olive)]">✓</span> Ajustar estrategia según KPIs</li>
+                    <li class="flex gap-2"><span class="text-[var(--olive)]">✓</span> Recopilar UGC de clientes</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-3">Escalado</h4>
+                  <ul class="space-y-2 text-sm text-stone-700">
+                    <li class="flex gap-2"><span class="text-[var(--olive)]">✓</span> Primeras campañas pagadas (si aplica)</li>
+                    <li class="flex gap-2"><span class="text-[var(--olive)]">✓</span> Lanzar newsletter o Substack privado</li>
+                    <li class="flex gap-2"><span class="text-[var(--olive)]">✓</span> Crear programa de embajadoras</li>
+                    <li class="flex gap-2"><span class="text-[var(--olive)]">✓</span> Planificar siguientes 90 días</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section id="checklist" class="section py-20 lg:py-32 px-6 lg:px-16 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--terracotta)] mb-4">12 · CHECKLIST INTERACTIVO</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">Tu hoja de <em>ruta</em></h2>
+        <p class="font-serif-elegant text-xl text-stone-600 max-w-3xl">
+          Marca cada tarea completada. Tu progreso se guarda automáticamente.
+        </p>
+      </div>
+      
+      <div class="mb-8 p-6 bg-[var(--cream)] flex items-center justify-between">
+        <div>
+          <div class="text-xs tracking-[0.3em] text-stone-500 mb-1">PROGRESO TOTAL</div>
+          <div class="font-serif-display text-4xl"><span id="progressCount">0</span> / <span id="totalCount">0</span></div>
+        </div>
+        <div class="flex-1 max-w-md ml-8">
+          <div class="h-3 bg-white rounded-full overflow-hidden">
+            <div id="progressBar" class="h-full bg-[var(--terracotta)] transition-all" style="width: 0%"></div>
+          </div>
+          <div class="text-right text-sm text-stone-500 mt-2"><span id="progressPercent">0</span>% completado</div>
+        </div>
+      </div>
+      
+      <div class="space-y-8" id="checklistContainer">
+        <!-- Fase 1 -->
+        <div>
+          <h3 class="font-serif-display text-2xl mb-4 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[var(--terracotta)] text-white text-sm flex items-center justify-center">1</span>
+            Fundamentos (Días 1-30)
+          </h3>
+          <div class="space-y-2">
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="1">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Definir paleta de colores oficial de la marca</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="2">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Seleccionar tipografías oficiales (display + cuerpo)</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="3">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Crear guía de estilo fotográfico documentada</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="4">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Auditar presencia actual en todas las redes</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="5">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Definir voz de marca y tabla de tonos</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="6">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Establecer línea base de KPIs actuales</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Fase 2 -->
+        <div>
+          <h3 class="font-serif-display text-2xl mb-4 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[var(--mustard)] text-white text-sm flex items-center justify-center">2</span>
+            Implementación (Días 31-60)
+          </h3>
+          <div class="space-y-2">
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="7">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Primera sesión de fotos curada con la nueva estética</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="8">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Crear banco de contenido dual (redes + e-commerce)</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="9">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Lanzar calendario editorial mensual</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="10">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Activar Instagram y TikTok con nueva identidad</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="11">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Optimizar perfiles de Depop y Poshmark</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="12">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Crear tableros temáticos en Pinterest</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="13">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Establecer primeras colaboraciones con microinfluencers</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="14">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Lanzar hashtag de marca #MiRoperoMag</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Fase 3 -->
+        <div>
+          <h3 class="font-serif-display text-2xl mb-4 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[var(--olive)] text-white text-sm flex items-center justify-center">3</span>
+            Optimización (Días 61-90)
+          </h3>
+          <div class="space-y-2">
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="15">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Realizar primera auditoría trimestral completa</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="16">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Evaluar contenido top-performing por plataforma</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="17">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Ajustar estrategia según resultados de KPIs</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="18">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Recopilar y destacar UGC de clientes</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="19">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Lanzar newsletter o comunidad privada</span>
+            </div>
+            <div class="checklist-item flex items-center gap-4 p-4 bg-[var(--cream)] cursor-pointer" data-id="20">
+              <div class="check-box w-6 h-6 border-2 border-stone-400 rounded flex items-center justify-center flex-shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" class="opacity-0"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex-1">Planificar los siguientes 90 días</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12 flex flex-wrap gap-4">
+        <button onclick="resetChecklist()" class="px-6 py-3 border border-stone-300 text-sm tracking-wider hover:bg-stone-100 transition-all">
+          REINICIAR PROGRESO
+        </button>
+        <button onclick="window.print()" class="px-6 py-3 bg-[var(--charcoal)] text-[var(--cream)] text-sm tracking-wider hover:bg-[var(--terracotta)] transition-all">
+          IMPRIMIR CHECKLIST
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-16 px-6 lg:px-16 bg-[var(--charcoal)] text-[var(--cream)]">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid lg:grid-cols-3 gap-12 mb-12">
+        <div>
+          <div class="text-xs tracking-[0.4em] text-[var(--mustard)] mb-4">MANUAL DE MARCA</div>
+          <h3 class="font-serif-display text-3xl mb-4">El Ropero <em>Mag&co</em></h3>
+          <p class="text-stone-400 text-sm leading-relaxed">
+            Guía estratégica para la transformación digital y consolidación de marca. Del vintage al viral.
+          </p>
+        </div>
+        <div>
+          <div class="text-xs tracking-[0.4em] text-[var(--mustard)] mb-4">RECURSOS</div>
+          <ul class="space-y-2 text-sm text-stone-300">
+            <li><a href="#identidad" class="hover:text-[var(--terracotta)] transition-colors">Identidad visual</a></li>
+            <li><a href="#voz" class="hover:text-[var(--terracotta)] transition-colors">Voz y narrativa</a></li>
+            <li><a href="#plataformas" class="hover:text-[var(--terracotta)] transition-colors">Estrategia multicanal</a></li>
+            <li><a href="#plan" class="hover:text-[var(--terracotta)] transition-colors">Plan de acción</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-xs tracking-[0.4em] text-[var(--mustard)] mb-4">PRINCIPIOS</div>
+          <ul class="space-y-2 text-sm text-stone-300">
+            <li>· Curadora · Experta · Auténtica</li>
+            <li>· Del producto a la narrativa</li>
+            <li>· De la transacción a la comunidad</li>
+            <li>· Del catálogo al storytelling</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-stone-700 flex flex-wrap justify-between items-center gap-4 text-xs text-stone-500">
+        <div>© 2026 · Manual de Marca · Versión 1.0</div>
+        <div>Documento vivo · Revisión trimestral recomendada</div>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  // Mobile menu
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  }
+  
+  // Scroll progress
+  window.addEventListener('scroll', () => {
+    const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('scrollProgress').style.width = scrolled + '%';
+  });
+  
+  // Section reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Animate KPI bars
+        entry.target.querySelectorAll('.kpi-bar').forEach(bar => {
+          const width = bar.dataset.width;
+          setTimeout(() => {
+            bar.style.width = width + '%';
+          }, 200);
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  document.querySelectorAll('.section').forEach(section => {
+    observer.observe(section);
+  });
+  
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (window.scrollY >= sectionTop - 200) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+  
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.add('hidden');
+        panel.classList.remove('active');
+      });
+      
+      const targetPanel = document.querySelector(`[data-panel="${tab}"]`);
+      targetPanel.classList.remove('hidden');
+      targetPanel.classList.add('active');
+    });
+  });
+  
+  // Palette cards
+  document.querySelectorAll('.palette-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.palette-card').forEach(c => {
+        c.classList.remove('border-[var(--terracotta)]');
+        c.classList.add('border-stone-200');
+      });
+      card.classList.remove('border-stone-200');
+      card.classList.add('border-[var(--terracotta)]');
+    });
+  });
+  
+  // Checklist
+  const checklistItems = document.querySelectorAll('.checklist-item');
+  const totalCount = checklistItems.length;
+  document.getElementById('totalCount').textContent = totalCount;
+  
+  // Load saved state
+  const savedState = JSON.parse(localStorage.getItem('roperoChecklist') || '{}');
+  
+  checklistItems.forEach(item => {
+    const id = item.dataset.id;
+    if (savedState[id]) {
+      item.classList.add('checked');
+    }
+    
+    item.addEventListener('click', () => {
+      item.classList.toggle('checked');
+      saveChecklist();
+      updateProgress();
+    });
+  });
+  
+  function saveChecklist() {
+    const state = {};
+    checklistItems.forEach(item => {
+      state[item.dataset.id] = item.classList.contains('checked');
+    });
+    localStorage.setItem('roperoChecklist', JSON.stringify(state));
+  }
+  
+  function updateProgress() {
+    const checked = document.querySelectorAll('.checklist-item.checked').length;
+    const percent = Math.round((checked / totalCount) * 100);
+    
+    document.getElementById('progressCount').textContent = checked;
+    document.getElementById('progressPercent').textContent = percent;
+    document.getElementById('progressBar').style.width = percent + '%';
+  }
+  
+  function resetChecklist() {
+    if (confirm('¿Seguro que deseas reiniciar todo el progreso?')) {
+      localStorage.removeItem('roperoChecklist');
+      checklistItems.forEach(item => item.classList.remove('checked'));
+      updateProgress();
+    }
+  }
+  
+  // Initialize
+  updateProgress();
+  
+  // Color swatches copy to clipboard
+  document.querySelectorAll('.color-swatch').forEach(swatch => {
+    swatch.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const hex = swatch.title.split('·')[1]?.trim() || swatch.style.background;
+      navigator.clipboard.writeText(hex).then(() => {
+        const original = swatch.title;
+        swatch.title = '¡Copiado!';
+        setTimeout(() => swatch.title = original, 1500);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
