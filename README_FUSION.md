@@ -1,6 +1,6 @@
 # El Ropero Mag&co — Fusión (classic + classic2) · Prompt 1 + 2
 
-Proyecto en la raíz del repo `miguelxlerion/elropero_magico_platform`, rama `fusion` (el `main` de ese repo es otro proyecto).
+Proyecto en la raíz y en el `main` del repo `miguelxlerion/elropero_magico_platform` (rama única).
 
 - **Base funcional:** `el_ropero_magico_classic2` (Next.js 16 App Router, Tailwind v4 + shadcn/Radix, Framer Motion, R3F + drei + model-viewer, Zustand, RHF + Zod, Drizzle, Wompi, IA describe, realtime drops, admin completo, 7 modelos `.glb` en `public/models/`).
 - **Diseño editorial:** `el_ropero_magico_classic` (paper `#f8f7f2`, serif display, eyebrow con línea, hero-stamp girado, marquee, tarjeta editorial con quick-add bar, category tiles, story-stats).

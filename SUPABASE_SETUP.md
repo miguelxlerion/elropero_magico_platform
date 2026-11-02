@@ -83,7 +83,7 @@ Sin esas dos variables el seed no crea el admin y `/login` no muestra la tarjeta
 > El despliegue actual es Cloudflare/OpenNext (Workers), no Vercel: para el camino
 > soportado usa `CLOUDFLARE.md`. Estos pasos quedan solo como alternativa.
 
-1. Importa el repo desde la rama `fusion`, con el root en `/` (el proyecto está en la
+1. Importa el repo desde su `main`, con el root en `/` (el proyecto está en la
    raíz del repo, no en `Templates/`).
 2. Environment Variables: las mismas de `.env.local` con `DATABASE_URL` del pooler
    y `NEXT_PUBLIC_SITE_URL=https://tu-dominio.com`.
