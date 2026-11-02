@@ -31,7 +31,7 @@ function PasswordInput(props: React.ComponentProps<typeof Input>) {
   );
 }
 
-export function LoginForm({ next, demo }: { next?: string; demo: { email: string; password: string } }) {
+export function LoginForm({ next, demo }: { next?: string; demo: { email: string; password: string } | null }) {
   const router = useRouter();
   const form = useForm<LoginValues>({ resolver: zodResolver(loginSchema), defaultValues: { email: "", password: "" } });
   const { errors, isSubmitting } = form.formState;
@@ -72,24 +72,26 @@ export function LoginForm({ next, demo }: { next?: string; demo: { email: string
           {isSubmitting && <Loader2 className="animate-spin" />} Ingresar
         </Button>
       </form>
-      <div className="mt-6 rounded-2xl border border-dashed border-salvia-300 bg-salvia-50 p-4 text-sm text-salvia-700">
-        <p className="flex items-center gap-2 font-semibold">
-          <KeyRound className="size-4" /> Acceso demo al panel admin
-        </p>
-        <p className="mt-1 font-mono text-xs">
-          {demo.email} · {demo.password}
-        </p>
-        <button
-          type="button"
-          onClick={() => {
-            form.setValue("email", demo.email);
-            form.setValue("password", demo.password);
-          }}
-          className="mt-2 text-xs font-semibold underline underline-offset-4"
-        >
-          Autocompletar
-        </button>
-      </div>
+      {demo && (
+        <div className="mt-6 rounded-2xl border border-dashed border-salvia-300 bg-salvia-50 p-4 text-sm text-salvia-700">
+          <p className="flex items-center gap-2 font-semibold">
+            <KeyRound className="size-4" /> Acceso demo al panel admin
+          </p>
+          <p className="mt-1 font-mono text-xs">
+            {demo.email} · {demo.password}
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              form.setValue("email", demo.email);
+              form.setValue("password", demo.password);
+            }}
+            className="mt-2 text-xs font-semibold underline underline-offset-4"
+          >
+            Autocompletar
+          </button>
+        </div>
+      )}
       <p className="mt-8 text-center text-sm text-tinta-500">
         ¿Primera vez?{" "}
         <Link href="/registro" className="font-semibold text-tinta underline underline-offset-4">

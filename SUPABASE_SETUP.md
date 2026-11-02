@@ -67,8 +67,9 @@ WHATSAPP_PHONE_ID=
 OPENAI_API_KEY=
 ```
 
-Luego: `npm run dev` y entra a `/admin/dashboard` (crea el admin con el seed:
-`admin@elroperomagco.co` / `CLAVE-PURGADA`, cámbiala después).
+Luego: define `DEMO_ADMIN_EMAIL` y `DEMO_ADMIN_PASSWORD` en `.env.local` (tú eliges el valor; no
+van en el código), corre `npm run db:seed` y entra a `/admin/dashboard` con esas credenciales.
+Sin esas dos variables el seed no crea el admin y `/login` no muestra la tarjeta de acceso demo.
 
 ## 5. Wompi sandbox
 

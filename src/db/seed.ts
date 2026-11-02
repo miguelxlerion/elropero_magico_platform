@@ -4,9 +4,8 @@ import { drops, orderItems, orders, products, subscribers, users } from "@/db/sc
 import { generateLocalCopy } from "@/lib/ai/describe";
 import { conditionFromScore } from "@/lib/conditions";
 import { hashPassword } from "@/lib/password";
+import { DEMO_ADMIN } from "@/lib/demoAdmin";
 import type { ProductCategory, ProductMeasurements, ProductStatus } from "@/types/product";
-
-export const DEMO_ADMIN = { email: "admin@elroperomagco.co", password: "CLAVE-PURGADA" };
 
 const DAY = 86_400_000;
 const px = (id: number) =>
@@ -321,6 +320,8 @@ async function seed() {
     });
     const inserted = await tx.insert(products).values(rows).returning();
     const bySlug = new Map(inserted.map((p) => [p.slug, p]));
+
+    if (!DEMO_ADMIN) throw new Error("Define DEMO_ADMIN_EMAIL y DEMO_ADMIN_PASSWORD antes de sembrar el admin.");
 
     await tx
       .insert(users)
