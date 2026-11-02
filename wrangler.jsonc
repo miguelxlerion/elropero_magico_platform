@@ -17,20 +17,26 @@
   }
 
   // Base de datos: Hyperdrive hace pooling TCP para el driver pg (con transacciones).
-  // 1) Crea tu Neon gratis y corre el schema con drizzle-kit push (ver CLOUDFLARE.md).
-  // 2) `wrangler hyperdrive create elropero-db --connection-string="postgresql://..."`.
-  // 3) Pega el `id` devuelto en "id" aquí abajo y quita este comentario.
+  // Origen previsto: Supabase. La doc de Hyperdrive exige la cadena de **Direct connection**
+  // (`db.<ref>.supabase.co:5432`, base `postgres`) y NO las del pooler de Supabase: el
+  // pooler lo pone Hyperdrive. `pg` 8.20.0 cumple el mínimo 8.16.3 que pide Cloudflare.
   //
-  // Comentario temporal: sin un UUID real de Hyperdrive, `wrangler deploy` rechaza la
-  // configuración y el sitio no se despliega. El binding vuelve cuando exista el Hyperdrive.
+  // 1) Aplica el schema desde tu PC (ver CLOUDFLARE.md §1) con la misma cadena directa.
+  // 2) Crea el Hyperdrive en la CUENTA del dashboard, no con el token de xleriondev:
+  //    npx wrangler hyperdrive create elropero-db --connection-string="postgres://postgres:<PASS>@db.<REF>.supabase.co:5432/postgres?sslmode=require"
+  // 3) Pega el `id` (UUID) que devuelve en "id" aquí abajo y quita este comentario.
+  //
+  // Sigue comentado porque `wrangler deploy` valida el `id`: con un placeholder el build de
+  // GitHub deja de desplegar. Con el UUID real, activar esto es descomentar y pegar.
   /*
   ,
   "hyperdrive": [
     {
       "binding": "HYPERDRIVE",
-      "id": "REEMPLAZAR-con-el-id-de-wrangler-hyperdrive-create",
-      // Solo desarrollo local con `opennextjs-cloudflare preview`.
-      // Pega aquí la contraseña de tu contenedor dev (misma que en `.dev.vars`, que no se commitea).
+      "id": "REEMPLAZAR-por-el-UUID-de-wrangler-hyperdrive-create",
+      // Solo desarrollo local con `opennextjs-cloudflare preview`: el contenedor dev
+      // (`ropero-pg`, puerto 5433). La contraseña va en `.dev.vars`, nunca aquí.
+      // En local el código prefiere DATABASE_URL (src/db/index.ts), así que esto no es obligatorio.
       "localConnectionString": "postgresql://postgres:REEMPLAZAR@127.0.0.1:5433/el_ropero_fusion"
     }
   ]
