@@ -56,10 +56,11 @@ npm run deploy
 
 **Opción B — Workers Builds (recomendado, auto-deploy con cada push):**
 1. Cloudflare dashboard → Workers & Pages → Create → **Workers** → Connect GitHub → `miguelxlerion/elropero_magico_platform`.
-2. Root directory: `Templates/el_ropero_fusion` (o la carpeta donde quede el proyecto).
-3. Build command: `npx @opennextjs/cloudflare build`
-4. Deploy command: `npx @opennextjs/cloudflare deploy`
-5. Variables/secrets del paso 3 en el dashboard.
+2. Production branch: `fusion`. El `main` de ese repo pertenece a otro proyecto, así que este sitio se despliega desde `fusion` (`git push origin main:fusion`).
+3. Root directory: `/` — este proyecto está en la raíz del repo.
+4. Build command: `npx @opennextjs/cloudflare build`
+5. Deploy command: `npx @opennextjs/cloudflare deploy`
+6. Variables/secrets de la sección 3 en el dashboard.
 
 ## 5. Probar local como en Workers
 

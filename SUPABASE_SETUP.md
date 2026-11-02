@@ -79,7 +79,11 @@ Luego: `npm run dev` y entra a `/admin/dashboard` (crea el admin con el seed:
 
 ## 6. Vercel
 
-1. Importa el repo, root en `Templates/el_ropero_fusion` (o mueve la carpeta).
+> El despliegue actual es Cloudflare/OpenNext (Workers), no Vercel: para el camino
+> soportado usa `CLOUDFLARE.md`. Estos pasos quedan solo como alternativa.
+
+1. Importa el repo desde la rama `fusion`, con el root en `/` (el proyecto está en la
+   raíz del repo, no en `Templates/`).
 2. Environment Variables: las mismas de `.env.local` con `DATABASE_URL` del pooler
    y `NEXT_PUBLIC_SITE_URL=https://tu-dominio.com`.
 3. Deploy. El `npm run build` ya no exige base de datos (conexión perezosa).
