@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "elropero-magico",
+  "name": "elropero-magico-platform",
   "main": ".open-next/worker.js",
   // No bajar esta fecha sin revisar: fija las APIs del runtime de Workers.
   "compatibility_date": "2026-10-08",
@@ -14,11 +14,17 @@
   },
   "observability": {
     "enabled": true
-  },
+  }
+
   // Base de datos: Hyperdrive hace pooling TCP para el driver pg (con transacciones).
   // 1) Crea tu Neon gratis y corre el schema con drizzle-kit push (ver CLOUDFLARE.md).
   // 2) `wrangler hyperdrive create elropero-db --connection-string="postgresql://..."`.
-  // 3) Pega el `id` devuelto en "id" aquí abajo.
+  // 3) Pega el `id` devuelto en "id" aquí abajo y quita este comentario.
+  //
+  // Comentario temporal: sin un UUID real de Hyperdrive, `wrangler deploy` rechaza la
+  // configuración y el sitio no se despliega. El binding vuelve cuando exista el Hyperdrive.
+  /*
+  ,
   "hyperdrive": [
     {
       "binding": "HYPERDRIVE",
@@ -28,4 +34,5 @@
       "localConnectionString": "postgresql://postgres:REEMPLAZAR@127.0.0.1:5433/el_ropero_fusion"
     }
   ]
+  */
 }
