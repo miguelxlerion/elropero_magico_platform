@@ -11,10 +11,12 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/controls";
 import { FieldError } from "@/components/ui/label";
 import { useCart } from "@/hooks/useCart";
+import { useWompiWidget } from "@/hooks/useWompiWidget";
 import { track } from "@/lib/analytics";
 import { calculateTotals } from "@/lib/shipping";
 import { cn, formatCOP } from "@/lib/utils";
 import { checkoutSchema, type CheckoutValues } from "@/lib/validation";
+import type { WompiWidgetParams } from "@/lib/wompi/widget";
 import { OrderSummary } from "./OrderSummary";
 import { PaymentSelector } from "./PaymentSelector";
 import { ShippingForm } from "./ShippingForm";
@@ -29,6 +31,7 @@ const STEPS = ["Carrito", "Datos y envío", "Pago", "Confirmación"];
 export function CheckoutView({ user, wompiEnabled }: CheckoutViewProps) {
   const router = useRouter();
   const { items, hydrated, subtotal, savings, removeMany, clear } = useCart();
+  const { open: openWidget, available: widgetAvailable } = useWompiWidget();
   const [redirecting, setRedirecting] = useState(false);
 
   const form = useForm<CheckoutValues>({
@@ -66,6 +69,7 @@ export function CheckoutView({ user, wompiEnabled }: CheckoutViewProps) {
       reference?: string;
       redirectUrl?: string;
       provider?: "wompi" | "sandbox" | "cod";
+      widget?: WompiWidgetParams | null;
       error?: string;
       unavailable?: string[];
     };
@@ -83,8 +87,31 @@ export function CheckoutView({ user, wompiEnabled }: CheckoutViewProps) {
     track("order_created", { reference: data.reference ?? "", value: totals.total, method: values.paymentMethod });
     setRedirecting(true);
     clear();
-    if (data.provider === "wompi") window.location.href = data.redirectUrl;
-    else router.push(data.redirectUrl);
+
+    if (data.provider !== "wompi") {
+      router.push(data.redirectUrl);
+      return;
+    }
+
+    // El widget abre el cobro sin salir del dominio; si el script de Wompi no carga, caemos al
+    // checkout hospedado (redirección) para que el pedido nunca quede sin forma de pagarse.
+    if (!data.widget || !widgetAvailable) {
+      window.location.href = data.redirectUrl;
+      return;
+    }
+    try {
+      const result = await openWidget(data.widget);
+      const transactionId = result?.transaction?.id;
+      if (transactionId) router.push(`/pedido/${data.reference}?id=${encodeURIComponent(transactionId)}`);
+      else {
+        setRedirecting(false);
+        toast.info("No se completó el pago", {
+          description: "Tus piezas siguen reservadas 30 minutos. Puedes intentar de nuevo.",
+        });
+      }
+    } catch {
+      window.location.href = data.redirectUrl;
+    }
   });
 
   if (!hydrated) return <div className="min-h-[60vh]" />;

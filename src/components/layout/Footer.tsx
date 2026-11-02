@@ -17,7 +17,7 @@ export function Footer() {
   return (
     <footer className="grain mt-24 bg-tinta text-hueso">
       <div className="mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
           <div className="space-y-5">
             <Link href="/" aria-label="El Ropero Mag&co — inicio">
               <Image
@@ -40,6 +40,7 @@ export function Footer() {
             <p className="eyebrow mb-4 text-hueso/45">Tienda</p>
             <ul className="space-y-2.5 text-sm text-hueso/75">
               <li><Link href="/catalogo" className="hover:text-hueso">Catálogo completo</Link></li>
+              <li><Link href="/instagram" className="hover:text-hueso">Instagram del ropero</Link></li>
               <li><Link href="/drops" className="hover:text-hueso">Calendario de drops</Link></li>
               <li><Link href="/catalogo?categoria=accesorios&3d=1" className="hover:text-hueso">Probador virtual 3D</Link></li>
               <li><Link href="/carrito" className="hover:text-hueso">Mi carrito</Link></li>
@@ -52,6 +53,18 @@ export function Footer() {
               <li>Nacional: 2 a 4 días hábiles</li>
               <li>Cambios por talla en 5 días</li>
               <li><Link href="/#historia" className="hover:text-hueso">Cómo curamos</Link></li>
+            </ul>
+          </div>
+          <div>
+            <p className="eyebrow mb-4 text-hueso/45">Equipo</p>
+            <ul className="space-y-2.5 text-sm text-hueso/75">
+              <li><Link href="/manual" className="hover:text-hueso">Manual de imagen</Link></li>
+              <li>
+                <Link href="/manual/manual-de-marca.html" target="_blank" rel="noreferrer" className="hover:text-hueso">
+                  Documento completo
+                </Link>
+              </li>
+              <li><Link href="/admin" className="hover:text-hueso">Panel de curaduría</Link></li>
             </ul>
           </div>
           <div>

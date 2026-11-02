@@ -4,6 +4,7 @@ import { releaseExpiredReservations } from "@/lib/queries";
 import { checkRateLimit, rateLimitedResponse } from "@/lib/rateLimit";
 import { orderRequestSchema } from "@/lib/validation";
 import { buildCheckoutUrl, isWompiConfigured } from "@/lib/wompi/checkout";
+import { buildWidgetParams } from "@/lib/wompi/widget";
 
 export const dynamic = "force-dynamic";
 
@@ -27,14 +28,27 @@ export async function POST(req: Request) {
 
     if (isWompiConfigured()) {
       const origin = getRequestOrigin(req);
+      const amountInCents = order.total * 100;
+      const redirectTo = `${origin}/pedido/${order.reference}`;
       const redirectUrl = buildCheckoutUrl({
         reference: order.reference,
-        amountInCents: order.total * 100,
-        redirectUrl: `${origin}/pedido/${order.reference}`,
+        amountInCents,
+        redirectUrl: redirectTo,
         customer: order.customer,
         shipping: order.shipping,
       });
-      return Response.json({ reference: order.reference, provider: "wompi", redirectUrl });
+      return Response.json({
+        reference: order.reference,
+        provider: "wompi",
+        redirectUrl,
+        widget: buildWidgetParams({
+          reference: order.reference,
+          amountInCents,
+          redirectUrl: redirectTo,
+          customer: order.customer,
+          shipping: order.shipping,
+        }),
+      });
     }
 
     return Response.json({ reference: order.reference, provider: "sandbox", redirectUrl: `/pedido/${order.reference}` });

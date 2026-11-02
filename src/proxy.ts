@@ -9,10 +9,14 @@ function isProtected(pathname: string) {
   return PROTECTED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
 
-function withSecurityHeaders(res: NextResponse) {
+// El manual de marca se embebe en /manual, asi que admite marco desde el propio origen.
+// El resto del sitio sigue con DENY: ninguna pagina propia lo enmarca.
+const SAME_ORIGIN_FRAMEABLE = ["/manual/manual-de-marca.html"];
+
+function withSecurityHeaders(res: NextResponse, pathname: string) {
   res.headers.set("X-Content-Type-Options", "nosniff");
   res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-  res.headers.set("X-Frame-Options", "DENY");
+  res.headers.set("X-Frame-Options", SAME_ORIGIN_FRAMEABLE.includes(pathname) ? "SAMEORIGIN" : "DENY");
   res.headers.set("Permissions-Policy", "geolocation=(), microphone=(), payment=()");
   return res;
 }
@@ -22,15 +26,15 @@ export default function proxy(req: NextRequest) {
 
   if (isProtected(pathname) && !req.cookies.get(SESSION_COOKIE)?.value) {
     if (pathname.startsWith("/api/")) {
-      return withSecurityHeaders(NextResponse.json({ error: "No autorizado" }, { status: 401 }));
+      return withSecurityHeaders(NextResponse.json({ error: "No autorizado" }, { status: 401 }), pathname);
     }
     const login = req.nextUrl.clone();
     login.pathname = "/login";
     login.searchParams.set("next", pathname);
-    return withSecurityHeaders(NextResponse.redirect(login));
+    return withSecurityHeaders(NextResponse.redirect(login), pathname);
   }
 
-  return withSecurityHeaders(NextResponse.next());
+  return withSecurityHeaders(NextResponse.next(), pathname);
 }
 
 export const config = {

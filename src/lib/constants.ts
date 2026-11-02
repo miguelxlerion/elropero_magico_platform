@@ -6,7 +6,7 @@ export const SITE = {
   tagline: "Moda con historia, curada en Bogotá",
   whatsapp: "573001234567",
   whatsappDisplay: "+57 300 123 4567",
-  instagram: "elroperomagco",
+  instagram: "elropero_magicovintage",
   email: "hola@elroperomagco.co",
   city: "Bogotá, Colombia",
   dropCadenceDays: 15,

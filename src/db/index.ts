@@ -8,10 +8,13 @@ const globalForDb = globalThis as typeof globalThis & {
 };
 
 /** Cadena de conexión según entorno:
+ *  - Local: DATABASE_URL (.env.local), para que el dev no dependa del placeholder de wrangler.jsonc.
  *  - Cloudflare Workers: binding Hyperdrive (pooling TCP; retiene pg + transacciones).
- *  - Local/build/scripts: DATABASE_URL.
+ *  - Build/scripts sin ninguna de las dos: falla al primer query, no al importar.
  */
 function resolveConnectionString(): string {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (databaseUrl) return databaseUrl;
   try {
     const env = getCloudflareContext().env as unknown as {
       HYPERDRIVE?: { connectionString?: string };
@@ -19,13 +22,9 @@ function resolveConnectionString(): string {
     const hyperdrive = env?.HYPERDRIVE?.connectionString;
     if (hyperdrive) return hyperdrive;
   } catch {
-    // Fuera de request scope (build, scripts, dev sin bindings): cae a DATABASE_URL.
+    // Fuera de request scope (build, scripts, dev sin bindings).
   }
-  const databaseUrl = process.env.DATABASE_URL;
-  if (!databaseUrl) {
-    throw new Error("DATABASE_URL is required");
-  }
-  return databaseUrl;
+  throw new Error("DATABASE_URL is required");
 }
 
 function createPool() {

@@ -43,6 +43,7 @@ export function Navbar({ user, announcement, liveDropId }: NavbarProps) {
     { href: "/catalogo", label: "Catálogo" },
     ...(liveDropId ? [{ href: `/drops/${liveDropId}`, label: "Drop en vivo" }] : []),
     { href: "/catalogo?categoria=accesorios&3d=1", label: "Probador 3D" },
+    { href: "/instagram", label: "Instagram" },
     { href: "/drops", label: "Calendario" },
     { href: "/#historia", label: "Historia" },
   ];

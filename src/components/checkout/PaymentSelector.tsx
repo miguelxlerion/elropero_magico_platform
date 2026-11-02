@@ -80,7 +80,7 @@ export function PaymentSelector({ value, onChange, wompiEnabled }: PaymentSelect
           <Lock className="mt-0.5 size-3.5 shrink-0 text-salvia-600" />
           {value === "cod"
             ? "Confirmamos tu pedido por WhatsApp antes de despacharlo. El recargo cubre el manejo de efectivo de la transportadora."
-            : "Serás redirigida al checkout seguro de Wompi (Bancolombia) para completar el pago. No guardamos datos de tarjetas."}
+            : "El pago se abre en una ventana segura de Wompi (Bancolombia) sin salir de esta página. No guardamos datos de tarjetas."}
         </p>
         {!wompiEnabled && value !== "cod" && (
           <p className="flex items-start gap-2 rounded-xl bg-amber-50 p-3 text-amber-900">

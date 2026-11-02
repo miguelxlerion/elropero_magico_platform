@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "images.pexels.com" },
       { protocol: "https", hostname: "**.supabase.co" },
+      // Miniaturas que entrega Behold para la sección /instagram: redistribuye el contenido de
+      // Instagram desde sus propios hosts, no desde el CDN original.
+      { protocol: "https", hostname: "behold.pictures" },
+      { protocol: "https", hostname: "**.behold.so" },
+      { protocol: "https", hostname: "**.cdninstagram.com" },
+      { protocol: "https", hostname: "**.fbcdn.net" },
     ],
   },
   async headers() {
