@@ -1,6 +1,9 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "elropero-magico-platform",
+  // Fija la cuenta dueña del worker. Sin esto, un token de otra cuenta hace que los comandos
+  // escriban recursos en la cuenta equivocada en silencio (hoy: code 10007 en deployments).
+  "account_id": "c393829619b11d1545a1dd69d4d48356",
   "main": ".open-next/worker.js",
   // No bajar esta fecha sin revisar: fija las APIs del runtime de Workers.
   "compatibility_date": "2026-10-08",
@@ -14,31 +17,26 @@
   },
   "observability": {
     "enabled": true
-  }
+  },
 
   // Base de datos: Hyperdrive hace pooling TCP para el driver pg (con transacciones).
-  // Origen previsto: Supabase. La doc de Hyperdrive exige la cadena de **Direct connection**
-  // (`db.<ref>.supabase.co:5432`, base `postgres`) y NO las del pooler de Supabase: el
-  // pooler lo pone Hyperdrive. `pg` 8.20.0 cumple el mínimo 8.16.3 que pide Cloudflare.
+  // Sin este binding el worker no tiene cómo abrir TCP y toda página que consulte la base
+  // falla con React #441 (src/db/index.ts termina en `throw new Error("DATABASE_URL is required")`).
   //
-  // 1) Aplica el schema desde tu PC (ver CLOUDFLARE.md §1) con la misma cadena directa.
-  // 2) Crea el Hyperdrive en la CUENTA del dashboard, no con el token de xleriondev:
-  //    npx wrangler hyperdrive create elropero-db --connection-string="postgres://postgres:<PASS>@db.<REF>.supabase.co:5432/postgres?sslmode=require"
-  // 3) Pega el `id` (UUID) que devuelve en "id" aquí abajo y quita este comentario.
-  //
-  // Sigue comentado porque `wrangler deploy` valida el `id`: con un placeholder el build de
-  // GitHub deja de desplegar. Con el UUID real, activar esto es descomentar y pegar.
-  /*
-  ,
+  // Origen actual: Neon (`elropero_magico`), config creada en 2026-10 y ya existente en esta
+  // cuenta. Si se migra a Supabase NO hay que tocar este archivo: se repunta el mismo id con
+  // `wrangler hyperdrive update 09cffda746a0452aa09f32aab83e1f4e --connection-string="postgres://postgres:<PASS>@db.<REF>.supabase.co:5432/postgres?sslmode=require"`.
+  // Para Supabase usa la cadena de **Direct connection** y no la del pooler: el pooling lo
+  // hace Hyperdrive. `pg` 8.20.0 cumple el mínimo 8.16.3 que pide Cloudflare.
   "hyperdrive": [
     {
       "binding": "HYPERDRIVE",
-      "id": "REEMPLAZAR-por-el-UUID-de-wrangler-hyperdrive-create",
+      "id": "09cffda746a0452aa09f32aab83e1f4e",
       // Solo desarrollo local con `opennextjs-cloudflare preview`: el contenedor dev
-      // (`ropero-pg`, puerto 5433). La contraseña va en `.dev.vars`, nunca aquí.
-      // En local el código prefiere DATABASE_URL (src/db/index.ts), así que esto no es obligatorio.
+      // (`ropero-pg`, puerto 5433). La contraseña no va aquí porque este archivo se commitea;
+      // ponla en una copia local si necesitas `preview`. En local el código prefiere
+      // DATABASE_URL de `.env.local` (src/db/index.ts), así que esto no es obligatorio.
       "localConnectionString": "postgresql://postgres:REEMPLAZAR@127.0.0.1:5433/el_ropero_fusion"
     }
   ]
-  */
 }

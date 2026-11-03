@@ -72,11 +72,11 @@ export function Navbar({ user, announcement, liveDropId }: NavbarProps) {
         <div className="flex w-max animate-marquee gap-12 whitespace-nowrap py-2 text-[0.7rem] font-medium tracking-[0.12em]">
           {[0, 1].map((dup) => (
             <div key={dup} className="flex gap-12" aria-hidden={dup === 1}>
-              {messages.map((m, i) => (
-                <span key={i} className="inline-flex items-center gap-12">
+              {messages.map((m) => (
+                <span key={m} className="inline-flex items-center gap-12">
                   <span>
                     {m}
-                    {i === 0 && announcement?.status === "upcoming" && (
+                    {announcement?.status === "upcoming" && (
                       <DropCountdown initialDrop={announcement} variant="inline" showNotify={false} className="font-semibold text-salvia-200" />
                     )}
                   </span>
