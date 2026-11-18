@@ -23,7 +23,7 @@ export default function ManualPage() {
         </p>
         <p className="mt-4 text-sm text-tinta-400">
           Diagnóstico, identidad visual, paleta, tipografía, fotografía, voz y narrativa, formatos por plataforma,
-          contenido dual, KPIs, plan de acción y el checklist de revisión.
+          contenido dual, KPIs, plan de acción, el checklist de revisión y el prompt maestro para agentes de contenido.
         </p>
       </header>
 

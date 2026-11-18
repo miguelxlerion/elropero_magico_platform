@@ -19,6 +19,7 @@ const SECTIONS = [
   { id: "kpis", num: "10", label: "KPIs" },
   { id: "plan", num: "11", label: "Plan de Acción" },
   { id: "checklist", num: "12", label: "Checklist" },
+  { id: "agente", num: "13", label: "Agente IA" },
 ];
 
 export function BrandManualViewer() {
@@ -50,7 +51,7 @@ export function BrandManualViewer() {
     <div className="mt-10">
       <div className="sticky top-[5.25rem] z-30 -mx-4 border-b border-border bg-hueso/92 px-4 py-3 backdrop-blur-xl sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div className="flex flex-wrap items-center gap-2">
-          <p className="eyebrow mr-2 shrink-0 text-tinta-400">12 secciones</p>
+          <p className="eyebrow mr-2 shrink-0 text-tinta-400">13 secciones</p>
           <div className="no-scrollbar flex flex-1 gap-1.5 overflow-x-auto">
             {SECTIONS.map((section) => (
               <button

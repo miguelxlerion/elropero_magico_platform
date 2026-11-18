@@ -187,6 +187,156 @@
     .no-print { display: none !important; }
     .section { opacity: 1 !important; transform: none !important; page-break-inside: avoid; }
   }
+
+  /* ===== 13 · AGENTE DE CONTENIDO (prompt maestro) ===== */
+  .ropero-master {
+    background: linear-gradient(160deg, rgba(193,123,92,0.14), rgba(43,43,43,0.05) 55%);
+    border: 1px solid rgba(193,123,92,0.45);
+    border-radius: 16px;
+    padding: 20px 24px;
+    position: relative;
+    box-shadow: 0 18px 44px rgba(43,43,43,0.12);
+  }
+  .ropero-master-head { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; }
+  .ropero-master-title { font-size: clamp(20px, 2.6vw, 30px); font-weight: 800; margin: 4px 0 8px; line-height: 1.1; font-family: 'Playfair Display', serif; }
+  .ropero-master-title em { font-style: italic; color: var(--terracotta); }
+  .ropero-master .lead { max-width: none; margin: 0; font-size: 14px; color: var(--charcoal); }
+  .ropero-master-toggle { margin-top: 4px; white-space: nowrap; }
+  .ropero-master-body { margin-top: 16px; border-top: 1px solid rgba(193,123,92,0.35); padding-top: 16px; }
+  .ropero-master.closed .ropero-master-body { display: none; }
+  .ropero-master-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .ropero-master-steps li { background: var(--charcoal); border-radius: 12px; padding: 12px 13px; font-size: 12.5px; color: var(--cream); display: flex; gap: 10px; align-items: flex-start; }
+  .ropero-master-steps b { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--terracotta); color: var(--cream); font-family: 'Cormorant Garamond', serif; font-size: 14px; }
+  .ropero-master-params { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; margin-top: 14px; }
+  .ropero-master-field { display: flex; flex-direction: column; gap: 5px; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); }
+  .ropero-master-field select,
+  .ropero-master-field input { background: #fff; border: 1.5px solid #d6cfc4; border-radius: 9px; color: var(--charcoal); font-size: 13px; padding: 9px 11px; min-width: 150px; font-family: 'Inter', sans-serif; }
+  .ropero-master-field input { min-width: 230px; }
+  .ropero-master-field select:focus,
+  .ropero-master-field input:focus { outline: none; border-color: var(--terracotta); }
+  .ropero-master-text { width: 100%; min-height: 230px; max-height: 520px; background: #fff; border: 1.5px solid #d6cfc4; border-radius: 12px; color: var(--charcoal); font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; padding: 14px; line-height: 1.55; resize: vertical; margin-top: 14px; white-space: pre; overflow: auto; }
+  .ropero-master-text:focus { outline: none; border-color: var(--terracotta); }
+  .ropero-master-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+  .ropero-master-actions .counter { margin-left: auto; font-size: 10px; color: #7a746a; letter-spacing: 0.08em; text-transform: uppercase; }
+  .ropero-master-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 10px; border: 1.5px solid var(--charcoal); background: var(--charcoal); color: var(--cream); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+  .ropero-master-btn:hover { background: var(--terracotta); border-color: var(--terracotta); color: var(--cream); }
+  .ropero-master-btn.ghost { background: transparent; color: var(--charcoal); }
+  .ropero-master-btn.ghost:hover { background: var(--charcoal); color: var(--cream); }
+  .ropero-master-agent { margin-top: 16px; border-top: 1px solid rgba(193,123,92,0.35); padding-top: 16px; }
+  .ropero-agent-preview { margin-top: 12px; background: #fff; border: 1px solid #d6cfc4; border-left: 4px solid var(--terracotta); border-radius: 12px; padding: 16px; }
+  .ropero-agent-preview .kicker-sm { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 4px; }
+  .ropero-agent-preview .titulo { font-family: 'Playfair Display', serif; font-size: 22px; line-height: 1.2; }
+  .ropero-agent-preview .bajada { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: #4b463f; margin-top: 6px; }
+  .ropero-agent-preview .caption { font-size: 13px; white-space: pre-wrap; margin-top: 10px; color: var(--charcoal); }
+  .ropero-agent-preview img { max-width: 260px; border-radius: 8px; margin-top: 10px; border: 1px solid #d6cfc4; }
+  .ropero-agent-preview .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .ropero-agent-preview .tags span { font-size: 11px; padding: 3px 10px; border-radius: 999px; background: var(--cream); border: 1px solid var(--terracotta); color: var(--terracotta); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  @media (max-width: 900px) {
+    .ropero-master-steps { grid-template-columns: 1fr; }
+    .ropero-master-head { flex-direction: column; }
+    .ropero-master-field, .ropero-master-field input { width: 100%; min-width: 0; }
+  }
+
+  /* ===== 13 · EL ESTUDIO — editor visual ===== */
+  .est-wrap { margin-top: 18px; }
+  .est-intro { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .est-pills { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0 16px; }
+  .est-chip { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid var(--terracotta); color: var(--terracotta); border-radius: 999px; padding: 4px 12px; }
+  .est-chip.warn { border-color: var(--mustard); color: var(--mustard); }
+  .est-grid { display: grid; grid-template-columns: 300px 1fr 340px; gap: 14px; }
+  .est-panel { background: #fff; border: 1px solid #e4ddd0; border-radius: 16px; padding: 16px; box-shadow: 0 12px 32px rgba(43,43,43,0.08); display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .est-pnl-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terracotta); font-weight: 700; }
+  .est-pnl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .est-dropzone { border: 2px dashed #d6cfc4; border-radius: 12px; padding: 18px 12px; text-align: center; font-size: 13px; color: #7a746a; cursor: pointer; transition: all 0.2s; background: var(--cream); }
+  .est-dropzone:hover, .est-dropzone.dragover { border-color: var(--terracotta); color: var(--terracotta); background: #fff; }
+  .est-media-item { display: flex; gap: 10px; align-items: center; padding: 8px; border: 1px solid #e4ddd0; border-radius: 10px; background: #fff; cursor: pointer; }
+  .est-media-item.active { border-color: var(--terracotta); box-shadow: 0 0 0 2px rgba(193,123,92,0.25); }
+  .est-media-item img, .est-media-item video { width: 54px; height: 54px; object-fit: cover; border-radius: 8px; background: var(--cream); }
+  .est-media-item .est-media-name { flex: 1; font-size: 12px; line-height: 1.35; word-break: break-word; }
+  .est-media-item .est-media-del { border: 0; background: transparent; cursor: pointer; font-size: 15px; color: #b9b2a4; padding: 6px; }
+  .est-media-item .est-media-del:hover { color: var(--rose); }
+  .est-privacy { font-size: 11px; color: #7a746a; border-top: 1px solid #eee7da; padding-top: 10px; }
+  .est-video-panel { border-top: 1px solid #eee7da; padding-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .est-video-panel input[type=range] { width: 100%; }
+  .est-formatos { display: flex; gap: 8px; }
+  .est-formato-btn { flex: 1; border: 1.5px solid #d6cfc4; background: var(--cream); border-radius: 10px; padding: 8px 6px; font-size: 11px; cursor: pointer; transition: all 0.2s; text-align: center; line-height: 1.35; }
+  .est-formato-btn.active { border-color: var(--terracotta); background: var(--terracotta); color: var(--cream); }
+  .est-canvas-wrap { background: #f0ebe0; border-radius: 12px; padding: 10px; }
+  .est-canvas { width: 100%; border-radius: 8px; display: block; touch-action: none; cursor: grab; user-select: none; background: #ddd; }
+  .est-canvas:active { cursor: grabbing; }
+  .est-minis { display: flex; gap: 10px; justify-content: center; margin-top: 10px; }
+  .est-mini-btn { border: 2px solid transparent; border-radius: 10px; padding: 5px; cursor: pointer; background: #fff; transition: all 0.2s; }
+  .est-mini-btn.active { border-color: var(--terracotta); }
+  .est-mini-btn canvas { display: block; border-radius: 6px; }
+  .est-zoom-row { display: flex; gap: 10px; align-items: center; }
+  .est-zoom-row input[type=range] { flex: 1; }
+  .est-coords { font-size: 10.5px; color: #7a746a; letter-spacing: 0.04em; border-top: 1px solid #eee7da; padding-top: 8px; }
+  .est-acciones { display: flex; gap: 8px; flex-wrap: wrap; }
+  .est-btn { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--charcoal); background: var(--charcoal); color: var(--cream); border-radius: 9px; padding: 9px 14px; font-size: 11.5px; letter-spacing: 0.05em; cursor: pointer; transition: all 0.2s; text-transform: uppercase; font-weight: 600; }
+  .est-btn:hover { background: var(--terracotta); border-color: var(--terracotta); }
+  .est-btn.ghost { background: transparent; color: var(--charcoal); }
+  .est-btn.ghost:hover { background: var(--charcoal); color: var(--cream); }
+  .est-btn.primary { background: var(--terracotta); border-color: var(--terracotta); }
+  .est-btn.primary:hover { background: var(--charcoal); border-color: var(--charcoal); }
+  .est-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+  .est-plantillas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .est-tpl { display: flex; flex-direction: column; align-items: center; gap: 6px; border: 1.5px solid #e4ddd0; border-radius: 12px; background: #fff; padding: 8px 4px 10px; cursor: pointer; transition: all 0.2s; text-align: center; }
+  .est-tpl:hover { border-color: var(--terracotta); transform: translateY(-2px); }
+  .est-tpl.active { border-color: var(--terracotta); background: #fdf4ec; box-shadow: 0 0 0 2px rgba(193,123,92,0.35); }
+  .est-tpl img { width: 96px; border-radius: 6px; }
+  .est-tpl-label { font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--charcoal); line-height: 1.3; }
+  .est-campos { display: flex; flex-direction: column; gap: 10px; }
+  .est-field { display: flex; flex-direction: column; gap: 4px; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); }
+  .est-field input, .est-field textarea { font-family: 'Inter', sans-serif; font-size: 12.5px; border: 1.5px solid #d6cfc4; border-radius: 8px; padding: 7px 10px; color: var(--charcoal); background: #fff; letter-spacing: normal; text-transform: none; }
+  .est-field input:focus, .est-field textarea:focus { outline: none; border-color: var(--terracotta); }
+  .est-acentos { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .est-acento { width: 34px; height: 34px; border-radius: 50%; border: 2.5px solid #fff; box-shadow: 0 0 0 1.5px #d6cfc4; cursor: pointer; }
+  .est-acento.active { box-shadow: 0 0 0 3px var(--terracotta); }
+  .est-check { display: flex; gap: 8px; align-items: center; font-size: 12px; color: var(--charcoal); }
+  .est-copy-area { width: 100%; min-height: 120px; border: 1.5px solid #d6cfc4; border-radius: 12px; padding: 12px; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; resize: vertical; background: #fff; color: var(--charcoal); }
+  .est-copy-area:focus { outline: none; border-color: var(--terracotta); }
+  .est-counter { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #7a746a; align-self: flex-end; }
+  .est-hashtags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .est-hashtag { font-size: 11px; border: 1px solid var(--terracotta); color: var(--terracotta); border-radius: 999px; padding: 3px 10px; background: var(--cream); cursor: pointer; }
+  .est-queue-list { display: flex; flex-direction: column; gap: 8px; max-height: 260px; overflow: auto; }
+  .est-queue-item { display: flex; gap: 10px; align-items: center; border: 1px solid #e4ddd0; border-radius: 10px; padding: 8px; background: #fff; }
+  .est-queue-item img { width: 54px; height: 54px; object-fit: cover; border-radius: 8px; background: var(--cream); }
+  .est-queue-item .est-queue-name { flex: 1; font-size: 12px; word-break: break-word; }
+  .est-queue-item .est-queue-del { border: 0; background: transparent; cursor: pointer; font-size: 15px; color: #b9b2a4; padding: 6px; }
+  .est-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--terracotta); color: var(--cream); border-radius: 999px; font-size: 11px; font-weight: 700; padding: 3px 12px; }
+  .est-schedule { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; border-top: 1px solid #eee7da; padding-top: 10px; }
+  .est-schedule select { border: 1.5px solid #d6cfc4; border-radius: 8px; padding: 6px 10px; font-size: 12px; background: #fff; }
+  .est-schedule-badge { font-size: 11.5px; color: var(--olive); font-weight: 600; }
+  .est-recursos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
+  .est-recurso-card { background: #fff; border: 1px solid #e4ddd0; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between; }
+  .est-recurso-card img { width: 100%; border-radius: 8px; background: #2B2B2B; object-fit: contain; }
+  .est-swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .est-swatch { border: 1.5px solid #e4ddd0; border-radius: 10px; overflow: hidden; cursor: pointer; background: #fff; transition: transform 0.15s; }
+  .est-swatch:hover { transform: scale(1.04); }
+  .est-swatch-color { height: 46px; }
+  .est-swatch-name { font-size: 8.5px; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 4px; color: var(--charcoal); }
+  .est-tipo-sample { border: 1.5px solid #e4ddd0; border-radius: 10px; padding: 10px; text-align: center; cursor: pointer; background: #fff; transition: border-color 0.2s; }
+  .est-tipo-sample:hover { border-color: var(--terracotta); }
+  .est-tipo-name { font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #7a746a; margin-top: 4px; }
+  .est-toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--charcoal); color: var(--cream); font-size: 12.5px; border-radius: 10px; padding: 10px 22px; z-index: 9999; box-shadow: 0 14px 40px rgba(0,0,0,0.3); max-width: 90vw; }
+  .est-vista .est-hide-vista { display: none !important; }
+  .est-recursos-fila { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 14px; margin-top: 14px; }
+  .est-recursos-fila h4 { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terracotta); margin: 0 0 10px; }
+  @media (max-width: 1100px) {
+    .est-grid { grid-template-columns: 280px 1fr; }
+    .est-panel-plantilla { grid-column: span 2; }
+    .est-recursos-fila { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 900px) {
+    .est-grid { grid-template-columns: 1fr; }
+    .est-panel-plantilla { grid-column: auto; }
+    .est-canvas { max-height: 48vh; }
+    .est-plantillas { grid-template-columns: repeat(4, 1fr); }
+    .est-recursos { grid-template-columns: 1fr; }
+    .est-swatches { grid-template-columns: repeat(4, 1fr); }
+    .est-acciones .est-btn { width: 100%; justify-content: center; }
+  }
 </style>
 </head>
 <body class="antialiased">
@@ -214,6 +364,7 @@
       <a href="#kpis" class="nav-link block py-2 text-stone-700">10 · KPIs</a>
       <a href="#plan" class="nav-link block py-2 text-stone-700">11 · Plan de Acción</a>
       <a href="#checklist" class="nav-link block py-2 text-stone-700">12 · Checklist</a>
+      <a href="#agente" class="nav-link block py-2 text-stone-700">13 · Agente IA</a>
     </div>
     
     <div class="pt-6 border-t border-stone-200 text-xs text-stone-500">
@@ -248,6 +399,7 @@
       <a href="#kpis" onclick="toggleMobileMenu()" class="block py-2">KPIs</a>
       <a href="#plan" onclick="toggleMobileMenu()" class="block py-2">Plan de Acción</a>
       <a href="#checklist" onclick="toggleMobileMenu()" class="block py-2">Checklist</a>
+      <a href="#agente" onclick="toggleMobileMenu()" class="block py-2">Agente IA</a>
     </div>
   </div>
 </div>
@@ -277,7 +429,7 @@
       
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-3xl mb-16">
         <div class="border-l-2 border-[var(--terracotta)] pl-4">
-          <div class="font-serif-display text-3xl">12</div>
+          <div class="font-serif-display text-3xl">13</div>
           <div class="text-xs tracking-wider text-stone-600 mt-1">SECCIONES</div>
         </div>
         <div class="border-l-2 border-[var(--mustard)] pl-4">
@@ -1708,6 +1860,273 @@
     </div>
   </section>
 
+  <!-- 13 · AGENTE DE CONTENIDO (prompt maestro) -->
+  <section id="agente" class="section py-20 lg:py-32 px-6 lg:px-16" style="background: var(--cream);">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <div class="text-xs tracking-[0.4em] text-[var(--terracotta)] mb-4">13 · AGENTE DE CONTENIDO</div>
+        <h2 class="font-serif-display text-5xl lg:text-6xl mb-6">Tu agente <em>primero</em>, la publicación después</h2>
+        <p class="font-serif-elegant text-xl text-stone-600 max-w-3xl">
+          El Ropero Mag&amp;co puede trabajar con agentes de IA que generan contenido de marca.
+          El <strong>prompt maestro</strong> es el contrato que el agente recibe antes de cualquier brief:
+          le da el rol, la marca, las redes, el formato de salida y las reglas de este manual.
+          Tú solo pegas su respuesta y la publicación queda lista para ajustar y publicar.
+        </p>
+      </div>
+
+      <div class="ropero-master" id="master">
+        <div class="ropero-master-head">
+          <div>
+            <p class="text-xs tracking-[0.3em] text-[var(--terracotta)] mb-1">// 13 · prompt maestro · agentes</p>
+            <h3 class="ropero-master-title">Prompt <em>maestro</em> del ropero</h3>
+            <p class="lead">Una sola vez, antes de cualquier brief. Sigue siendo editable; al copiar o descargar se rellenan las variables <code>{{RED}} {{FORMATO}} {{OBJETIVO}} {{TEMA}}</code>.</p>
+          </div>
+          <button class="btn ropero-master-btn ghost ropero-master-toggle" id="btnMasterToggle" type="button" aria-expanded="true" aria-controls="masterBody">Ocultar ▲</button>
+        </div>
+
+        <div class="ropero-master-body" id="masterBody">
+          <ol class="ropero-master-steps">
+            <li><b>1</b><span><strong>Copia el prompt maestro</strong> y dáselo a tu agente (ChatGPT, Claude, Gemini, Copilot…) junto con un brief concreto: red, tema y objetivo.</span></li>
+            <li><b>2</b><span>El agente devuelve <strong>dos bloques</strong>: texto legible y un bloque <code>```json</code> con plantilla, formato, textos, hashtags y caption.</span></li>
+            <li><b>3</b><span><strong>Pega la respuesta</strong> abajo y pulsa <strong>Rellenar plantilla</strong>: la publicación compuesta aparece lista para ajustar, subir la foto y publicar.</span></li>
+          </ol>
+
+          <div class="ropero-master-params" aria-label="Parámetros del brief">
+            <label class="ropero-master-field">Red social
+              <select id="mpRed">
+                <option value="instagram">Instagram</option>
+                <option value="tiktok">TikTok</option>
+                <option value="shorts">YouTube Shorts</option>
+                <option value="pinterest">Pinterest</option>
+                <option value="depop">Depop</option>
+                <option value="poshmark">Poshmark</option>
+              </select>
+            </label>
+            <label class="ropero-master-field">Formato
+              <select id="mpFmt">
+                <option value="1x1">1:1 · 1080×1080</option>
+                <option value="4x5" selected>4:5 · 1080×1350 (recomendado)</option>
+                <option value="9x16">9:16 · 1080×1920</option>
+                <option value="2x3">2:3 · 1000×1500 (Pinterest)</option>
+              </select>
+            </label>
+            <label class="ropero-master-field">Objetivo
+              <select id="mpObj">
+                <option value="awareness">Awareness · visibilidad de marca</option>
+                <option value="comunidad">Comunidad · seguidores y conversación</option>
+                <option value="venta" selected>Venta · reservar la pieza del drop</option>
+              </select>
+            </label>
+            <label class="ropero-master-field">Tema del post
+              <input id="mpTopic" type="text" value="chaqueta de denim de los 90" placeholder="p. ej. vestido rojo midi 1978" />
+            </label>
+            <button class="btn ropero-master-btn" id="btnMasterApply" type="button" title="Sustituye las variables {{RED}} {{FORMATO}} {{OBJETIVO}} {{TEMA}} del texto actual">Aplicar parámetros</button>
+          </div>
+
+          <label class="sr-only" for="masterPrompt">Prompt maestro editable</label>
+          <textarea id="masterPrompt" class="ropero-master-text" spellcheck="false" aria-label="Prompt maestro editable para agentes" placeholder="Cargando el prompt maestro…"></textarea>
+          <div class="ropero-master-actions">
+            <button class="ropero-master-btn" id="btnMasterCopy" type="button">⧉ Copiar prompt maestro</button>
+            <button class="ropero-master-btn ghost" id="btnMasterDownload" type="button">⬇ Descargar .md</button>
+            <button class="ropero-master-btn ghost" id="btnMasterRestore" type="button">⟲ Restaurar maestro</button>
+            <span class="counter" id="masterCount">0 caracteres</span>
+          </div>
+
+          <div class="ropero-master-agent">
+            <p class="text-xs tracking-[0.3em] text-[var(--terracotta)] mb-2">PEGAR RESPUESTA DEL AGENTE</p>
+            <label class="sr-only" for="agentResponse">Pega aquí la respuesta del agente</label>
+            <textarea id="agentResponse" class="ropero-master-text" rows="4" spellcheck="false" placeholder='El agente debe responder con: (1) un texto legible y (2) un bloque ```json { "red": "instagram", "formato": "4x5", "plantilla": "drop", … } ``` — media_url opcional.'></textarea>
+            <div class="ropero-master-actions">
+              <button class="ropero-master-btn" id="btnAgentFill" type="button">↻ Rellenar plantilla y campos</button>
+              <button class="ropero-master-btn ghost" id="btnAgentClear" type="button">⟲ Borrar respuesta</button>
+              <span class="counter" id="agentCount">0 caracteres</span>
+            </div>
+
+            <div class="ropero-agent-preview" id="agentPreview" hidden>
+              <p class="kicker-sm" id="apRedFmt">instagram · 4x5</p>
+              <p class="kicker-sm" id="apPlantilla" style="color: var(--mustard);">drop</p>
+              <p class="kicker-sm" id="apAntetitulo" style="color: var(--charcoal); font-size: 10px; margin-top: 10px;"></p>
+              <h4 class="titulo font-serif-display" id="apTitulo"></h4>
+              <p class="bajada font-serif-elegant" id="apBajada"></p>
+              <p class="caption" id="apCaption"></p>
+              <div class="tags" id="apHashtags"></div>
+              <div id="apMedia"></div>
+              <p class="text-xs mt-3" id="apBoton" style="color: var(--terracotta); font-weight: 700; letter-spacing: 0.08em;"></p>
+            </div>
+            <p class="hint text-xs text-stone-500 mt-2">El bloque <code>```json</code> dentro de la respuesta rellena automáticamente plantilla, red, formato, textos, hashtags, caption y <code>media_url</code> (esta última, si el servidor la sirve con CORS). Sin JSON, el texto se copia al área de caption para que lo composes manualmente.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="est-wrap" id="estudioIG" aria-labelledby="estudioTitle">
+        <div class="est-intro">
+          <p class="text-xs tracking-[0.35em] text-[var(--terracotta)]">// 13 · el estudio · editor visual local</p>
+          <h3 class="font-serif-display text-4xl lg:text-5xl" id="estudioTitle">Arma la pieza <em>en vivo</em></h3>
+          <p class="font-serif-elegant text-lg text-stone-600">Importa fotos o videos, aplica una plantilla oficial de marca, edita los textos y <strong>exporta un PNG listo para subir a Instagram</strong>. Todo se procesa en tu navegador: <strong>nada se sube a internet</strong>.</p>
+        </div>
+
+        <div class="est-pills">
+          <button class="ropero-master-btn ghost" id="estViewToggle" type="button">👁 Modo vista</button>
+          <button class="ropero-master-btn ghost" id="estRestore" type="button">⟲ Restaurar última edición</button>
+          <a class="ropero-master-btn ghost" href="#identidad" style="text-decoration:none">🛡 Ver reglas de marca</a>
+          <span class="est-chip">9 plantillas</span>
+          <span class="est-chip">3 formatos · 1:1 · 4:5 · 9:16</span>
+          <span class="est-chip warn">100% local · nada se sube a internet</span>
+        </div>
+
+        <div class="est-grid">
+          <!-- ========== PANEL 1 · CONTENIDO ========== -->
+          <section class="est-panel" aria-label="Contenido">
+            <div class="est-pnl-head">
+              <p class="est-pnl-label">1 · Contenido</p>
+              <span class="text-xs text-stone-400" id="estMediaCount">0 medios</span>
+            </div>
+            <div class="est-dropzone est-hide-vista" id="estDropzone" role="button" tabindex="0">
+              <strong>Arrastra fotos o videos</strong><br/>o haz clic para elegir
+              <input id="estFile" type="file" accept="image/*,video/*" multiple hidden />
+            </div>
+            <div class="est-media-list" id="estMediaList" aria-live="polite"></div>
+            <p class="est-privacy">🔒 Todo se procesa en tu navegador: las fotos y videos nunca salen de tu computadora.</p>
+            <div class="est-video-panel" id="estVideoPanel" hidden>
+              <p class="est-pnl-label">Video seleccionado</p>
+              <label class="est-field">Fotograma
+                <input id="estFrameSlider" type="range" min="0" max="1000" value="0" />
+              </label>
+              <div class="est-acciones est-hide-vista">
+                <button class="est-btn ghost" id="estPlayPause" type="button">▶ Vista previa</button>
+                <button class="est-btn ghost" id="estDownloadOriginal" type="button">⬇ Video original</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== PANEL 2 · VISTA PREVIA Y EXPORTACIÓN ========== -->
+          <section class="est-panel" aria-label="Vista previa y exportación">
+            <div class="est-pnl-head">
+              <p class="est-pnl-label">2 · Vista previa y exportación</p>
+              <span class="text-xs text-stone-400" id="estFormatLabel">4:5 · 1080×1350</span>
+            </div>
+            <div class="est-formatos" role="group" aria-label="Formato">
+              <button class="est-formato-btn" id="estFmt_1x1" type="button" data-fmt="1x1">1:1<br/>1080×1080</button>
+              <button class="est-formato-btn active" id="estFmt_4x5" type="button" data-fmt="4x5">4:5<br/>1080×1350</button>
+              <button class="est-formato-btn" id="estFmt_9x16" type="button" data-fmt="9x16">9:16<br/>1080×1920</button>
+            </div>
+            <div class="est-canvas-wrap">
+              <canvas class="est-canvas" id="estCanvas" width="1080" height="1350"></canvas>
+              <div class="est-minis" aria-label="Mini vistas simultáneas">
+                <button class="est-mini-btn" id="estMini_1x1" type="button" data-fmt="1x1" aria-label="Mini 1:1"><canvas id="estMiniCanvas_1x1" width="144" height="144"></canvas></button>
+                <button class="est-mini-btn active" id="estMini_4x5" type="button" data-fmt="4x5" aria-label="Mini 4:5"><canvas id="estMiniCanvas_4x5" width="115" height="144"></canvas></button>
+                <button class="est-mini-btn" id="estMini_9x16" type="button" data-fmt="9x16" aria-label="Mini 9:16"><canvas id="estMiniCanvas_9x16" width="81" height="144"></canvas></button>
+              </div>
+            </div>
+            <div class="est-zoom-row est-hide-vista">
+              <span class="text-xs text-stone-500">Zoom</span>
+              <input id="estZoom" type="range" min="100" max="260" value="100" />
+              <button class="est-btn ghost" id="estResetCrop" type="button" style="padding:8px 10px;font-size:10px">Reiniciar</button>
+            </div>
+            <p class="est-coords" id="estCropLine">Recorte: x 0 · y 0 · zoom 100% · lienzo 1080×1350 · doble clic para reiniciar</p>
+            <div class="est-acciones est-hide-vista">
+              <button class="est-btn primary" id="estExport" type="button">⬇ Exportar PNG</button>
+              <button class="est-btn ghost" id="estAddQueue" type="button">＋ Añadir a la cola</button>
+              <button class="est-btn ghost" id="estOpenIG" type="button">↗ Abrir Instagram</button>
+              <button class="est-btn" id="estUpload" type="button" hidden>🚀 Subir a Instagram</button>
+            </div>
+          </section>
+
+          <!-- ========== PANEL 3 · PLANTILLA ========== -->
+          <section class="est-panel est-panel-plantilla" aria-label="Plantilla">
+            <div class="est-pnl-head">
+              <p class="est-pnl-label">3 · Plantilla</p>
+              <span class="text-xs text-stone-400">Clic = aplicar</span>
+            </div>
+            <div class="est-plantillas" id="estTemplates" role="group" aria-label="Plantillas oficiales"></div>
+            <div class="est-hide-vista">
+              <p class="text-xs tracking-[0.18em] text-[var(--terracotta)] mb-1 mt-2">Acento</p>
+              <div class="est-acentos" role="group" aria-label="Acento">
+                <button class="est-acento active" id="estAccentSol" type="button" data-accent="sol" style="background:#D4A24C" title="Sol · Mostza"></button>
+                <button class="est-acento" id="estAccentHoja" type="button" data-accent="hoja" style="background:#4A5D4F" title="Hoja · Oliva"></button>
+                <button class="est-acento" id="estAccentCrema" type="button" data-accent="crema" style="background:#F5EFE0" title="Crema"></button>
+              </div>
+            </div>
+            <label class="est-check est-hide-vista" style="margin-top:6px">
+              <input id="estWatermark" type="checkbox" checked style="accent-color: var(--terracotta); width:16px;height:16px" />
+              <span>Emblema (marca de agua isotipo)</span>
+            </label>
+            <div class="est-campos" id="estFields"></div>
+          </section>
+
+          <!-- ========== FILA INFERIOR · COPY + COLA ========== -->
+          <section class="est-panel" aria-label="Copy del post">
+            <div class="est-pnl-head">
+              <p class="est-pnl-label">4 · Copy del post</p>
+            </div>
+            <label class="sr-only" for="estCaption">Leyenda del post</label>
+            <textarea id="estCaption" class="est-copy-area" maxlength="2200" spellcheck="false" aria-label="Leyenda del post"></textarea>
+            <div class="est-hide-vista" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <button class="est-btn ghost" id="estRegen" type="button">↺ Regenerar</button>
+              <button class="est-btn" id="estCopyCopy" type="button">⧉ Copiar copy</button>
+              <span class="est-counter" id="estCaptionCount">0 / 2200 caracteres</span>
+            </div>
+            <div class="est-hashtags est-hide-vista" id="estHashtags"></div>
+          </section>
+
+          <section class="est-panel" aria-label="Cola de exportación">
+            <div class="est-pnl-head">
+              <p class="est-pnl-label">5 · Cola de exportación</p>
+              <span class="est-badge" id="estQueueBadge">0 posts en cola</span>
+            </div>
+            <div class="est-queue-list" id="estQueueList"></div>
+            <div class="est-acciones est-hide-vista">
+              <button class="est-btn ghost" id="estExportQueue" type="button" disabled>⬇ Exportar cola (0)</button>
+              <button class="est-btn ghost" id="estClearQueue" type="button">Vaciar</button>
+            </div>
+            <div class="est-schedule est-hide-vista">
+              <label class="est-field" style="min-width:0">Día
+                <select id="estDay">
+                  <option value="">—</option><option value="lun">Lunes</option><option value="mar">Martes</option><option value="mie">Miércoles</option><option value="jue">Jueves</option><option value="vie">Viernes</option><option value="sab">Sábado</option><option value="dom">Domingo</option>
+                </select>
+              </label>
+              <label class="est-field" style="min-width:0">Hora
+                <select id="estHour">
+                  <option value="">—</option><option value="08:00">08:00</option><option value="09:00">09:00</option><option value="10:00">10:00</option><option value="11:00">11:00</option><option value="12:00">12:00</option><option value="13:00">13:00</option><option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option><option value="17:00">17:00</option><option value="18:00">18:00</option><option value="19:00">19:00</option><option value="20:00">20:00</option><option value="21:00">21:00</option>
+                </select>
+              </label>
+              <span class="est-schedule-badge" id="estScheduleBadge">🗓 Sin programar</span>
+            </div>
+          </section>
+        </div>
+
+        <div class="est-recursos">
+          <div class="est-recurso-card">
+            <h4>Logos oficiales · descarga</h4>
+            <img src="/logo-ropero-mag.svg" alt="Logo principal" style="background:#fff;padding:10px" />
+            <div class="est-acciones"><a class="est-btn ghost" href="/logo-ropero-mag.svg" download="logo-ropero-mag.svg" style="text-decoration:none;justify-content:center">⬇ SVG principal</a></div>
+          </div>
+          <div class="est-recurso-card">
+            <h4>Logo sobre fondo oscuro</h4>
+            <img src="/logo-ropero-mag-oscuro.svg" alt="Logo sobre fondo oscuro" />
+            <div class="est-acciones"><a class="est-btn ghost" href="/logo-ropero-mag-oscuro.svg" download="logo-ropero-mag-oscuro.svg" style="text-decoration:none;justify-content:center">⬇ SVG oscuro</a></div>
+          </div>
+          <div class="est-recurso-card">
+            <h4>Isotipo · emblema</h4>
+            <img src="/logo-mark.svg" alt="Isotipo isotópico" style="background:#fff;padding:10px" />
+            <div class="est-acciones"><a class="est-btn ghost" href="/logo-mark.svg" download="logo-mark.svg" style="text-decoration:none;justify-content:center">⬇ SVG isotipo</a></div>
+          </div>
+        </div>
+        <div class="est-recursos-fila">
+          <div>
+            <h4>Paleta oficial · clic = copiar HEX</h4>
+            <div class="est-swatches" id="estSwatches"></div>
+          </div>
+          <div>
+            <h4>Tipografías · clic = copiar nombre</h4>
+            <div class="est-tipo-samples" id="estTypeSamples" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
   <!-- FOOTER -->
   <footer class="py-16 px-6 lg:px-16 bg-[var(--charcoal)] text-[var(--cream)]">
     <div class="max-w-6xl mx-auto">
@@ -1726,6 +2145,7 @@
             <li><a href="#voz" class="hover:text-[var(--terracotta)] transition-colors">Voz y narrativa</a></li>
             <li><a href="#plataformas" class="hover:text-[var(--terracotta)] transition-colors">Estrategia multicanal</a></li>
             <li><a href="#plan" class="hover:text-[var(--terracotta)] transition-colors">Plan de acción</a></li>
+            <li><a href="#agente" class="hover:text-[var(--terracotta)] transition-colors">Agente de contenido (prompt maestro)</a></li>
           </ul>
         </div>
         <div>
@@ -1892,7 +2312,1501 @@
       });
     });
   });
-</script>
 
+  // ===== 13 · AGENTE DE CONTENIDO — prompt maestro =====
+  const ROPERO_MASTER_KEY = 'roperoMasterPrompt';
+  const ROPERO_NETWORKS = [
+    { id: 'instagram', label: 'Instagram',      fmt: ['1:1', '4:5', '9:16'], cap: '2200' },
+    { id: 'tiktok',    label: 'TikTok',         fmt: ['9:16'],               cap: '2200' },
+    { id: 'shorts',    label: 'YouTube Shorts', fmt: ['9:16'],               cap: '5000' },
+    { id: 'pinterest', label: 'Pinterest',      fmt: ['2x3'],                cap: '500'  },
+    { id: 'depop',     label: 'Depop',          fmt: ['4x5', '1:1'],         cap: null   },
+    { id: 'poshmark',  label: 'Poshmark',       fmt: ['1:1', '4:5'],         cap: null   }
+  ];
+  const ROPERO_HASHTAGS = ['#ElRoperoMag', '#MiRoperoMag', '#VintageStyle', '#SecondHandFashion', '#SlowFashion', '#VintageFinds', '#SustainableStyle', '#VintageDepop', '#Thrifted', '#Y2K'];
+  const ROPERO_PLANTILLAS = [
+    ['drop', 'Destacado del drop de 15 días'],
+    ['pieza', 'Pieza única (medidas y estado reales)'],
+    ['estilo', 'Guía de styling / cómo combinar'],
+    ['historia', 'Historia de la pieza (hipótesis curada)'],
+    ['cita', 'Cita o manifiesto de marca'],
+    ['comunidad', 'Comunidad / preguntas / DMs'],
+    ['antesdespues', 'Antes / después de restaurar una pieza'],
+    ['carrito', 'Últimas piezas / cierre de drop'],
+    ['estacional', 'Estacional o por temporada']
+  ];
+
+  function masterTemplate() {
+    const tags = ROPERO_HASHTAGS.join('  ');
+    const tpl = ROPERO_PLANTILLAS.map(p => '- ' + p[0].padEnd(13) + ' — ' + p[1]).join('\n');
+    const nets = ROPERO_NETWORKS.map(n => '- ' + n.label.padEnd(16) + ': ' + n.fmt.join(' / ') + (n.cap ? '  · caption máx ' + n.cap : '  · descripción corta y honesta')).join('\n');
+    return [
+      '# PROMPT MAESTRO — El Ropero Mag&co · Agente de contenido',
+      'Eres el estratega senior de contenido y copywriter de El Ropero Mag&co. Este documento es tu contrato de trabajo: síguelo al pie de la letra ANTES de redactar nada. No improvises la identidad de marca.',
+      '',
+      '## ROL',
+      'Estratega de contenido + copywriter de moda circular. Tu única misión: producir UNA publicación de marca para El Ropero Mag&co sobre el brief recibido, pensada para {{RED}}.',
+      '',
+      '## LA MARCA',
+      '- Qué es: tienda curada de ropa y accesorios de segunda mano en Chapinero, Bogotá. Cada pieza es única, está medida en centímetros y tiene fotos reales; solo pasa el filtro una de cada cinco prendas.',
+      '- Qué vende: piezas de segunda mano curadas, en drops cada 15 días ("cuando una prenda se va, no vuelve"), y la comunidad que las busca.',
+      '- Regla de oro de la paleta: el tono oscuro de anclaje (grafito/carbón) garantiza legibilidad del texto.',
+      '',
+      '## AUDIENCIA',
+      '- Mujeres millennials y Gen Z colombianas (Instagram y TikTok) y compradoras de Depop y Poshmark.',
+      '- Buscan estética, comunidad y piezas con historia; no "usar" la prenda: elegirla.',
+      '',
+      '## TONO DE VOZ',
+      '- Curadora (criterio, selección) · Nostálgica (las piezas tienen pasado) · Cercana (conversacional, habla de tú) · Auténtica (honesta con el estado y los defectos).',
+      '- Frases cortas. Una idea por frase. Español colombiano. Tratamiento de "tú".',
+      '- Cero urgencia falsa, cero lenguaje de gurú y cero adjetivos inflados.',
+      '',
+      '## PROHIBICIONES DURAS (violar cualquiera = contenido inválido)',
+      '- No inventes cifras: ni piezas vendidas, ni seguidores, ni años, ni testimonios, ni premios.',
+      '- No uses frases infladas: "miles de clientas", "éxito garantizado", "viral".',
+      '- No inventes precios ni descuentos: el precio viene de la ficha del catálogo; si no está, no lo menciones.',
+      '- No inventes historias como hechos verificables ("esta pieza perteneció a una heredera en los 40"). Las historias son hipótesis curadas: se cuentan como posibilidades, nunca como datos.',
+      '- No prometas resultados: una prenda no garantiza nada; es única y con estado documentado.',
+      '- No crees FOMO artificial ("última oportunidad", "se agotan ya"): el drop se anuncia 24 h antes y es real; no lo inventes.',
+      '- No uses datos sensibles de clientes ni su historial de compras.',
+      '- No mezcles métricas de plataformas distintas como si fueran la misma experiencia.',
+      '',
+      '## REGLAS VISUALES (manual de imagen oficial)',
+      '- Paleta: terracota #C17B5C (acento), mostaza #D4A24C (énfasis), oliva #4A5D4F, sage #8FA68E, crema #F5EFE6 (fondo), charcoal #2B2B2B (texto), rose #B85C5C.',
+      '- Tipografías: Playfair Display titulares; Inter cuerpo; Cormorant Garamond para citas.',
+      '- Proporción: fondo dominante (la pieza o la crema), texto contenido, acento terracota/mostaza como 10–15 %, nunca como fondo completo.',
+      '- Sujeto único y fondo limpio: la pieza es la protagonista; nunca fondo ruidoso detrás de una pieza sin marco. Ver manual §06 “Lo que SÍ / Lo que NO”.',
+      '- El wordmark se usa solo según el manual; nunca deformado ni sobre fondos sin contraste.',
+      '- Si pides imagen al generador: sujeto único, fondo limpio, luz natural lateral, sin texto baked-in, 4:5 (feed) o 9:16 (stories/reels).',
+      '',
+      '## FORMATOS Y REDES',
+      nets,
+      '',
+      'Recomendaciones: Instagram 4:5 (feed) o 9:16 (stories/reels); TikTok 9:16; Pinterest 2:3; Depop y Poshmark 4:5 o 1:1.',
+      '',
+      '## HASHTAGS OFICIALES (solo esta lista; 6 a 10 máximo)',
+      tags,
+      '',
+      '## PLANTILLAS DE PUBLICACIÓN (elige 1 según el problema del brief)',
+      tpl,
+      '',
+      '## DIRECCIÓN DE ARTE PARA IMÁGENES',
+      '- Sujeto único: la pieza. Fondo limpio (crema, muro de ladrillo o charcoal), sin texto incrustado.',
+      '- Luz natural lateral; close-ups de tejido y construcción (manual §06).',
+      '- Evita composites recargados, collage de logos, stock genérico saturado y filtros que falsifiquen el estado de la prenda.',
+      '- Si el brief no pide imagen, entrega la pieza en texto para componerla en el estudio.',
+      '',
+      '## SALIDA OBLIGATORIA — DOBLE BLOQUE',
+      'Bloque 1 (para el humano): compón la publicación completa en texto claro; lista antetitulo, título, bajada, botón, hashtags y caption.',
+      'Bloque 2 (para el estudio): UN único bloque de código marcado con «json» con EXACTAMENTE las claves siguientes (omite las que no apliquen):',
+      '',
+      '{',
+      '  "red": "{{RED}}",',
+      '  "formato": "{{FORMATO}}",',
+      '  "plantilla": "drop",',
+      '  "antetitulo": "",',
+      '  "titulo": "",',
+      '  "bajada": "",',
+      '  "tips": "",',
+      '  "boton": "",',
+      '  "cita": "",',
+      '  "credito": "",',
+      '  "vigencia": "",',
+      '  "hashtags": ["#ElRoperoMag"],',
+      '  "caption": "",',
+      '  "media_url": ""',
+      '}',
+      '',
+      'Notas del JSON: «tips» solo para estilo/antesdespues (un tip por línea, separados por \\n); «cita» y «credito» solo cita; «vigencia» solo drop/carrito/estacional; «media_url» es opcional (URL accesible por CORS); hashtags desde la lista oficial; respeta el caption máximo de la red.',
+      '',
+      '## AUTOVERIFICACIÓN ANTES DE ENTREGAR (responde SÍ a todas o la pieza es inválida)',
+      '1. ¿Todos los datos citables son reales y verificables (o hipótesis curadas, señaladas como tales)?',
+      '2. ¿El CTA es una acción única y clara?',
+      '3. ¿La plantilla elegida corresponde al problema del brief?',
+      '4. ¿Cumple la proporción de la paleta y el tono oscuro de anclaje?',
+      '5. ¿Las proporciones del logo y el wordmark se respetan sin deformar?',
+      '6. ¿Si hay imagen, tiene sujeto único, fondo limpio y sin texto baked-in?',
+      '7. ¿Los hashtags vienen solo de la lista oficial y hay 6–10?',
+      '8. ¿El caption respeta el límite de la red?',
+      '',
+      '## VARIABLES DEL ENCARGO',
+      'Red: {{RED}}  ·  Formato: {{FORMATO}}  ·  Objetivo: {{OBJETIVO}}  ·  Tema: {{TEMA}}',
+      ''
+    ].join('\n');
+  }
+
+  function substituteVars(text, v) {
+    const red = (v && v.red) || (document.getElementById('mpRed') ? document.getElementById('mpRed').value : 'instagram');
+    const fmt = (v && v.fmt) || (document.getElementById('mpFmt') ? document.getElementById('mpFmt').value : '4x5');
+    const obj = (v && v.obj) || (document.getElementById('mpObj') ? document.getElementById('mpObj').value : 'venta');
+    const topic = (v && v.tema != null ? v.tema : (document.getElementById('mpTopic') ? document.getElementById('mpTopic').value : ''));
+    return String(text)
+      .split('{{RED}}').join(red)
+      .split('{{FORMATO}}').join(fmt)
+      .split('{{OBJETIVO}}').join(obj)
+      .split('{{TEMA}}').join(String(topic).trim() || 'pieza única del drop');
+  }
+
+  function resolvedMasterPrompt() {
+    const el = document.getElementById('masterPrompt');
+    return substituteVars(el ? el.value : masterTemplate(), null);
+  }
+
+  function updateMasterCount() {
+    const el = document.getElementById('masterPrompt');
+    const counter = document.getElementById('masterCount');
+    if (el && counter) counter.textContent = el.value.length + ' caracteres';
+  }
+
+  function saveMasterPrompt() {
+    try { localStorage.setItem(ROPERO_MASTER_KEY, document.getElementById('masterPrompt').value); } catch (e) { /* sin almacenamiento */ }
+  }
+
+  function loadMasterPrompt() {
+    const el = document.getElementById('masterPrompt');
+    if (!el) return;
+    let saved = null;
+    try { saved = localStorage.getItem(ROPERO_MASTER_KEY); } catch (e) { saved = null; }
+    el.value = saved != null ? saved : masterTemplate();
+    updateMasterCount();
+  }
+
+  function applyMasterParams(substituteInPlace) {
+    const el = document.getElementById('masterPrompt');
+    if (substituteInPlace && el) el.value = substituteVars(el.value, null);
+    saveMasterPrompt();
+    updateMasterCount();
+  }
+
+  function downloadMaster() {
+    const text = resolvedMasterPrompt();
+    const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'prompt-maestro-el-ropero.md';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function toggleMaster() {
+    const sec = document.getElementById('master');
+    const btn = document.getElementById('btnMasterToggle');
+    if (!sec || !btn) return;
+    sec.classList.toggle('closed');
+    const closed = sec.classList.contains('closed');
+    btn.textContent = closed ? 'Mostrar ▼' : 'Ocultar ▲';
+    btn.setAttribute('aria-expanded', String(!closed));
+  }
+
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand && document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  function updateAgentCount() {
+    const el = document.getElementById('agentResponse');
+    const counter = document.getElementById('agentCount');
+    if (el && counter) counter.textContent = el.value.length + ' caracteres';
+  }
+
+  function parseAgentJson(text) {
+    if (!text) return null;
+    const fence = text.match(/```json([\s\S]*?)```/i);
+    if (fence) return tryParseObject(fence[1]);
+    const start = text.indexOf('{');
+    if (start === -1) return null;
+    let depth = 0, inStr = false, esc = false, end = -1;
+    for (let i = start; i < text.length; i++) {
+      const ch = text[i];
+      if (inStr) {
+        if (esc) { esc = false; continue; }
+        if (ch === '\\') { esc = true; continue; }
+        if (ch === '"') inStr = false;
+        continue;
+      }
+      if (ch === '"') { inStr = true; continue; }
+      if (ch === '{') depth++;
+      else if (ch === '}') {
+        depth--;
+        if (depth === 0) { end = i; break; }
+      }
+    }
+    if (end === -1) return null;
+    return tryParseObject(text.slice(start, end + 1));
+  }
+
+  function tryParseObject(raw) {
+    try {
+      const parsed = JSON.parse(raw);
+      return (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) ? parsed : null;
+    } catch (e) { return null; }
+  }
+
+  function fillFromAgent() {
+    const area = document.getElementById('agentResponse');
+    const preview = document.getElementById('agentPreview');
+    if (!area || !preview) return;
+    const raw = area.value.trim();
+    if (!raw) return;
+    const json = parseAgentJson(raw);
+
+    document.getElementById('apRedFmt').textContent = json && json.red && json.formato ? (json.red + ' · ' + json.formato) : 'sin red ni formato detectados';
+    document.getElementById('apPlantilla').textContent = json && json.plantilla ? ('plantilla: ' + json.plantilla) : '';
+    document.getElementById('apAntetitulo').textContent = json && json.antetitulo ? json.antetitulo : '';
+    document.getElementById('apTitulo').textContent = json && json.titulo ? json.titulo : '';
+    document.getElementById('apBajada').textContent = json && json.bajada ? json.bajada : '';
+    document.getElementById('apCaption').textContent = json && json.caption ? json.caption : raw.replace(/```json[\s\S]*?```/gi, '').trim();
+    const tags = document.getElementById('apHashtags');
+    if (tags) {
+      tags.innerHTML = '';
+      const list = (json && Array.isArray(json.hashtags) ? json.hashtags : ROPERO_HASHTAGS.slice(0, 6));
+      list.forEach(t => {
+        const span = document.createElement('span');
+        span.textContent = String(t);
+        tags.appendChild(span);
+      });
+    }
+
+    const boton = document.getElementById('apBoton');
+    if (boton) boton.textContent = json && json.boton ? ('→ ' + json.boton) : '';
+
+    const media = document.getElementById('apMedia');
+    if (media) {
+      media.innerHTML = '';
+      const url = json && typeof json.media_url === 'string' ? json.media_url.trim() : '';
+      if (url) {
+        const img = document.createElement('img');
+        img.alt = (json && json.titulo) ? json.titulo : 'Imagen de la publicación';
+        img.crossOrigin = 'anonymous';
+        img.referrerPolicy = 'no-referrer';
+        img.src = url;
+        img.onerror = function () { media.innerHTML = '<p class="hint">media_url no accesible (CORS/red): sube la imagen manualmente al estudio.</p>'; };
+        media.appendChild(img);
+      }
+    }
+    preview.hidden = false;
+  }
+
+  function clearAgent() {
+    const area = document.getElementById('agentResponse');
+    const preview = document.getElementById('agentPreview');
+    if (area) area.value = '';
+    updateAgentCount();
+    if (preview) preview.hidden = true;
+  }
+
+  function bindAgentSection() {
+    const ta = document.getElementById('masterPrompt');
+    if (!ta) return;
+    ta.addEventListener('input', () => { updateMasterCount(); saveMasterPrompt(); });
+
+    const mpRed = document.getElementById('mpRed');
+    const mpFmt = document.getElementById('mpFmt');
+    const mpObj = document.getElementById('mpObj');
+    const mpTopic = document.getElementById('mpTopic');
+    [mpRed, mpFmt, mpObj, mpTopic].forEach(el => el && el.addEventListener('input', () => applyMasterParams(false)));
+    if (mpRed) mpRed.addEventListener('change', () => applyMasterParams(false));
+
+    const btnApply = document.getElementById('btnMasterApply');
+    if (btnApply) btnApply.addEventListener('click', () => applyMasterParams(true));
+
+    const btnCopy = document.getElementById('btnMasterCopy');
+    if (btnCopy) btnCopy.addEventListener('click', () => {
+      const text = resolvedMasterPrompt();
+      const done = () => { btnCopy.textContent = '✓ Copiado'; setTimeout(() => { btnCopy.textContent = '⧉ Copiar prompt maestro'; }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text) && done());
+      } else {
+        fallbackCopy(text) && done();
+      }
+    });
+
+    const btnDownload = document.getElementById('btnMasterDownload');
+    if (btnDownload) btnDownload.addEventListener('click', downloadMaster);
+
+    const btnRestore = document.getElementById('btnMasterRestore');
+    if (btnRestore) btnRestore.addEventListener('click', () => {
+      const el = document.getElementById('masterPrompt');
+      el.value = masterTemplate();
+      saveMasterPrompt();
+      updateMasterCount();
+    });
+
+    const btnToggle = document.getElementById('btnMasterToggle');
+    if (btnToggle) btnToggle.addEventListener('click', toggleMaster);
+
+    const agentArea = document.getElementById('agentResponse');
+    if (agentArea) agentArea.addEventListener('input', updateAgentCount);
+
+    const btnFill = document.getElementById('btnAgentFill');
+    if (btnFill) btnFill.addEventListener('click', fillFromAgent);
+
+    const btnClear = document.getElementById('btnAgentClear');
+    if (btnClear) btnClear.addEventListener('click', clearAgent);
+  }
+
+  loadMasterPrompt();
+  bindAgentSection();
+
+</script>
+<script>
+  /* ============================================================
+     EL ESTUDIO — editor de posts 100% local (sección 13)
+     Todo se procesa en el navegador; nada se sube a internet.
+     ============================================================ */
+  (function () {
+    'use strict';
+    var $ = function (id) { return document.getElementById(id); };
+
+    var FORMATS = {
+      '1x1': { w: 1080, h: 1080, label: '1:1 · 1080×1080', miniW: 144, miniH: 144 },
+      '4x5': { w: 1080, h: 1350, label: '4:5 · 1080×1350', miniW: 115, miniH: 144 },
+      '9x16': { w: 1080, h: 1920, label: '9:16 · 1080×1920', miniW: 81, miniH: 144 }
+    };
+    var ROPERO = {
+      handle: '@elropero_magicovintage',
+      name: 'El Ropero Mag&co',
+      terracota: '#C17B5C', mostaza: '#D4A24C', oliva: '#4A5D4F',
+      crema: '#F5EFE6', charcoal: '#2B2B2B', rose: '#B85C5C',
+      sage: '#8FA68E', avellana: '#C4A577', piedra: '#D4C9B0'
+    };
+    var ACCENTS = { sol: '#D4A24C', hoja: '#4A5D4F', crema: '#F5EFE0' };
+    var FIELD_LABELS = { antetitulo: 'Antetítulo', titulo: 'Título', bajada: 'Bajada', cita: 'Cita', credito: 'Crédito', tips: 'Tips (un tip por línea)', boton: 'Botón', vigencia: 'Vigencia' };
+    var TEMPLATES = [
+      { id: 'experiencia', name: 'Experiencia', dark: true, fields: ['antetitulo', 'titulo', 'bajada', 'boton'], defaults: { antetitulo: 'DROP 9 · CARIBE SLOW', titulo: 'Historias que siguen.', bajada: 'Prenda única, medida en centímetros y revisada en 23 puntos.', boton: 'Comprar la pieza' } },
+      { id: 'utilidad', name: 'Utilidad', dark: false, fields: ['antetitulo', 'titulo', 'tips'], defaults: { antetitulo: 'GESTIÓN DEL ROPERO', titulo: 'Cuida el denim vintage', tips: 'Lavado en frío y del revés\nSecado a la sombra\nOlvida la secadora' } },
+      { id: 'prueba', name: 'Prueba social', dark: true, fields: ['antetitulo', 'cita', 'credito'], defaults: { antetitulo: 'NUESTRA COMUNIDAD', cita: '“Cada pieza tiene una historia y la mía tiene denim de los 90 y un fit perfecto.”', credito: 'Valentina R. · Bogotá' } },
+      { id: 'local', name: 'Contexto local', dark: true, fields: ['antetitulo', 'titulo', 'bajada'], defaults: { antetitulo: 'CHAPINERO · BOGOTÁ', titulo: 'El ropero te queda cerca', bajada: 'Recogida en tienda y envío el mismo día en Bogotá.' } },
+      { id: 'camaras', name: 'Detrás de cámaras', dark: true, fields: ['antetitulo', 'titulo', 'bajada'], defaults: { antetitulo: 'DETRÁS DE CÁMARAS', titulo: 'La curadora trabaja así', bajada: '23 puntos de revisión antes de llegar a tu ropero.' } },
+      { id: 'cta', name: 'CTA reserva', dark: false, fields: ['antetitulo', 'titulo', 'bajada', 'boton', 'vigencia'], defaults: { antetitulo: 'RESERVA AHORA', titulo: 'Aparta tu pieza por 30 minutos', bajada: 'Sin pagos por adelantado: apartas por WhatsApp y recoges en tienda.', boton: 'Reservar por WhatsApp', vigencia: 'DROP 9 · 12 — 26 OCT' } },
+      { id: 'cita-crema', name: 'Cita (crema)', dark: false, fields: ['cita', 'credito'], defaults: { cita: '“Comprar segunda mano no es conformarse, es elegir con criterio.”', credito: 'El Ropero Mag&co' } },
+      { id: 'cita-foto', name: 'Cita (foto)', dark: true, fields: ['cita', 'credito'], defaults: { cita: '“Una pieza única vale más que mil producidas en serie.”', credito: 'Elena M. · Fundadora' } },
+      { id: 'estacional', name: 'Estacional', dark: true, fields: ['antetitulo', 'titulo', 'bajada', 'boton', 'vigencia'], defaults: { antetitulo: 'TEMPORADA · FRÍO', titulo: 'Abrigos y cuadros para la temporada', bajada: 'Piezas únicas para el frío bogotano.', boton: 'Ver la temporada', vigencia: 'DROP 9 · 12 — 26 OCT' } }
+    ];
+    var HASHTAGS = ['#ElRoperoMag', '#MiRoperoMag', '#VintageStyle', '#SecondHandFashion', '#SlowFashion', '#VintageFinds', '#SustainableStyle', '#VintageDepop', '#Thrifted', '#Y2K'];
+    var KEY = 'roperoEstudioIG';
+    var PREV_KEY = 'roperoEstudioIG_prev';
+
+    var state = {
+      template: 'experiencia', format: '4x5', accent: 'sol', watermark: true,
+      zoom: 1, panX: 0, panY: 0,
+      fields: {}, caption: '', captionManual: false,
+      day: '', hour: '',
+      queue: [],
+      media: null, mediaReady: false
+    };
+
+    // ---------- utils ----------
+    function fmtDims(fmt) { return FORMATS[fmt]; }
+    function acc() { return ACCENTS[state.accent] || ACCENTS.sol; }
+    function activeTemplate() { return TEMPLATES.find(function (t) { return t.id === state.template; }) || TEMPLATES[0]; }
+    function lineHeight(size) { return Math.round(size * 1.16); }
+    function save() {
+      try {
+        var payload = {
+          template: state.template, format: state.format, accent: state.accent, watermark: state.watermark,
+          zoom: state.zoom, panX: state.panX, panY: state.panY,
+          fields: state.fields, caption: state.caption, captionManual: state.captionManual,
+          day: state.day, hour: state.hour
+        };
+        localStorage.setItem(KEY, JSON.stringify(payload));
+      } catch (e) {}
+    }
+    function prevSnapshot() {
+      try {
+        var payload = {
+          template: state.template, format: state.format, accent: state.accent, watermark: state.watermark,
+          zoom: state.zoom, panX: state.panX, panY: state.panY,
+          fields: state.fields, caption: state.caption, captionManual: state.captionManual,
+          day: state.day, hour: state.hour
+        };
+        localStorage.setItem(PREV_KEY, JSON.stringify(payload));
+      } catch (e) {}
+    }
+    function toast(msg) {
+      var t = document.createElement('div');
+      t.className = 'est-toast';
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(function () { t.remove(); }, 2300);
+    }
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+    function escapeHtml(str) {
+      return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    // ---------- text layout ----------
+    function wrapLines(ctx, text, maxWidth) {
+      var words = String(text == null ? '' : text).split(/\s+/).filter(Boolean);
+      if (!words.length) return [''];
+      var lines = [], current = '';
+      for (var i = 0; i < words.length; i++) {
+        var probe = current ? current + ' ' + words[i] : words[i];
+        if (ctx.measureText(probe).width <= maxWidth || !current) current = probe;
+        else { lines.push(current); current = words[i]; }
+      }
+      if (current) lines.push(current);
+      return lines;
+    }
+    function fit(ctx, text, maxWidth, maxLines, startPx, minPx, font) {
+      for (var size = startPx; size >= minPx; size -= 2) {
+        ctx.font = font(size);
+        var lines = wrapLines(ctx, text, maxWidth);
+        if (lines.length <= maxLines) return { size: size, lines: lines };
+      }
+      ctx.font = font(minPx);
+      return { size: minPx, lines: wrapLines(ctx, text, maxWidth).slice(0, maxLines) };
+    }
+    function drawLines(ctx, lines, x, y, size, color, opts) {
+      opts = opts || {};
+      ctx.save();
+      ctx.fillStyle = color;
+      ctx.textBaseline = 'alphabetic';
+      if ('letterSpacing' in ctx) ctx.letterSpacing = (opts.letterSpacing || 0) + 'px';
+      if (opts.align) ctx.textAlign = opts.align;
+      var lh = lineHeight(size);
+      for (var i = 0; i < lines.length; i++) ctx.fillText(lines[i], x, y + i * lh);
+      ctx.restore();
+      return y + lines.length * lh;
+    }
+    function drawBody(ctx, text, x, y, width, startPx, minPx, color, weight) {
+      return fit(ctx, String(text || ''), width, 6, startPx, minPx, function (s) {
+        return (weight || 500) + ' ' + s + 'px Inter, sans-serif';
+      }).lines && drawIterate(text, x, y, width, startPx, minPx, color, weight);
+    }
+    function drawIterate(text, x, y, width, startPx, minPx, color, weight) {
+      var result = fit(ctx, String(text || ''), width, 6, startPx, minPx, function (s) {
+        return (weight || 500) + ' ' + s + 'px Inter, sans-serif';
+      });
+      return drawLines(ctx, result.lines, x, y, result.size, color, {});
+    }
+    function drawDisplay(ctx, text, x, y, width, startPx, minPx, color, weight, letterSpacing) {
+      var result = fit(ctx, String(text || ''), width, 4, startPx, minPx, function (s) {
+        return (weight || 700) + ' ' + s + 'px "Playfair Display", serif';
+      });
+      return drawLines(ctx, result.lines, x, y, result.size, color, { letterSpacing: letterSpacing || 0 });
+    }
+    // placeholder referencing ctx for the body helper above
+    var ctx = null;
+
+    // ---------- images ----------
+    var logoMark = new Image();
+    logoMark.src = '/logo-mark.svg';
+    var logoReady = false;
+    logoMark.onload = function () { logoReady = true; };
+    var logoLoadWait = 0;
+
+    function drawImageCover(ctx, img, W, H, zoom, panX, panY) {
+      var iw = img.naturalWidth || img.videoWidth || img.width || W;
+      var ih = img.naturalHeight || img.videoHeight || img.height || H;
+      var baseScale = Math.max(W / iw, H / ih);
+      var s = baseScale * Math.max(0.2, zoom || 1);
+      var dw = iw * s, dh = ih * s;
+      var dx = (W - dw) / 2 + (panX || 0) * (W * 0.22);
+      var dy = (H - dh) / 2 + (panY || 0) * (H * 0.22);
+      ctx.drawImage(img, dx, dy, dw, dh);
+    }
+    function fallbackGrad(ctx, W, H, mode) {
+      var g = ctx.createLinearGradient(0, 0, W, H);
+      if (mode === 'light') { g.addColorStop(0, '#F5EFE0'); g.addColorStop(1, '#D4C9B0'); }
+      else { g.addColorStop(0, '#1F1B17'); g.addColorStop(0.55, '#3E2F23'); g.addColorStop(1, '#C17B5C'); }
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    }
+    function drawScrub(ctx, W, H) {
+      var g = ctx.createLinearGradient(0, H * 0.35, 0, H);
+      g.addColorStop(0, 'rgba(18,16,14,0)');
+      g.addColorStop(1, 'rgba(18,16,14,0.72)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    }
+    function drawScrimTop(ctx, W, H) {
+      var g = ctx.createLinearGradient(0, 0, 0, H * 0.45);
+      g.addColorStop(0, 'rgba(18,16,14,0.55)');
+      g.addColorStop(1, 'rgba(18,16,14,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    }
+    function drawHeader(ctx, W, dark) {
+      var r = Math.round(W * 0.045);
+      var pad = Math.round(W * 0.055);
+      var x = pad + r, y = pad + r;
+      ctx.save();
+      if (logoReady) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.clip();
+        ctx.fillStyle = dark ? '#2B2B2B' : '#ffffff';
+        ctx.fillRect(x - r, y - r, r * 2, r * 2);
+        ctx.drawImage(logoMark, x - r * 0.78, y - r * 0.68, r * 1.56, r * 1.56);
+        ctx.restore();
+        ctx.save();
+      } else {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = ROPERO.terracota;
+        ctx.fill();
+        ctx.fillStyle = ROPERO.crema;
+        ctx.font = '700 ' + Math.round(r * 1.05) + 'px "Playfair Display", serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('EM', x, y + Math.round(r * 0.08));
+      }
+      ctx.restore();
+      ctx.save();
+      ctx.fillStyle = dark ? '#F5EFE6' : '#2B2B2B';
+      ctx.font = '600 ' + Math.round(W * 0.0195) + 'px Inter, sans-serif';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('El Ropero Mag&co', x + r + Math.round(W * 0.018), y - Math.round(W * 0.012));
+      ctx.font = '400 ' + Math.round(W * 0.0145) + 'px Inter, sans-serif';
+      ctx.globalAlpha = 0.72;
+      ctx.fillText(ROPERO.handle, x + r + Math.round(W * 0.018), y + Math.round(W * 0.012));
+      ctx.globalAlpha = 1;
+      // verified badge
+      ctx.beginPath();
+      ctx.arc(x + r + Math.round(W * 0.018) + ctx.measureText('El Ropero Mag&co').width + Math.round(W * 0.012), y - Math.round(W * 0.012), Math.round(W * 0.011), 0, Math.PI * 2);
+      ctx.fillStyle = '#2AA3EF';
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.font = '700 ' + Math.round(W * 0.0125) + 'px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('✓', ctx.measureText('El Ropero Mag&co').width > 0 ? x + r + Math.round(W * 0.018) + ctx.measureText('El Ropero Mag&co').width + Math.round(W * 0.012) : x + r, y - Math.round(W * 0.012));
+      ctx.restore();
+    }
+    function drawWatermark(ctx, W, H) {
+      if (!state.watermark || !logoReady) return;
+      var w = Math.round(W * 0.17);
+      var h = Math.round(w * (464 / 330) * 0.85);
+      var x = W - w - Math.round(W * 0.045);
+      var y = H - h - Math.round(H * 0.035);
+      ctx.save();
+      ctx.globalAlpha = 0.28;
+      ctx.drawImage(logoMark, x, y, w, h);
+      ctx.restore();
+    }
+
+    // ---------- render pipeline ----------
+    function renderTemplate(ctx, W, H, s, media) {
+      var ac = ACCENTS[s.accent] || ACCENTS.sol;
+      var f = s.fields || {};
+      var dark = activeTemplate().dark;
+      fallbackGrad(ctx, W, H, dark ? 'dark' : 'light');
+      if (media) drawImageCover(ctx, media, W, H, s.zoom, s.panX, s.panY);
+      // per template composition
+      switch (s.template) {
+        case 'utilidad': {
+          // bottom panel over gradient
+          var panelH = Math.round(H * 0.44);
+          ctx.fillStyle = 'rgba(245,239,230,0.96)';
+          roundRect(ctx, Math.round(W * 0.05), H - panelH - Math.round(H * 0.04), Math.round(W * 0.9), panelH, Math.round(W * 0.03));
+          ctx.fill();
+          drawHeader(ctx, W, false);
+          ctx.save();
+          ctx.fillStyle = ROPERO.terracota;
+          ctx.font = '700 ' + Math.round(W * 0.020) + 'px Inter, sans-serif';
+          if ('letterSpacing' in ctx) ctx.letterSpacing = '4px';
+          ctx.fillText((f.antetitulo || '').toUpperCase(), Math.round(W * 0.095), H - panelH + Math.round(W * 0.035) + Math.round(W * 0.011));
+          ctx.restore();
+          ctx.save();
+          ctx.fillStyle = ROPERO.charcoal;
+          var t = f.titulo || '';
+          ctx.font = '800 ' + Math.round(W * 0.052) + 'px "Playfair Display", serif';
+          ctx.fillText(t, Math.round(W * 0.095), H - panelH + Math.round(W * 0.085) + Math.round(W * 0.03));
+          ctx.restore();
+          var tips = String(f.tips || '').split('\n').map(function (x) { return x.trim(); }).filter(Boolean);
+          ctx.save();
+          ctx.fillStyle = ROPERO.oliva;
+          ctx.font = '600 ' + Math.round(W * 0.026) + 'px Inter, sans-serif';
+          var ty = H - panelH + Math.round(W * 0.125) + Math.round(W * 0.02);
+          tips.slice(0, 3).forEach(function (tip, i) {
+            var y = ty + i * Math.round(W * 0.048);
+            ctx.fillText('→  ' + tip, Math.round(W * 0.095), y);
+          });
+          ctx.restore();
+          break;
+        }
+        case 'prueba': {
+          drawScrub(ctx, W, H);
+          drawHeader(ctx, W, true);
+          var qx = Math.round(W * 0.07), qw = Math.round(W * 0.86), qy = Math.round(H * 0.26);
+          ctx.save();
+          ctx.fillStyle = ac;
+          ctx.font = '800 ' + Math.round(W * 0.075) + 'px "Cormorant Garamond", serif';
+          ctx.fillText('“', qx, qy);
+          ctx.restore();
+          ctx.save();
+          ctx.fillStyle = ROPERO.crema;
+          var qr = setupQuote(ctx, f.cita || '', qw, W);
+          ctx.restore();
+          ctx.save();
+          ctx.fillStyle = 'rgba(245,239,230,0.92)';
+          ctx.font = '600 ' + Math.round(W * 0.022) + 'px Inter, sans-serif';
+          ctx.fillText(f.antetitulo || 'NUESTRA COMUNIDAD', qx, qy - Math.round(W * 0.028));
+          ctx.restore();
+          break;
+        }
+        case 'cita-crema': {
+          drawHeader(ctx, W, false);
+          var cy = Math.round(H * 0.34);
+          ctx.save();
+          ctx.strokeStyle = ROPERO.terracota;
+          ctx.lineWidth = Math.max(3, Math.round(W * 0.006));
+          ctx.beginPath();
+          ctx.moveTo(Math.round(W * 0.14), cy);
+          ctx.lineTo(Math.round(W * 0.86), cy);
+          ctx.stroke();
+          ctx.restore();
+          drawQuoteCenter(ctx, W, H, f, ROPERO.charcoal, false);
+          ctx.save();
+          ctx.strokeStyle = ROPERO.terracota;
+          ctx.beginPath();
+          ctx.moveTo(Math.round(W * 0.14), Math.round(H * 0.72));
+          ctx.lineTo(Math.round(W * 0.86), Math.round(H * 0.72));
+          ctx.stroke();
+          ctx.restore();
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.fillStyle = ROPERO.terracota;
+          ctx.font = '700 ' + Math.round(W * 0.021) + 'px Inter, sans-serif';
+          if ('letterSpacing' in ctx) ctx.letterSpacing = '4px';
+          ctx.fillText(String(f.credito || 'El Ropero Mag&co').toUpperCase(), Math.round(W * 0.5), Math.round(H * 0.79));
+          ctx.restore();
+          break;
+        }
+        case 'cita-foto': {
+          drawScrub(ctx, W, H);
+          drawHeader(ctx, W, true);
+          drawQuoteCenter(ctx, W, H, f, ROPERO.crema, true);
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.fillStyle = 'rgba(245,239,230,0.9)';
+          ctx.font = '600 ' + Math.round(W * 0.02) + 'px Inter, sans-serif';
+          if ('letterSpacing' in ctx) ctx.letterSpacing = '3px';
+          ctx.fillText(String(f.credito || 'El Ropero Mag&co').toUpperCase(), Math.round(W * 0.5), Math.round(H * 0.84));
+          ctx.restore();
+          break;
+        }
+        case 'local': {
+          drawScrimTop(ctx, W, H);
+          drawScrub(ctx, W, H);
+          drawHeader(ctx, W, true);
+          drawScrubTextBlock(ctx, W, H, f, ac, true);
+          break;
+        }
+        case 'camaras': {
+          // darker tint overall
+          ctx.fillStyle = 'rgba(18,16,14,0.25)';
+          ctx.fillRect(0, 0, W, H);
+          drawHeader(ctx, W, true);
+          ctx.save();
+          ctx.fillStyle = ac;
+          ctx.font = '700 ' + Math.round(W * 0.021) + 'px Inter, sans-serif';
+          if ('letterSpacing' in ctx) ctx.letterSpacing = '4px';
+          ctx.fillText(String(f.antetitulo || 'DETRÁS DE CÁMARAS').toUpperCase(), Math.round(W * 0.06), Math.round(H * 0.42));
+          ctx.restore();
+          ctx.save();
+          ctx.fillStyle = ROPERO.crema;
+          ctx.font = '800 ' + Math.round(W * 0.068) + 'px "Playfair Display", serif';
+          var lines = wrapLines(ctx, f.titulo || '', Math.round(W * 0.88));
+          lines.forEach(function (line, i) {
+            ctx.fillText(line, Math.round(W * 0.06), Math.round(H * 0.47) + i * lineHeight(Math.round(W * 0.068)));
+          });
+          ctx.restore();
+          break;
+        }
+        case 'cta': {
+          // split panel
+          ctx.fillStyle = 'rgba(245,239,230,0.93)';
+          var ch = Math.round(H * 0.52);
+          ctx.fillRect(0, H - ch, W, ch);
+          drawHeader(ctx, W, false);
+          // vigencia ribbon
+          ctx.save();
+          ctx.fillStyle = ROPERO.terracota;
+          var vw = Math.round(W * 0.44), vh = Math.round(W * 0.055);
+          var vx = Math.round(W * 0.055), vy = Math.round(H * 0.40);
+          roundRect(ctx, vx, vy, vw, vh, vh / 2);
+          ctx.fill();
+          ctx.fillStyle = ROPERO.crema;
+          ctx.font = '700 ' + Math.round(W * 0.02) + 'px Inter, sans-serif';
+          if ('letterSpacing' in ctx) ctx.letterSpacing = '3px';
+          ctx.fillText(String(f.vigencia || 'DROP 9').toUpperCase(), vx + Math.round(W * 0.018), vy + vh / 2 + Math.round(W * 0.008));
+          ctx.restore();
+          ctx.save();
+          ctx.fillStyle = ROPERO.terracota;
+          ctx.font = '700 ' + Math.round(W * 0.021) + 'px Inter, sans-serif';
+          if ('letterSpacing' in ctx) ctx.letterSpacing = '4px';
+          ctx.fillText(String(f.antetitulo || '').toUpperCase(), Math.round(W * 0.055), H - ch + Math.round(W * 0.048));
+          ctx.restore();
+          ctx.save();
+          ctx.fillStyle = ROPERO.charcoal;
+          ctx.font = '800 ' + Math.round(W * 0.062) + 'px "Playfair Display", serif';
+          var title = String(f.titulo || '');
+          var lines2 = wrapLines(ctx, title, Math.round(W * 0.9));
+          lines2.forEach(function (line, i) {
+            ctx.fillText(line, Math.round(W * 0.055), H - ch + Math.round(W * 0.085) + i * lineHeight(Math.round(W * 0.062)));
+          });
+          ctx.restore();
+          drawBodyPlain(ctx, f.bajada || '', Math.round(W * 0.055), H - ch + Math.round(W * 0.30), Math.round(W * 0.9), W, ROPERO.charcoal);
+          drawPillButton(ctx, String(f.boton || 'Reservar'), Math.round(W * 0.055), H - Math.round(W * 0.075), ac, W);
+          break;
+        }
+        case 'estacional': {
+          drawScrimTop(ctx, W, H);
+          drawScrub(ctx, W, H);
+          drawHeader(ctx, W, true);
+          // vigencia ribbon top-right
+          ctx.save();
+          ctx.fillStyle = ac;
+          var vw2 = Math.round(W * 0.42), vh2 = Math.round(W * 0.055);
+          var vx2 = W - vw2 - Math.round(W * 0.05), vy2 = Math.round(H * 0.115);
+          roundRect(ctx, vx2, vy2, vw2, vh2, vh2 / 2);
+          ctx.fill();
+          ctx.fillStyle = '#2B2B2B';
+          ctx.font = '800 ' + Math.round(W * 0.019) + 'px Inter, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          if ('letterSpacing' in ctx) ctx.letterSpacing = '2px';
+          ctx.fillText(String(f.vigencia || 'DROP 9').toUpperCase(), vx2 + vw2 / 2, vy2 + vh2 / 2 + 1);
+          ctx.restore();
+          drawScrubTextBlock(ctx, W, H, f, ac, true);
+          drawPillButton(ctx, String(f.boton || 'Ver temporada'), Math.round(W * 0.06), H - Math.round(W * 0.075), ac, W);
+          break;
+        }
+        default: { // experiencia
+          drawScrimTop(ctx, W, H);
+          drawScrub(ctx, W, H);
+          drawHeader(ctx, W, true);
+          drawScrubTextBlock(ctx, W, H, f, ac, true);
+          drawPillButton(ctx, String(f.boton || 'Comprar'), Math.round(W * 0.06), H - Math.round(W * 0.075), ac, W);
+        }
+      }
+      drawWatermark(ctx, W, H);
+    }
+    function setupQuote(ctx, text, maxWidth, W) {
+      var fit = fitText(ctx, text, maxWidth, 4, Math.round(W * 0.062), Math.round(W * 0.026), '"Cormorant Garamond", serif', 'italic 600');
+      return drawLines(ctx, fit.lines, Math.round(W * 0.07), Math.round(W * 0.26), fit.size, ROPERO.crema, { letterSpacing: 0 });
+    }
+    function fitText(ctx, text, maxWidth, maxLines, startPx, minPx, family, weight) {
+      for (var size = startPx; size >= minPx; size -= 2) {
+        ctx.font = (weight || '700') + ' ' + size + 'px ' + family;
+        var lines = wrapLines(ctx, text, maxWidth);
+        if (lines.length <= maxLines) return { size: size, lines: lines };
+      }
+      ctx.font = (weight || '700') + ' ' + minPx + 'px ' + family;
+      return { size: minPx, lines: wrapLines(ctx, text, maxWidth).slice(0, maxLines) };
+    }
+    function drawQuoteCenter(ctx, W, H, f, color, center) {
+      var text = String(f.cita || '');
+      var fit = fitText(ctx, text, Math.round(W * 0.80), 5, Math.round(W * 0.075), Math.round(W * 0.032), '"Cormorant Garamond", serif', 'italic 600');
+      var x = Math.round(W * 0.5);
+      ctx.save();
+      ctx.fillStyle = color;
+      ctx.textAlign = 'center';
+      drawLines(ctx, fit.lines, x, Math.round(H * (center ? 0.32 : 0.30)), fit.size, color, { align: 'center' });
+      ctx.restore();
+    }
+    function drawScrubTextBlock(ctx, W, H, f, ac, lightText) {
+      var x = Math.round(W * 0.06);
+      var anteY = Math.round(H * 0.60);
+      ctx.save();
+      ctx.fillStyle = ac;
+      ctx.font = '700 ' + Math.round(W * 0.020) + 'px Inter, sans-serif';
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '4px';
+      ctx.fillText(String(f.antetitulo || '').toUpperCase(), x, anteY);
+      ctx.restore();
+      ctx.save();
+      ctx.fillStyle = ROPERO.crema;
+      ctx.font = '800 ' + Math.round(W * 0.082) + 'px "Playfair Display", serif';
+      var lines = wrapLines(ctx, String(f.titulo || ''), Math.round(W * 0.88));
+      lines.forEach(function (line, i) {
+        ctx.fillText(line, x, anteY + Math.round(W * 0.035) + (i + 1) * lineHeight(Math.round(W * 0.082)));
+      });
+      ctx.restore();
+      ctx.save();
+      ctx.fillStyle = 'rgba(245,239,230,0.90)';
+      ctx.font = '400 ' + Math.round(W * 0.0235) + 'px Inter, sans-serif';
+      wrapLines(ctx, String(f.bajada || ''), Math.round(W * 0.72)).slice(0, 2).forEach(function (line, i) {
+        ctx.fillText(line, x, anteY + Math.round(W * 0.035) + (lines.length + 1) * lineHeight(Math.round(W * 0.082)) + i * Math.round(W * 0.032));
+      });
+      ctx.restore();
+    }
+    function drawBodyPlain(ctx, text, x, y, maxWidth, W, color) {
+      ctx.save();
+      ctx.fillStyle = color || ROPERO.charcoal;
+      ctx.font = '400 ' + Math.round(W * 0.024) + 'px Inter, sans-serif';
+      var lines = wrapLines(ctx, String(text || ''), maxWidth);
+      lines.forEach(function (line, i) {
+        ctx.fillText(line, x, y + i * Math.round(W * 0.034));
+      });
+      ctx.restore();
+      return y + lines.length * Math.round(W * 0.034);
+    }
+    function drawPillButton(ctx, text, x, y, color, W) {
+      ctx.save();
+      ctx.font = '700 ' + Math.round(W * 0.024) + 'px Inter, sans-serif';
+      var tw = ctx.measureText(String(text).toUpperCase()).width;
+      var padX = Math.round(W * 0.030), padY = Math.round(W * 0.020);
+      var bw = tw + padX * 2, bh = Math.round(W * 0.058);
+      roundRect(ctx, x, y - bh, bw, bh, bh / 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.fillStyle = '#2B2B2B';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(String(text).toUpperCase(), x + padX, y - bh / 2 + 1);
+      ctx.restore();
+    }
+
+    function paint(canvas, st, w, h) {
+      var localCtx = canvas.getContext('2d');
+      ctx = localCtx;
+      canvas.width = w;
+      canvas.height = h;
+      renderTemplate(localCtx, w, h, st, st.media && st.mediaReady ? st.media : null);
+      return canvas;
+    }
+    function mainPaint() {
+      var dims = fmtDims(state.format);
+      var canvas = $('estCanvas');
+      paint(canvas, state, dims.w, dims.h);
+      paint($('estMiniCanvas_1x1'), withFormat(state, '1x1'), 144, 144);
+      paint($('estMiniCanvas_4x5'), withFormat(state, '4x5'), 115, 144);
+      paint($('estMiniCanvas_9x16'), withFormat(state, '9x16'), 81, 144);
+      updateMetaLine();
+    }
+    function withFormat(st, fmt) {
+      var clone = Object.assign({}, st);
+      clone.format = fmt;
+      clone.media = st.media;
+      clone.mediaReady = st.mediaReady;
+      return clone;
+    }
+    function updateMetaLine() {
+      var dims = fmtDims(state.format);
+      var px = Math.round(state.panX * (dims.w * 0.22));
+      var py = Math.round(state.panY * (dims.h * 0.22));
+      var line = $('estCropLine');
+      if (!line) return;
+      line.textContent = 'Recorte: x ' + px + ' · y ' + py + ' · zoom ' + Math.round(state.zoom * 100) + '% · lienzo ' + dims.w + '×' + dims.h + ' px · doble clic para reiniciar';
+      var zf = $('estZoom');
+      if (zf) zf.value = Math.round(state.zoom * 100);
+      var fl = $('estFormatLabel');
+      if (fl) fl.textContent = dims.label;
+    }
+
+    // ---------- thumbnails ----------
+    function buildThumbs() {
+      var holder = $('estTemplates');
+      TEMPLATES.forEach(function (tpl) {
+        var btn = document.createElement('button');
+        btn.className = 'est-tpl' + (tpl.id === state.template ? ' active' : '');
+        btn.type = 'button';
+        btn.dataset.tpl = tpl.id;
+        btn.setAttribute('aria-label', 'Aplicar plantilla ' + tpl.name);
+        var img = document.createElement('img');
+        img.alt = 'Miniatura de la plantilla ' + tpl.name;
+        btn.appendChild(img);
+        var label = document.createElement('span');
+        label.className = 'est-tpl-label';
+        label.textContent = tpl.name;
+        btn.appendChild(label);
+        btn.addEventListener('click', function () { setTemplate(tpl.id); });
+        holder.appendChild(btn);
+        // placeholder thumb generated once templates/state defaults exist
+        var c = document.createElement('canvas');
+        c.width = 216; c.height = 270;
+        paint(c, Object.assign({}, state, { template: tpl.id, fields: tpl.defaults, media: null, mediaReady: false, watermark: true }), 216, 270);
+        img.src = c.toDataURL('image/png');
+      });
+    }
+
+    // ---------- fields / caption ----------
+    function renderFieldInputs() {
+      var holder = $('estFields');
+      holder.innerHTML = '';
+      var tpl = activeTemplate();
+      var f = state.fields;
+      tpl.fields.forEach(function (name) {
+        var label = document.createElement('label');
+        label.className = 'est-field';
+        label.textContent = FIELD_LABELS[name] || name;
+        var input = (name === 'tips' || name === 'cita') ? document.createElement('textarea') : document.createElement('input');
+        if (input.tagName === 'TEXTAREA') input.rows = 3;
+        input.value = f[name] != null ? f[name] : (tpl.defaults[name] || '');
+        input.addEventListener('input', function () {
+          state.fields[name] = input.value;
+          state.captionManual = false;
+          state.caption = generateCaption();
+          var cfg = $('estCaption');
+          if (cfg) cfg.value = state.caption;
+          updateCaptionCounter();
+          mainPaint();
+          save();
+        });
+        label.appendChild(input);
+        holder.appendChild(label);
+      });
+    }
+    function generateCaption() {
+      var tpl = activeTemplate();
+      var f = state.fields;
+      var tags = HASHTAGS.slice(0, 9).join(' ');
+      var parts = [];
+      switch (tpl.id) {
+        case 'utilidad': {
+          parts.push(String(f.antetitulo || '').toUpperCase());
+          parts.push('', (f.titulo || '') + ':', '');
+          String(f.tips || '').split('\n').map(function (l) { return l.trim(); }).filter(Boolean).forEach(function (tip) { parts.push('→ ' + tip); });
+          break;
+        }
+        case 'prueba':
+          parts.push(String(f.antetitulo || '').toUpperCase(), '', f.cita, '— ' + f.credito);
+          break;
+        case 'cita-crema':
+        case 'cita-foto':
+          parts.push(f.cita || '', '', '— ' + (f.credito || ''));
+          break;
+        case 'cta':
+        case 'estacional':
+          parts.push(String(f.antetitulo || '').toUpperCase(), '', (f.titulo || '') + '.', f.bajada || '', '', '→ ' + (f.boton || ''), f.vigencia ? '· ' + f.vigencia : '');
+          break;
+        case 'camaras':
+        case 'local':
+          parts.push(String(f.antetitulo || '').toUpperCase(), '', (f.titulo || '') + '.', f.bajada || '');
+          break;
+        default:
+          parts.push(String(f.antetitulo || '').toUpperCase(), '', (f.titulo || '') + '.', '', f.bajada || '', '', '→ ' + (f.boton || ''));
+      }
+      parts.push('', tags);
+      var out = parts.filter(function (l) { return l !== ''; }).join('\n');
+      if (out.length > 2170) out = out.slice(0, 2170);
+      return out;
+    }
+    function updateCaptionCounter() {
+      var cfg = $('estCaption'), counter = $('estCaptionCount');
+      if (cfg && counter) counter.textContent = cfg.value.length + ' / 2200 caracteres';
+    }
+    function syncHashtagChips() {
+      var holder = $('estHashtags');
+      holder.innerHTML = '';
+      HASHTAGS.forEach(function (tag) {
+        var chip = document.createElement('button');
+        chip.className = 'est-hashtag';
+        chip.type = 'button';
+        chip.textContent = tag;
+        chip.addEventListener('click', function () {
+          var cfg = $('estCaption');
+          if (state.captionManual === false && cfg) return; // copy is auto
+          if (cfg) {
+            cfg.value = (cfg.value + ' ' + tag).trim();
+            state.caption = cfg.value;
+            updateCaptionCounter();
+            save();
+          }
+        });
+        holder.appendChild(chip);
+      });
+    }
+
+    // ---------- template / format / zoom / pan / watermark ----------
+    function setTemplate(id) {
+      state.template = id;
+      var tpl = activeTemplate();
+      state.fields = Object.assign({}, tpl.defaults);
+      state.captionManual = false;
+      state.caption = generateCaption();
+      var cfg = $('estCaption');
+      if (cfg) cfg.value = state.caption;
+      updateCaptionCounter();
+      renderFieldInputs();
+      document.querySelectorAll('#estTemplates .est-tpl').forEach(function (b) { b.classList.toggle('active', b.dataset.tpl === id); });
+      mainPaint();
+      save();
+    }
+    function setFormat(fmt) {
+      state.format = fmt;
+      ['estFmt_1x1', 'estFmt_4x5', 'estFmt_9x16'].forEach(function (id) { var b = $(id); if (b) b.classList.toggle('active', b.dataset.fmt === fmt); });
+      ['estMini_1x1', 'estMini_4x5', 'estMini_9x16'].forEach(function (id) { var b = $(id); if (b) b.classList.toggle('active', b.dataset.fmt === fmt); });
+      mainPaint();
+      save();
+    }
+    function setAccent(accent) {
+      state.accent = accent;
+      document.querySelectorAll('.est-acento').forEach(function (b) { b.classList.toggle('active', b.dataset.accent === accent); });
+      mainPaint();
+      save();
+    }
+
+    // ---------- media ----------
+    function isVideo(src) { return /\.(mp4|webm|mov|m4v)(\?|$)/i.test(src); }
+    function addMediaFile(file) {
+      if (!file) return;
+      var url = URL.createObjectURL(file);
+      var isVid = file.type.indexOf('video/') === 0 || /\.(mp4|webm|mov|m4v)$/i.test(file.name);
+      var entry = { id: 'm' + Date.now() + Math.random().toString(36).slice(2, 6), name: file.name, isVideo: isVid, url: url, el: null, thumb: '' };
+      if (isVid) {
+        var v = document.createElement('video');
+        v.src = url;
+        v.muted = true;
+        v.preload = 'metadata';
+        v.addEventListener('loadedmetadata', function () {
+          v.currentTime = Math.min(0.05, Math.max(0.02, v.duration * 0.01));
+        });
+        v.addEventListener('seeked', function () {
+          state.media = v;
+          state.mediaReady = true;
+          if (!entry.thumb) entry.thumb = videoThumb(v);
+          renderMediaList();
+          mainPaint();
+        });
+        v.load();
+        entry.el = v;
+      } else {
+        var img = new Image();
+        img.onload = function () {
+          state.media = img;
+          state.mediaReady = true;
+          entry.thumb = imageThumb(img);
+          renderMediaList();
+          mainPaint();
+        };
+        img.src = url;
+        entry.el = img;
+      }
+      state.mediaList.push(entry);
+      state.activeId = entry.id;
+      renderMediaList();
+    }
+    function videoThumb(video) {
+      var c = document.createElement('canvas');
+      c.width = 108; c.height = 108;
+      var cx = c.getContext('2d');
+      cx.drawImage(video, 0, 0, 108, 108);
+      return c.toDataURL('image/jpeg', 0.75);
+    }
+    function imageThumb(img) {
+      var c = document.createElement('canvas');
+      c.width = 108; c.height = 108;
+      var cx = c.getContext('2d');
+      cx.drawImage(img, 0, 0, 108, 108);
+      return c.toDataURL('image/jpeg', 0.75);
+    }
+    function renderMediaList() {
+      var holder = $('estMediaList');
+      if (!holder) return;
+      holder.innerHTML = '';
+      state.mediaList.forEach(function (m) {
+        var item = document.createElement('div');
+        item.className = 'est-media-item' + (state.activeId === m.id ? ' active' : '');
+        item.setAttribute('role', 'button');
+        item.tabIndex = 0;
+        item.innerHTML = '<img alt="Miniatura de ' + escapeHtml(m.name) + '" src="' + (m.thumb || '') + '" /><div class="est-media-name">' + escapeHtml(m.name) + '</div><button class="est-media-del" type="button" aria-label="Eliminar ' + escapeHtml(m.name) + '">✕</button>';
+        item.addEventListener('click', function (ev) {
+          if (ev.target.classList.contains('est-media-del')) return;
+          activateMedia(m);
+        });
+        item.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); activateMedia(m); }
+        });
+        item.querySelector('.est-media-del').addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          var idx = state.mediaList.indexOf(m);
+          if (idx !== -1) state.mediaList.splice(idx, 1);
+          URL.revokeObjectURL(m.url);
+          if (state.activeId === m.id) {
+            state.activeId = null;
+            state.media = null;
+            state.mediaReady = false;
+          }
+          renderMediaList();
+          mainPaint();
+        });
+        holder.appendChild(item);
+      });
+      var count = $('estMediaCount');
+      if (count) count.textContent = state.mediaList.length + ' medio' + (state.mediaList.length === 1 ? '' : 's');
+      var vp = $('estVideoPanel');
+      if (vp) {
+        var active = state.mediaList.find(function (m) { return m.id === state.activeId; });
+        vp.hidden = !(active && active.isVideo);
+      }
+    }
+    function activateMedia(m) {
+      state.activeId = m.id;
+      if (m.isVideo) { state.media = m.el; state.mediaReady = true; }
+      else { state.media = m.el; state.mediaReady = true; }
+      renderMediaList();
+      mainPaint();
+    }
+
+    // ---------- queue ----------
+    var queueSeq = 0;
+    function updateQueueBadge() {
+      var badge = $('estQueueBadge');
+      if (badge) badge.textContent = state.queue.length + ' posts en cola';
+      var btn = $('estExportQueue');
+      if (btn) { btn.disabled = state.queue.length === 0; btn.textContent = '⬇ Exportar cola (' + state.queue.length + ')'; }
+    }
+    function renderQueueList() {
+      var holder = $('estQueueList');
+      if (!holder) return;
+      holder.innerHTML = '';
+      state.queue.forEach(function (q, i) {
+        var item = document.createElement('div');
+        item.className = 'est-queue-item';
+        item.innerHTML = '<img alt="Miniatura ' + (i + 1) + '" src="' + q.thumb + '" /><div class="est-queue-name">' + escapeHtml(q.label) + '</div><button class="est-queue-del" type="button" aria-label="Quitar de la cola">✕</button>';
+        item.querySelector('.est-queue-del').addEventListener('click', function () {
+          state.queue.splice(i, 1);
+          renderQueueList();
+          updateQueueBadge();
+          save();
+        });
+        holder.appendChild(item);
+      });
+    }
+    function enqueueCurrent() {
+      var dims = fmtDims(state.format);
+      var c = document.createElement('canvas');
+      var thumbCanvas = paint(c, Object.assign({}, state, { format: state.format }), 108, Math.round(108 * dims.h / dims.w));
+      var thumb = thumbCanvas.toDataURL('image/jpeg', 0.72);
+      queueSeq += 1;
+      state.queue.push({ id: Date.now() + '-' + queueSeq, template: state.template, format: state.format, accent: state.accent, watermark: state.watermark, zoom: state.zoom, panX: state.panX, panY: state.panY, fields: Object.assign({}, state.fields), thumb: thumb, label: activeTemplate().name + ' · ' + dims.label, media: state.media, mediaReady: state.mediaReady });
+      renderQueueList();
+      updateQueueBadge();
+      save();
+      toast('Añadido a la cola · ' + state.queue.length + ' en cola');
+    }
+    function exportQueue() {
+      if (!state.queue.length) return;
+      var backup = { template: state.template, format: state.format, accent: state.accent, watermark: state.watermark, zoom: state.zoom, panX: state.panX, panY: state.panY, fields: Object.assign({}, state.fields), caption: state.caption, captionManual: state.captionManual };
+      var i = 0;
+      function next() {
+        if (i >= state.queue.length) {
+          Object.assign(state, backup);
+          state.fields = Object.assign({}, backup.fields);
+          var cfg = $('estCaption');
+          if (cfg) cfg.value = state.caption;
+          updateCaptionCounter();
+          renderFieldInputs();
+          mainPaint();
+          save();
+          toast('Cola exportada · estado restaurado');
+          return;
+        }
+        var q = state.queue[i];
+        Object.assign(state, { template: q.template, format: q.format, accent: q.accent, watermark: q.watermark, zoom: q.zoom, panX: q.panX, panY: q.panY });
+        state.fields = Object.assign({}, q.fields);
+        state.media = q.media; state.mediaReady = q.mediaReady;
+        var dims = fmtDims(q.format);
+        var c = document.createElement('canvas');
+        c.width = dims.w; c.height = dims.h;
+        ctx = c.getContext('2d');
+        renderTemplate(ctx, dims.w, dims.h, state, state.mediaReady ? state.media : null);
+        var idx = String(i + 1).padStart(2, '0');
+        var a = document.createElement('a');
+        a.href = c.toDataURL('image/png');
+        a.download = 'ropero_' + q.template + '_' + q.format + '_' + idx + '.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        i++;
+        setTimeout(next, 350);
+      }
+      next();
+    }
+
+    // ---------- caption counter / regen / copy ----------
+    function bindCaption() {
+      var cfg = $('estCaption');
+      if (!cfg) return;
+      cfg.addEventListener('input', function () {
+        state.caption = cfg.value;
+        state.captionManual = true;
+        updateCaptionCounter();
+        save();
+      });
+    }
+
+    // ---------- boot ----------
+    function restoreFromStorage() {
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { saved = null; }
+      if (saved) {
+        state.template = saved.template || 'experiencia';
+        state.format = saved.format || '4x5';
+        state.accent = saved.accent || 'sol';
+        state.watermark = saved.watermark !== false;
+        state.zoom = saved.zoom || 1;
+        state.panX = saved.panX || 0;
+        state.panY = saved.panY || 0;
+        state.fields = saved.fields && Object.keys(saved.fields).length ? saved.fields : Object.assign({}, activeTemplate().defaults);
+        state.caption = saved.caption || generateCaption();
+        state.captionManual = saved.captionManual === true;
+        state.day = saved.day || '';
+        state.hour = saved.hour || '';
+      } else {
+        prevSnapshot();
+        var tpl = activeTemplate();
+        state.fields = Object.assign({}, tpl.defaults);
+        state.caption = generateCaption();
+      }
+      state.media = null;
+      state.mediaReady = false;
+      state.mediaList = [];
+      state.activeId = null;
+      state.queue = [];
+    }
+
+    function init() {
+      restoreFromStorage();
+      // caption
+      var cfg = $('estCaption');
+      if (cfg) { cfg.value = state.caption; updateCaptionCounter(); }
+      // schedule selects
+      var day = $('estDay'), hour = $('estHour');
+      if (day) day.value = state.day || '';
+      if (hour) hour.value = state.hour || '';
+      updateScheduleBadge();
+      // watermark
+      var wm = $('estWatermark');
+      if (wm) wm.checked = state.watermark;
+      // field inputs
+      renderFieldInputs();
+      // hashtag chips
+      syncHashtagChips();
+      // templates
+      buildThumbs();
+      // swatches
+      buildSwatches();
+      buildTypeSamples();
+      // bind controls
+      ['estFmt_1x1', 'estFmt_4x5', 'estFmt_9x16'].forEach(function (id) { var b = $(id); if (b) b.addEventListener('click', function () { setFormat(b.dataset.fmt); }); });
+      ['estMini_1x1', 'estMini_4x5', 'estMini_9x16'].forEach(function (id) { var b = $(id); if (b) b.addEventListener('click', function () { setFormat(b.dataset.fmt); }); });
+      var zoom = $('estZoom');
+      if (zoom) zoom.addEventListener('input', function () { state.zoom = (parseInt(zoom.value, 10) || 100) / 100; mainPaint(); save(); });
+      $('estResetCrop').addEventListener('click', function () { state.zoom = 1; state.panX = 0; state.panY = 0; mainPaint(); save(); });
+      $('estExport').addEventListener('click', exportPNG);
+      $('estOpenIG').addEventListener('click', function () { window.open('https://www.instagram.com/', '_blank', 'noopener'); });
+      $('estUpload').addEventListener('click', function () { copyCaption(); window.open('https://www.instagram.com/', '_blank', 'noopener'); toast('Copy copiado · pega al subir en Instagram'); });
+      $('estAddQueue').addEventListener('click', enqueueCurrent);
+      $('estExportQueue').addEventListener('click', exportQueue);
+      $('estClearQueue').addEventListener('click', function () { state.queue = []; renderQueueList(); updateQueueBadge(); save(); });
+      $('estRegen').addEventListener('click', function () {
+        state.caption = generateCaption();
+        state.captionManual = false;
+        if (cfg) cfg.value = state.caption;
+        updateCaptionCounter();
+        save();
+        toast('Copy regenerado ✓');
+      });
+      $('estCopyCopy').addEventListener('click', copyCaption);
+      document.querySelectorAll('.est-acento').forEach(function (b) { b.addEventListener('click', function () { setAccent(b.dataset.accent); }); });
+      if (wm) wm.addEventListener('change', function () { state.watermark = wm.checked; mainPaint(); save(); });
+      // dropzone
+      var dz = $('estDropzone'), file = $('estFile');
+      if (dz && file) {
+        dz.addEventListener('click', function () { file.click(); });
+        dz.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); file.click(); } });
+        file.addEventListener('change', function () { Array.prototype.forEach.call(file.files || [], addMediaFile); file.value = ''; });
+        ['dragenter', 'dragover'].forEach(function (evt) { dz.addEventListener(evt, function (ev) { ev.preventDefault(); dz.classList.add('dragover'); }); });
+        ['dragleave', 'drop'].forEach(function (evt) { dz.addEventListener(evt, function (ev) { ev.preventDefault(); dz.classList.remove('dragover'); }); });
+        dz.addEventListener('drop', function (ev) { Array.prototype.forEach.call(ev.dataTransfer.files || [], addMediaFile); });
+      }
+      // video panel
+      var frame = $('estFrameSlider');
+      if (frame) frame.addEventListener('input', function () {
+        var vid = state.mediaList.find(function (m) { return m.id === state.activeId; });
+        if (vid && vid.el && vid.el.duration) { vid.el.currentTime = (parseInt(frame.value, 10) / 1000) * vid.el.duration; }
+      });
+      var play = $('estPlayPause');
+      if (play) play.addEventListener('click', function () { toggleVideoPlayback(play); });
+      var dl = $('estDownloadOriginal');
+      if (dl) dl.addEventListener('click', function () {
+        var vid = state.mediaList.find(function (m) { return m.id === state.activeId; });
+        if (!vid) return;
+        var a = document.createElement('a');
+        a.href = vid.url;
+        a.download = vid.name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
+      // pan drag on canvas
+      var canvas = $('estCanvas');
+      if (canvas) {
+        var dragging = false, lastX = 0, lastY = 0;
+        canvas.addEventListener('pointerdown', function (ev) {
+          dragging = true; lastX = ev.clientX; lastY = ev.clientY; canvas.setPointerCapture(ev.pointerId);
+        });
+        canvas.addEventListener('pointermove', function (ev) {
+          if (!dragging) return;
+          var dx = (ev.clientX - lastX) / canvas.width;
+          var dy = (ev.clientY - lastY) / canvas.height;
+          lastX = ev.clientX; lastY = ev.clientY;
+          state.panX = Math.max(-1, Math.min(1, state.panX + dx * 2.2));
+          state.panY = Math.max(-1, Math.min(1, state.panY + dy * 2.2));
+          mainPaint();
+        });
+        canvas.addEventListener('pointerup', function () { if (dragging) { dragging = false; save(); } });
+        canvas.addEventListener('pointercancel', function () { dragging = false; });
+        canvas.addEventListener('dblclick', function () { state.zoom = 1; state.panX = 0; state.panY = 0; mainPaint(); save(); });
+      }
+      // schedule selects
+      if (day) day.addEventListener('change', function () { state.day = day.value; updateScheduleBadge(); save(); });
+      if (hour) hour.addEventListener('change', function () { state.hour = hour.value; updateScheduleBadge(); save(); });
+      // header pills
+      var viewToggle = $('estViewToggle');
+      if (viewToggle) viewToggle.addEventListener('click', function () {
+        var wrap = $('estudioIG');
+        var active = wrap.classList.toggle('est-vista');
+        viewToggle.textContent = active ? '✎ Salir de vista' : '👁 Modo vista';
+      });
+      var restore = $('estRestore');
+      if (restore) restore.addEventListener('click', restorePrev);
+      // caption bindings
+      bindCaption();
+      // first paint
+      updateQueueBadge();
+      var boot = function () { mainPaint(); };
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(boot); else boot();
+    }
+    function copyCaption() {
+      var cfg = $('estCaption');
+      var text = cfg ? cfg.value : '';
+      var done = function () { toast('Copy copiado ✓'); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text) && done(); });
+      else fallbackCopy(text) && done();
+    }
+    function exportPNG() {
+      var dims = fmtDims(state.format);
+      var c = document.createElement('canvas');
+      c.width = dims.w; c.height = dims.h;
+      var localCtx = c.getContext('2d');
+      ctx = localCtx;
+      renderTemplate(localCtx, dims.w, dims.h, state, state.mediaReady ? state.media : null);
+      var a = document.createElement('a');
+      a.href = c.toDataURL('image/png');
+      a.download = 'ropero_' + state.template + '_' + state.format + '.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      copyCaption();
+      var up = $('estUpload');
+      if (up) up.hidden = false;
+      toast('PNG descargado ✓ · copy copiado — pega al subir');
+      save();
+    }
+    function toggleVideoPlayback(btn) {
+      var vid = state.mediaList.find(function (m) { return m.id === state.activeId; });
+      if (!vid || !vid.el) return;
+      if (vid.el.paused) { vid.el.play(); btn.textContent = '⏸ Pausar'; }
+      else { vid.el.pause(); btn.textContent = '▶ Vista previa'; }
+    }
+    function updateScheduleBadge() {
+      var badge = $('estScheduleBadge');
+      if (!badge) return;
+      var day = $('estDay') && $('estDay').value;
+      var hour = $('estHour') && $('estHour').value;
+      if (day && hour) {
+        var names = { lun: 'Lun', mar: 'Mar', mie: 'Mié', jue: 'Jue', vie: 'Vie', sab: 'Sáb', dom: 'Dom' };
+        badge.textContent = '🗓 ' + (names[day] || day) + ' ' + hour + ' · simulado';
+      } else {
+        badge.textContent = '🗓 Sin programar';
+      }
+    }
+    function buildSwatches() {
+      var holder = $('estSwatches');
+      if (!holder) return;
+      var palette = [
+        ['Crema', '#F5EFE6'], ['Terracota', '#C17B5C'], ['Mostaza', '#D4A24C'], ['Oliva', '#4A5D4F'],
+        ['Rose', '#B85C5C'], ['Sage', '#8FA68E'], ['Charcoal', '#2B2B2B'], ['Avellana', '#C4A577']
+      ];
+      palette.forEach(function (pair) {
+        var sw = document.createElement('button');
+        sw.className = 'est-swatch';
+        sw.type = 'button';
+        sw.setAttribute('aria-label', 'Copiar HEX ' + pair[1]);
+        sw.innerHTML = '<div class="est-swatch-color" style="background:' + pair[1] + '"></div><div class="est-swatch-name">' + pair[0] + '<br/>' + pair[1] + '</div>';
+        sw.addEventListener('click', function () {
+          var ok = fallbackCopy(pair[1]);
+          if (ok) toast('Copiado ' + pair[1]);
+        });
+        holder.appendChild(sw);
+      });
+    }
+    function buildTypeSamples() {
+      var holder = $('estTypeSamples');
+      if (!holder) return;
+      var fonts = [
+        ['Playfair Display', '"Playfair Display", serif', 'El carácter del ropero'],
+        ['Inter', 'Inter, sans-serif', 'Legibilidad y claridad'],
+        ['Cormorant Garamond', '"Cormorant Garamond", serif', 'Citas y poesía de marca']
+      ];
+      fonts.forEach(function (pair) {
+        var sample = document.createElement('button');
+        sample.className = 'est-tipo-sample';
+        sample.type = 'button';
+        sample.innerHTML = '<div style="font-family:' + pair[1] + ';font-size:26px;line-height:1.15">' + escapeHtml(pair[2]) + '</div><div class="est-tipo-name">' + pair[0] + '</div>';
+        sample.addEventListener('click', function () { fallbackCopy(pair[0]); toast('Copiado: ' + pair[0]); });
+        holder.appendChild(sample);
+      });
+    }
+    function restorePrev() {
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(PREV_KEY) || 'null'); } catch (e) { saved = null; }
+      if (!saved) { toast('Aún no hay una edición anterior guardada'); return; }
+      state.template = saved.template || state.template;
+      state.format = saved.format || state.format;
+      state.accent = saved.accent || state.accent;
+      state.watermark = saved.watermark !== false;
+      state.zoom = saved.zoom != null ? saved.zoom : 1;
+      state.panX = saved.panX || 0;
+      state.panY = saved.panY || 0;
+      state.fields = saved.fields && Object.keys(saved.fields).length ? saved.fields : Object.assign({}, activeTemplate().defaults);
+      state.caption = saved.caption || generateCaption();
+      state.captionManual = saved.captionManual === true;
+      if (saved.day != null) state.day = saved.day; else state.day = '';
+      if (saved.hour != null) state.hour = saved.hour; else state.hour = '';
+      var day = $('estDay'), hour = $('estHour');
+      if (day) day.value = state.day;
+      if (hour) hour.value = state.hour;
+      updateScheduleBadge();
+      var wm = $('estWatermark'); if (wm) wm.checked = state.watermark;
+      document.querySelectorAll('.est-acento').forEach(function (b) { b.classList.toggle('active', b.dataset.accent === state.accent); });
+      ['estFmt_1x1', 'estFmt_4x5', 'estFmt_9x16'].forEach(function (id) { var b = $(id); if (b) b.classList.toggle('active', b.dataset.fmt === state.format); });
+      ['estMini_1x1', 'estMini_4x5', 'estMini_9x16'].forEach(function (id) { var b = $(id); if (b) b.classList.toggle('active', b.dataset.fmt === state.format); });
+      document.querySelectorAll('#estTemplates .est-tpl').forEach(function (b) { b.classList.toggle('active', b.dataset.tpl === state.template); });
+      var cfg = $('estCaption'); if (cfg) cfg.value = state.caption;
+      updateCaptionCounter();
+      renderFieldInputs();
+      mainPaint();
+      save();
+      toast('Edición anterior restaurada');
+    }
+
+    init();
+  })();
+</script>
 </body>
 </html>
