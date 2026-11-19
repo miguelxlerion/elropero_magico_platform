@@ -263,17 +263,16 @@ const SUBSCRIBER_SAMPLES = [
   "juanpa.lozano@gmail.com", "3157778899", "sara.vintage@gmail.com", "3002223344",
 ];
 
-let seedPromise: Promise<void> | null = null;
+// Memoriza el RESULTADO (booleano), nunca la promesa: en Cloudflare Workers con
+// `handle_cross_request_promise_resolution`, una promesa creada en una request no
+// puede settle en otra y las siguientes requests quedaban colgadas.
+let seeded = false;
 
-/** Siembra idempotente: se ejecuta una sola vez por proceso y está protegida con advisory lock. */
-export function ensureSeeded() {
-  if (!seedPromise) {
-    seedPromise = seed().catch((error) => {
-      seedPromise = null;
-      throw error;
-    });
-  }
-  return seedPromise;
+/** Siembra idempotente: se ejecuta una sola vez por isolate; el advisory lock la hace segura en concurrencia. */
+export async function ensureSeeded() {
+  if (seeded) return;
+  await seed();
+  seeded = true;
 }
 
 async function seed() {
