@@ -1,11 +1,8 @@
-import fs from "node:fs";
-import path from "node:path";
 import { ManualInlineClient } from "./ManualInlineClient";
+import { readManualHtml } from "./manualSource";
 
-const MANUAL_PATH = path.join(process.cwd(), "public", "manual", "manual-de-marca.html");
-
-export function ManualInline() {
-  const raw = fs.readFileSync(MANUAL_PATH, "utf8");
+export async function ManualInline() {
+  const raw = await readManualHtml();
 
   // CSS personalizado del manual
   const styleMatch = raw.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
