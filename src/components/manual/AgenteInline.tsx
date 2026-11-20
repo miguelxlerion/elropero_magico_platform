@@ -8,9 +8,11 @@ export async function AgenteInline() {
   const styleMatch = raw.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
   const styleBlock = styleMatch ? styleMatch[1] : "";
 
-  // Body completo del manual
+  // Body completo del manual, sin los <script>: el cliente los inyecta por separado
+  // (evita duplicar ~120 KB de scripts en el payload y encender el límite de CPU).
   const bodyMatch = raw.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
   let bodyHtml = bodyMatch ? bodyMatch[1] : "";
+  bodyHtml = bodyHtml.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "");
 
   // Quitar solo el sidebar de navegación (no necesario en esta página)
   bodyHtml = bodyHtml.replace(/<nav class="fixed[\s\S]*?<\/nav>/i, "");
