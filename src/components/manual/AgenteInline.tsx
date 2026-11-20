@@ -35,17 +35,6 @@ export async function AgenteInline() {
     [class*="lg:px-16"] { padding-left: 0 !important; padding-right: 0 !important; }
     /* Quitar el margin-left del sidebar (lg:ml-64) */
     [class*="lg:ml-64"] { margin-left: 0 !important; }
-    /* Proteger el header del sitio de los estilos del manual */
-    body > header { position: sticky !important; top: 0 !important; z-index: 40 !important; }
-    body > header nav > div { display: grid !important; height: 4.5rem !important; max-width: 80rem !important; grid-template-columns: 1fr auto 1fr !important; align-items: center !important; }
-    body > header nav a:not(.group) { display: inline !important; font-size: 0.8rem !important; white-space: nowrap !important; }
-    body > header nav > div > div:first-child { gap: 1.25rem !important; align-items: center !important; }
-    /* Logo: mantener su display original y proporciones equilibradas */
-    body > header nav a.group { display: inline-flex !important; width: auto !important; height: auto !important; gap: 0.625rem !important; align-items: center !important; }
-    body > header nav a.group img { width: auto !important; height: 2.5rem !important; }
-    body > header nav a.group > span { gap: 0.15rem !important; }
-    body > header nav a.group > span > span:first-child { font-size: 0.58rem !important; letter-spacing: 0.38em !important; line-height: 1 !important; }
-    body > header nav a.group > span > span:last-child { font-size: 1.45rem !important; line-height: 1 !important; }
   `;
 
   // Scripts CDN

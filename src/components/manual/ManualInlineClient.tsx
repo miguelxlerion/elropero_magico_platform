@@ -46,6 +46,39 @@ export function ManualInlineClient({
         z-index: 30 !important;
       }
       .scroll-progress { top: 4.5rem !important; z-index: 30 !important; }
+      /* El header del sitio por encima de todo lo que inyecta el manual */
+      body > header { position: sticky !important; top: 0 !important; z-index: 40 !important; }
+      body > header nav > div {
+        display: grid !important;
+        height: 4.5rem !important;
+        max-width: 80rem !important;
+        grid-template-columns: 1fr auto 1fr !important;
+        align-items: center !important;
+      }
+      body > header nav a:not(.group) {
+        display: inline !important;
+        font-size: 0.8rem !important;
+        white-space: nowrap !important;
+      }
+      body > header nav > div > div:first-child { gap: 1.25rem !important; align-items: center !important; }
+      body > header nav a.group {
+        display: inline-flex !important;
+        width: auto !important;
+        height: auto !important;
+        gap: 0.625rem !important;
+        align-items: center !important;
+      }
+      body > header nav a.group img { width: auto !important; height: 2.5rem !important; }
+      body > header nav a.group > span { gap: 0.15rem !important; }
+      body > header nav a.group > span > span:first-child {
+        font-size: 0.58rem !important;
+        letter-spacing: 0.38em !important;
+        line-height: 1 !important;
+      }
+      body > header nav a.group > span > span:last-child {
+        font-size: 1.45rem !important;
+        line-height: 1 !important;
+      }
     `;
     document.head.appendChild(overrideEl);
 
