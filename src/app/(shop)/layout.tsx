@@ -7,11 +7,22 @@ import { getCountdownSnapshot, getLiveDrop } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
 
+/**
+ * Si la DB tarda o cuelga (Hyperdrive/Neon inestable), la página se sigue
+ * mostrando sin los datos del header en lugar de devolver 500.
+ */
+function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return Promise.race([
+    promise.catch(() => fallback),
+    new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms)),
+  ]);
+}
+
 export default async function ShopLayout({ children }: { children: ReactNode }) {
   const [user, announcement, liveDrop] = await Promise.all([
-    getCurrentUser(),
-    getCountdownSnapshot().catch(() => null),
-    getLiveDrop().catch(() => null),
+    withTimeout(getCurrentUser(), 1500, null),
+    withTimeout(getCountdownSnapshot(), 1500, null),
+    withTimeout(getLiveDrop(), 1500, null),
   ]);
 
   return (
