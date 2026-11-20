@@ -44,7 +44,7 @@ export function Navbar({ user, announcement, liveDropId }: NavbarProps) {
     ...(liveDropId ? [{ href: `/drops/${liveDropId}`, label: "Drop en vivo" }] : []),
     { href: "/catalogo?categoria=accesorios&3d=1", label: "Probador 3D" },
     { href: "/instagram", label: "Instagram" },
-    { href: "/drops", label: "Calendario" },
+    { href: "/drops", label: "Calendario de drops" },
     { href: "/#historia", label: "Historia" },
   ];
 
@@ -109,24 +109,26 @@ export function Navbar({ user, announcement, liveDropId }: NavbarProps) {
             >
               <Menu className="size-5" />
             </button>
-            <ul className="hidden items-center gap-1 lg:flex">
+            <ul className="hidden lg:flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-sm px-1 text-sm">
               {links.map((link) => {
                 const active = link.href === pathname || (link.href !== "/" && pathname.startsWith(link.href.split("?")[0]) && !link.href.includes("?"));
                 return (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className={cn(
-                        "relative rounded-full px-3 py-2 text-[0.8rem] font-semibold tracking-wide text-tinta-500 transition-colors hover:text-tinta",
-                        active && "text-tinta",
-                      )}
-                    >
-                      {link.label}
-                      {active && (
-                        <motion.span layoutId="nav-underline" className="absolute inset-x-3 -bottom-0.5 h-px bg-tinta" />
-                      )}
-                    </Link>
-                  </li>
+                  <Link
+                    href={link.href}
+                    className={cn(
+                      "relative flex items-center rounded-full px-3 py-1.5 text-[0.75rem] font-medium tracking-wide text-tinta transition-colors hover:text-tinta/90 group",
+                      active && "text-tinta",
+                      active && "after:bg-white/20 after:content-[] after:absolute after:left-0 after:right-0 after:h-full after:w-full after:rounded-full after:opacity-0 after:hover:opacity-100",
+                    )}
+                  >
+                    {link.label}
+                    {active && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute inset-x-3 -bottom-0.5 h-px bg-tinta transition-opacity"
+                      />
+                    )}
+                  </Link>
                 );
               })}
             </ul>
